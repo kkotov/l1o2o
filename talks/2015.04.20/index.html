@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>L1T O2O: status and plans</title>
+  <meta charset="utf-8">
+  <meta name="description" content="L1T O2O: status and plans">
+  <meta name="author" content="Khristian Kotov">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../../../../monohiggs/plots/libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../../../monohiggs/plots/libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../../../../monohiggs/plots/libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../../../monohiggs/plots/libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="../../../../monohiggs/plots/libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="../../../../monohiggs/plots/libraries/frameworks/io2012/js/slides" 
+    src="../../../../monohiggs/plots/libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>L1T O2O: status and plans</h1>
+    <h2></h2>
+    <p>Khristian Kotov<br/></p>
+  </hgroup>
+    <a href="https://github.com/kkotov/talks/zipball/gh-pages" class="example">
+     Download
+    </a>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Introduction</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Online to offline (O2O) schematics:</p>
+
+<p><img class=center src=o2o.svg height=170> </p>
+
+<p>Problem:</p>
+
+<ul>
+<li>GT does not save seeds, i.e. HLT has to emulate GT event by event</li>
+<li>DQM has to check if hardware and emulator agree for all L1 trigger subsystems </li>
+</ul>
+
+<p>Disclaimer:</p>
+
+<ul>
+<li>I am new to the project and still pretty inexperienced; bear with me</li>
+<li>Some of my knowledge comes from obsolete or not actively maintained twikis
+[<a href="https://twiki.cern.ch/twiki/bin/view/CMSPublic/SWGuideL1EmulatorConfiguration">1</a>, <a href="https://twiki.cern.ch/twiki/bin/view/CMS/L1TRunSettings">2</a>, <a href="https://twiki.cern.ch/twiki/bin/viewauth/CMS/L1O2OOperations">3</a>,<a href="https://twiki.cern.ch/twiki/bin/view/CMSPublic/SWGuideL1TO2ONotes">4</a>]</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Current setup</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Original recipe uses <span style="font-weight:bold; color:red">CondDB V1</span>,  <span style="font-weight:bold; color:red">SLC5</span>,  <span style="font-weight:bold; color:red">CMSSW_4_2_3</span>, but it still runs (probably not for a long):</p>
+
+<pre>
+<span style="font-family:monospace; color:blue; font-weight:bold">l1emulator@l1-o2o.cms > crontab -l</span>
+<span style="font-family:monospace; color:blue">*/10 * * * * /nfshome0/popcondev/L1Job/validate-l1Key.sh</span>
+<span style="font-family:monospace; color:blue">*/1 * * * * /nfshome0/popcondev/L1Job/validate-o2o-wbm.sh</span>
+<span style="font-family:monospace; color:blue">*/15 * * * * /nfshome0/popcondev/L1Job/o2o-dummy.sh</span>
+</pre>
+
+<p><br></p>
+
+<p>New code uses <span style="font-weight:bold; color:green">CondDB V2</span> and <span style="font-weight:bold; color:green">CMSSW_7_2_0</span>;
+it is ran by the Trigger Function Manager via ssh:</p>
+
+<pre>
+<span style="font-family:monospace; color:blue; font-weight:bold">l1emulator@cms-kvm-31.cms > ls o2o-setIOV-l1Key.sh</span>
+<span style="font-family:monospace; color:blue">/nfshome0/l1emulator/run2/o2o/pro/o2o-setIOV-l1Key.sh</span>
+</pre>
+
+<p><br></p>
+
+<p>In <span style="font-family:monospace; color:blue">/nfshome0/l1emulator/run2/o2o/v3/</span> there also exists a version ported to <span style="font-weight:bold; color:green">CMSSW_7_4_0</span></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Organization of keys in OMDS and tags in ORCON</h2>
+  </hgroup>
+  <article data-timings="">
+    
+<div style='float:left;width:48%;' class='centered'>
+  <p>Hierarchy of hardware keys:</p>
+
+<p><br></p>
+
+<p><img class=center src=keys.svg height=170> </p>
+
+</div>
+<div style='float:right;width:48%;'>
+  <p>Example for <span style="font-weight:bold;color:green">L1_KEY</span> = <span style="font-weight:bold;font-size:smaller;color:brown">L1_20150318_201531_9069</span></p>
+
+<table><thead>
+<tr>
+<th>System</th>
+<th>Config</th>
+<th>Run Setups</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><span style="font-weight:bold; color:green">TSC</span></td>
+<td><span style="font-weight:bold;font-size:smaller;color:brown">TSC<em>20150331</em>...</span></td>
+<td><span style="font-weight:bold;font-size:smaller;color:brown">N/A</span></td>
+</tr>
+<tr>
+<td><span style="font-weight:bold; color:green">GT</span></td>
+<td><span style="font-weight:bold;font-size:smaller;color:brown">gt<em>2015_Mar8</em>...</span></td>
+<td><span style="font-weight:bold;font-size:smaller;color:brown">gtrs_2015...,gt_part..</span></td>
+</tr>
+<tr>
+<td><span style="font-weight:bold; color:green">GMT</span></td>
+<td><span style="font-weight:bold;font-size:smaller;color:brown">gmt2014<em>Oct2</em>...</span></td>
+<td><span style="font-weight:bold;font-size:smaller;color:brown">gmtrs<em>rpcb</em>...</span></td>
+</tr>
+<tr>
+<td><span style="font-weight:bold; color:green">GCT</span></td>
+<td><span style="font-weight:bold;font-size:smaller;color:brown">V38<em>14_Ext40</em>...</span></td>
+<td></td>
+</tr>
+<tr>
+<td><span style="font-weight:bold; color:green">RCT</span></td>
+<td><span style="font-weight:bold;font-size:smaller;color:brown">EEG_HSUMS_TAU...</span></td>
+<td><span style="font-weight:bold;font-size:smaller;color:brown">Full_RCT_12813</span></td>
+</tr>
+<tr>
+<td><span style="font-weight:bold; color:green">DTTF</span></td>
+<td><span style="font-weight:bold;font-size:smaller;color:brown">dttf13_TSC_07...</span></td>
+<td><span style="font-weight:bold;font-size:smaller;color:brown">dttf11_RS_206</spam></td>
+</tr>
+<tr>
+<td><span style="font-weight:bold; color:green">CSCTF</span></td>
+<td><span style="font-weight:bold;font-size:smaller;color:brown">201502044</span></td>
+<td></td>
+</tr>
+</tbody></table>
+
+</div>
+<div style='float:right;width:100%;'>
+  <p><br> </p>
+
+<ul>
+<li>O2O access OMDS and save Configs and RSs as records for CMSSW L1T config producers</li>
+<li>The records are labeled using <a href="https://github.com/kkotov/cmssw/blob/CMSSW_7_5_X/CondTools/L1Trigger/python/L1O2OTags_cfi.py">L1O2OTags</a> so that
+each tag matches <span style="font-weight:bold; color:green">CRAFT09*_hlt</span> pattern</li>
+<li>Additional <span style="color:green">L1TriggerKey</span> record holding the exact OMDS keys is also created</li>
+</ul>
+
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Organization of O2O scripts</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img class=center src=scripts.svg height=500> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Organization of O2O scripts (continued)</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img class=center src=scripts2.svg height=500> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Summary</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Current O2O works fine</li>
+<li>Need to port the changes to <span style="font-weight:bold; color:green">CMSSW_7_5_X</span></li>
+<li>Need to update the validation step for the new L1T payloads</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='Introduction'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Current setup'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Organization of keys in OMDS and tags in ORCON'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Organization of O2O scripts'>
+         4
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=5 title='Organization of O2O scripts (continued)'>
+         5
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=6 title='Summary'>
+         6
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script> -->
+  <script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../../../monohiggs/plots/libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="../../../../monohiggs/plots/libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>
