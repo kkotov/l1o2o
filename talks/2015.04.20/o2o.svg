@@ -1,0 +1,119 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Creator: fig2dev Version 3.2 Patchlevel 5e -->
+<!-- CreationDate: Fri Apr 17 17:24:06 2015 -->
+<!-- Magnification: 1.050 -->
+<svg	xmlns="http://www.w3.org/2000/svg"
+	xmlns:xlink="http://www.w3.org/1999/xlink"
+	width="6.4in" height="2.2in"
+	viewBox="506 465 7722 2618">
+<g style="stroke-width:.025in; fill:none">
+<!-- Ellipse -->
+<ellipse transform="translate(1884,944) rotate(-0.00000000)" rx="1370" ry="472"
+ style="stroke:#000000;stroke-width:8;"/>
+<!-- Ellipse -->
+<ellipse transform="translate(6850,944) rotate(-0.00000000)" rx="1370" ry="472"
+ style="stroke:#000000;stroke-width:8;"/>
+<!-- Line -->
+<polyline points="1889,1417
+2272,1800
+" style="stroke:#000000;stroke-width:8;
+stroke-linejoin:miter; stroke-linecap:butt;
+"/>
+<!-- Arrowhead on XXXpoint 1889 1417 - 2372 1900-->
+<polygon points="2232 1848
+2366 1893
+2321 1759
+2232 1848
+
+" style="stroke:#000000;stroke-width:8;stroke-miterlimit:8;
+fill:#000000;"/>
+<!-- Line -->
+<polyline points="3259,944
+3653,944
+" style="stroke:#000000;stroke-width:8;
+stroke-linejoin:miter; stroke-linecap:butt;
+"/>
+<!-- Arrowhead on XXXpoint 3259 944 - 3795 944-->
+<polygon points="3659 1007
+3785 944
+3659 881
+3659 1007
+
+" style="stroke:#000000;stroke-width:8;stroke-miterlimit:8;
+fill:#000000;"/>
+<!-- Line -->
+<polyline points="6850,1417
+6466,1800
+" style="stroke:#000000;stroke-width:8;
+stroke-linejoin:miter; stroke-linecap:butt;
+"/>
+<!-- Arrowhead on XXXpoint 6850 1417 - 6366 1900-->
+<polygon points="6416 1759
+6372 1893
+6506 1848
+6416 1759
+
+" style="stroke:#000000;stroke-width:8;stroke-miterlimit:8;
+fill:#000000;"/>
+<!-- Line -->
+<polyline points="4157,2598
+4629,2598
+" style="stroke:#000000;stroke-width:16;
+stroke-linejoin:miter; stroke-linecap:butt;
+"/>
+<!-- Line -->
+<polyline points="4157,2409
+4629,2409
+" style="stroke:#000000;stroke-width:16;
+stroke-linejoin:miter; stroke-linecap:butt;
+"/>
+<!-- Line: box -->
+<rect x="4960" y="1889" width="2220" height="1181" rx="110" 
+style="stroke:#000000;stroke-width:8;
+stroke-linejoin:miter; stroke-linecap:butt;
+"/>
+<!-- Line: box -->
+<rect x="1559" y="1889" width="2220" height="1181" rx="110" 
+style="stroke:#000000;stroke-width:8;
+stroke-linejoin:miter; stroke-linecap:butt;
+"/>
+<!-- Line -->
+<polyline points="5308,944
+4913,944
+" style="stroke:#000000;stroke-width:8;
+stroke-linejoin:miter; stroke-linecap:butt;
+"/>
+<!-- Arrowhead on XXXpoint 4913 944 - 5448 944-->
+<polygon points="5313 1007
+5439 944
+5313 881
+5313 1007
+
+" style="stroke:#000000;stroke-width:8;stroke-miterlimit:8;
+fill:#000000;"/>
+<!-- Text -->
+<text xml:space="preserve" x="4015" y="1086" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="normal" font-size="303" text-anchor="start">O2O</text>
+<!-- Text -->
+<text xml:space="preserve" x="5480" y="2267" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="normal" font-size="303" text-anchor="start">HLT/MC</text>
+<!-- Text -->
+<text xml:space="preserve" x="1937" y="2267" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="normal" font-size="303" text-anchor="start">Hardware</text>
+<!-- Text -->
+<text xml:space="preserve" x="5149" y="2551" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="normal" font-size="227" text-anchor="start">(need to emulate</text>
+<!-- Text -->
+<text xml:space="preserve" x="5196" y="2787" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="normal" font-size="227" text-anchor="start">GT seeds; DQM)</text>
+<!-- Text -->
+<text xml:space="preserve" x="6236" y="897" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="normal" font-size="328" text-anchor="start">ORCON</text>
+<!-- Text -->
+<text xml:space="preserve" x="5716" y="1133" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="normal" font-size="227" text-anchor="start">(Event Setup payloads)</text>
+<!-- Text -->
+<text xml:space="preserve" x="755" y="1133" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="normal" font-size="227" text-anchor="start">(register settings, LUTs)</text>
+<!-- Text -->
+<text xml:space="preserve" x="1322" y="897" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="normal" font-size="328" text-anchor="start">OMDS</text>
+<!-- Text -->
+<text xml:space="preserve" x="1795" y="2551" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="normal" font-size="227" text-anchor="start">(run-by-run</text>
+<!-- Text -->
+<text xml:space="preserve" x="1842" y="2787" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="normal" font-size="227" text-anchor="start">configuration)</text>
+</g>
+</svg>

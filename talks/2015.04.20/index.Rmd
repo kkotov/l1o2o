@@ -1,0 +1,116 @@
+---
+title       : "L1T O2O: status and plans"
+subtitle    : 
+author      : Khristian Kotov
+job         : 
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow      # 
+github:
+  user: kkotov 
+  repo: talks
+url:
+  lib:    ../../../../monohiggs/plots/libraries
+  assets: ../../../../monohiggs/plots/assets
+widgets     : [mathjax]     # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+---
+
+
+## Introduction
+
+Online to offline (O2O) schematics:
+
+<img class=center src=o2o.svg height=170> 
+
+Problem:
+ * GT does not save seeds, i.e. HLT has to emulate GT event by event
+ * DQM has to check if hardware and emulator agree for all L1 trigger subsystems 
+
+Disclaimer:
+ * I am new to the project and still pretty inexperienced; bear with me
+ * Some of my knowledge comes from obsolete or not actively maintained twikis
+[[1](https://twiki.cern.ch/twiki/bin/view/CMSPublic/SWGuideL1EmulatorConfiguration), [2](https://twiki.cern.ch/twiki/bin/view/CMS/L1TRunSettings), [3](https://twiki.cern.ch/twiki/bin/viewauth/CMS/L1O2OOperations),[4](https://twiki.cern.ch/twiki/bin/view/CMSPublic/SWGuideL1TO2ONotes)]
+
+--- .class #id
+
+
+## Current setup
+
+Original recipe uses <span style="font-weight:bold; color:red">CondDB V1</span>,  <span style="font-weight:bold; color:red">SLC5</span>,  <span style="font-weight:bold; color:red">CMSSW_4_2_3</span>, but it still runs (probably not for a long):
+
+<pre>
+<span style="font-family:monospace; color:blue; font-weight:bold">l1emulator@l1-o2o.cms > crontab -l</span>
+<span style="font-family:monospace; color:blue">*/10 * * * * /nfshome0/popcondev/L1Job/validate-l1Key.sh</span>
+<span style="font-family:monospace; color:blue">*/1 * * * * /nfshome0/popcondev/L1Job/validate-o2o-wbm.sh</span>
+<span style="font-family:monospace; color:blue">*/15 * * * * /nfshome0/popcondev/L1Job/o2o-dummy.sh</span>
+</pre>
+
+<br>
+
+New code uses <span style="font-weight:bold; color:green">CondDB V2</span> and <span style="font-weight:bold; color:green">CMSSW\_7\_2\_0</span>;
+it is ran by the Trigger Function Manager via ssh:
+
+<pre>
+<span style="font-family:monospace; color:blue; font-weight:bold">l1emulator@cms-kvm-31.cms > ls o2o-setIOV-l1Key.sh</span>
+<span style="font-family:monospace; color:blue">/nfshome0/l1emulator/run2/o2o/pro/o2o-setIOV-l1Key.sh</span>
+</pre>
+
+<br>
+
+In <span style="font-family:monospace; color:blue">/nfshome0/l1emulator/run2/o2o/v3/</span> there also exists a version ported to <span style="font-weight:bold; color:green">CMSSW\_7\_4\_0</span>
+
+--- &twocol
+
+## Organization of keys in OMDS and tags in ORCON
+
+*** =left
+
+Hierarchy of hardware keys:
+
+<br>
+
+<img class=center src=keys.svg height=170> 
+
+*** =right
+
+Example for <span style="font-weight:bold;color:green">L1_KEY</span> = <span style="font-weight:bold;font-size:smaller;color:brown">L1_20150318_201531_9069</span>
+
+System   |    Config    |  Run Setups
+---------|--------------|------------ 
+<span style="font-weight:bold; color:green">TSC</span>   | <span style="font-weight:bold;font-size:smaller;color:brown">TSC_20150331_...</span> | <span style="font-weight:bold;font-size:smaller;color:brown">N/A</span>
+<span style="font-weight:bold; color:green">GT</span>    | <span style="font-weight:bold;font-size:smaller;color:brown">gt_2015_Mar8_...</span> | <span style="font-weight:bold;font-size:smaller;color:brown">gtrs_2015...,gt_part..</span>
+<span style="font-weight:bold; color:green">GMT</span>   | <span style="font-weight:bold;font-size:smaller;color:brown">gmt2014_Oct2_...</span> | <span style="font-weight:bold;font-size:smaller;color:brown">gmtrs_rpcb_...</span>
+<span style="font-weight:bold; color:green">GCT</span>   | <span style="font-weight:bold;font-size:smaller;color:brown">V38_14_Ext40_...</span> | 
+<span style="font-weight:bold; color:green">RCT</span>   | <span style="font-weight:bold;font-size:smaller;color:brown">EEG_HSUMS_TAU...</span> | <span style="font-weight:bold;font-size:smaller;color:brown">Full_RCT_12813</span>
+<span style="font-weight:bold; color:green">DTTF</span>  | <span style="font-weight:bold;font-size:smaller;color:brown">dttf13_TSC_07...</span> | <span style="font-weight:bold;font-size:smaller;color:brown">dttf11_RS_206</spam>
+<span style="font-weight:bold; color:green">CSCTF</span> | <span style="font-weight:bold;font-size:smaller;color:brown">201502044</span> | 
+
+*** =fullwidth
+
+<br> 
+
+ * O2O access OMDS and save Configs and RSs as records for CMSSW L1T config producers
+ * The records are labeled using [L1O2OTags](https://github.com/kkotov/cmssw/blob/CMSSW_7_5_X/CondTools/L1Trigger/python/L1O2OTags_cfi.py) so that
+each tag matches <span style="font-weight:bold; color:green">CRAFT09*_hlt</span> pattern
+ * Additional <span style="color:green">L1TriggerKey</span> record holding the exact OMDS keys is also created
+
+--- .class #id
+
+## Organization of O2O scripts
+
+<img class=center src=scripts.svg height=500> 
+
+--- .class #id
+
+## Organization of O2O scripts (continued)
+
+<img class=center src=scripts2.svg height=500> 
+
+--- .class #id
+
+## Summary 
+
+ * Current O2O works fine
+ * Need to port the changes to <span style="font-weight:bold; color:green">CMSSW_7_5_X</span>
+ * Need to update the validation step for the new L1T payloads

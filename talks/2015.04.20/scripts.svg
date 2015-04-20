@@ -1,0 +1,286 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Creator: fig2dev Version 3.2 Patchlevel 5e -->
+<!-- CreationDate: Mon Apr 20 14:29:12 2015 -->
+<!-- Magnification: 1.050 -->
+<svg	xmlns="http://www.w3.org/2000/svg"
+	xmlns:xlink="http://www.w3.org/1999/xlink"
+	width="11.5in" height="8.3in"
+	viewBox="33 -7 13774 9941">
+<g style="stroke-width:.025in; fill:none">
+<!-- Line: box -->
+<rect x="1417" y="2220" width="5952" height="566" rx="110" 
+style="stroke:#000000;stroke-width:8;
+stroke-linejoin:miter; stroke-linecap:butt;
+"/>
+<!-- Line: box -->
+<rect x="1417" y="1417" width="5433" height="566" rx="110" 
+style="stroke:#000000;stroke-width:8;
+stroke-linejoin:miter; stroke-linecap:butt;
+"/>
+<!-- Line: box -->
+<rect x="1417" y="3779" width="5433" height="566" rx="110" 
+style="stroke:#000000;stroke-width:8;
+stroke-linejoin:miter; stroke-linecap:butt;
+"/>
+<!-- Line: box -->
+<rect x="8267" y="3874" width="5527" height="1417" rx="110" 
+style="stroke:#000000;stroke-width:8;
+stroke-linejoin:miter; stroke-linecap:butt;
+"/>
+<!-- Line: box -->
+<rect x="2598" y="4724" width="4251" height="566" rx="110" 
+style="stroke:#000000;stroke-width:8;
+stroke-linejoin:miter; stroke-linecap:butt;
+"/>
+<!-- Line: box -->
+<rect x="3779" y="5905" width="6047" height="614" rx="110" 
+style="stroke:#000000;stroke-width:8;
+stroke-linejoin:miter; stroke-linecap:butt;
+"/>
+<!-- Line: box -->
+<rect x="3779" y="9354" width="5669" height="566" rx="110" 
+style="stroke:#000000;stroke-width:8;
+stroke-linejoin:miter; stroke-linecap:butt;
+"/>
+<!-- Line: box -->
+<rect x="5196" y="8267" width="5102" height="614" rx="110" 
+style="stroke:#000000;stroke-width:8;
+stroke-linejoin:miter; stroke-linecap:butt;
+"/>
+<!-- Arc -->
+<path style="stroke:#000000;stroke-width:8;stroke-linecap:butt;"
+d="M 6850,5007 A 1771 1771  0  0  0  6850  1653 " />
+<!-- Arrowhead on XXXpoint 6975 1701 - 6850 1653-->
+<polygon points="6998 1643
+6858 1656
+6953 1760
+6998 1643
+
+" style="stroke:#000000;stroke-width:8;stroke-miterlimit:8;
+fill:#000000;"/>
+<!-- Arc -->
+<path style="stroke:#000000;stroke-width:8;stroke-linecap:butt;"
+d="M 6897,5007 A 1659 1659  0  0  0  7370  2503 " />
+<!-- Arrowhead on XXXpoint 7450 2611 - 7370 2503-->
+<polygon points="7501 2573
+7375 2511
+7400 2648
+7501 2573
+
+" style="stroke:#000000;stroke-width:8;stroke-miterlimit:8;
+fill:#000000;"/>
+<!-- Arc -->
+<path style="stroke:#000000;stroke-width:8;stroke-linecap:butt;"
+d="M 6850,5007 A 590 590  0  0  0  6850  4062 " />
+<!-- Arrowhead on XXXpoint 6948 4155 - 6850 4062-->
+<polygon points="6991 4109
+6856 4069
+6903 4201
+6991 4109
+
+" style="stroke:#000000;stroke-width:8;stroke-miterlimit:8;
+fill:#000000;"/>
+<!-- Ellipse -->
+<ellipse transform="translate(1412,472) rotate(-0.00000000)" rx="1370" ry="472"
+ style="stroke:#000000;stroke-width:8;"/>
+<!-- Ellipse -->
+<ellipse transform="translate(12236,6377) rotate(-0.00000000)" rx="1370" ry="472"
+ style="stroke:#000000;stroke-width:8;"/>
+<!-- Line -->
+<polyline points="1417,1417
+1158,1046
+" style="stroke:#000000;stroke-width:8;
+stroke-linejoin:miter; stroke-linecap:butt;
+"/>
+<!-- Arrowhead on XXXpoint 1417 1417 - 1077 931-->
+<polygon points="1205 1004
+1082 938
+1102 1077
+1205 1004
+
+" style="stroke:#000000;stroke-width:8;stroke-miterlimit:8;
+fill:#000000;"/>
+<!-- Line -->
+<polyline points="1423,2263
+1122,1065
+" style="stroke:#000000;stroke-width:8;
+stroke-linejoin:miter; stroke-linecap:butt;
+"/>
+<!-- Arrowhead on XXXpoint 1423 2263 - 1088 929-->
+<polygon points="1182 1043
+1090 937
+1060 1074
+1182 1043
+
+" style="stroke:#000000;stroke-width:8;stroke-miterlimit:8;
+fill:#000000;"/>
+<!-- Line -->
+<polyline points="1428,3821
+1111,1068
+" style="stroke:#000000;stroke-width:8;
+stroke-linejoin:miter; stroke-linecap:butt;
+"/>
+<!-- Arrowhead on XXXpoint 1428 3821 - 1096 929-->
+<polygon points="1173 1056
+1097 938
+1048 1070
+1173 1056
+
+" style="stroke:#000000;stroke-width:8;stroke-miterlimit:8;
+fill:#000000;"/>
+<!-- Line -->
+<polyline points="5574,5905
+5574,5416
+" style="stroke:#000000;stroke-width:8;
+stroke-linejoin:miter; stroke-linecap:butt;
+"/>
+<!-- Arrowhead on XXXpoint 5574 5905 - 5574 5275-->
+<polygon points="5637 5411
+5574 5285
+5511 5411
+5637 5411
+
+" style="stroke:#000000;stroke-width:8;stroke-miterlimit:8;
+fill:#000000;"/>
+<!-- Line -->
+<polyline points="8787,5905
+8787,5416
+" style="stroke:#000000;stroke-width:8;
+stroke-linejoin:miter; stroke-linecap:butt;
+"/>
+<!-- Arrowhead on XXXpoint 8787 5905 - 8787 5275-->
+<polygon points="8850 5411
+8787 5285
+8724 5411
+8850 5411
+
+" style="stroke:#000000;stroke-width:8;stroke-miterlimit:8;
+fill:#000000;"/>
+<!-- Line -->
+<polyline points="12283,5780
+12283,5291
+" style="stroke:#000000;stroke-width:8;
+stroke-linejoin:miter; stroke-linecap:butt;
+"/>
+<!-- Arrowhead on XXXpoint 12283 5291 - 12283 5921-->
+<polygon points="12220 5785
+12283 5911
+12346 5785
+12220 5785
+
+" style="stroke:#000000;stroke-width:8;stroke-miterlimit:8;
+fill:#000000;"/>
+<!-- Line: box -->
+<rect x="9212" y="2645" width="3543" height="566" rx="110" 
+style="stroke:#000000;stroke-width:8;
+stroke-linejoin:miter; stroke-linecap:butt;
+"/>
+<!-- Line -->
+<polyline points="10866,3874
+10866,3337
+" style="stroke:#000000;stroke-width:8;
+stroke-linejoin:miter; stroke-linecap:butt;
+"/>
+<!-- Arrowhead on XXXpoint 10866 3874 - 10866 3196-->
+<polygon points="10929 3332
+10866 3206
+10803 3332
+10929 3332
+
+" style="stroke:#000000;stroke-width:8;stroke-miterlimit:8;
+fill:#000000;"/>
+<!-- Line -->
+<polyline points="7228,8267
+7228,7825
+" style="stroke:#000000;stroke-width:8;
+stroke-linejoin:miter; stroke-linecap:butt;
+"/>
+<!-- Arrowhead on XXXpoint 7228 8267 - 7228 7685-->
+<polygon points="7291 7820
+7228 7694
+7165 7820
+7291 7820
+
+" style="stroke:#000000;stroke-width:8;stroke-miterlimit:8;
+fill:#000000;"/>
+<!-- Line -->
+<polyline points="4393,9354
+4393,6644
+" style="stroke:#000000;stroke-width:8;
+stroke-linejoin:miter; stroke-linecap:butt;
+"/>
+<!-- Arrowhead on XXXpoint 4393 9354 - 4393 6503-->
+<polygon points="4456 6639
+4393 6513
+4330 6639
+4456 6639
+
+" style="stroke:#000000;stroke-width:8;stroke-miterlimit:8;
+fill:#000000;"/>
+<!-- Line -->
+<polyline points="7228,9354
+7228,9006
+" style="stroke:#000000;stroke-width:8;
+stroke-linejoin:miter; stroke-linecap:butt;
+"/>
+<!-- Arrowhead on XXXpoint 7228 9354 - 7228 8866-->
+<polygon points="7291 9001
+7228 8875
+7165 9001
+7291 9001
+
+" style="stroke:#000000;stroke-width:8;stroke-miterlimit:8;
+fill:#000000;"/>
+<!-- Line: box -->
+<rect x="5196" y="7086" width="4724" height="614" rx="110" 
+style="stroke:#000000;stroke-width:8;
+stroke-linejoin:miter; stroke-linecap:butt;
+"/>
+<!-- Line -->
+<polyline points="9921,7322
+11222,6802
+" style="stroke:#000000;stroke-width:8;
+stroke-linejoin:miter; stroke-linecap:butt;
+"/>
+<!-- Arrowhead on XXXpoint 9921 7322 - 11352 6749-->
+<polygon points="11249 6857
+11343 6752
+11203 6740
+11249 6857
+
+" style="stroke:#000000;stroke-width:8;stroke-miterlimit:8;
+fill:#000000;"/>
+<!-- Text -->
+<text xml:space="preserve" x="1795" y="2598" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="normal" font-size="252" text-anchor="start">L1DTTFSCObjectKeysOnline_cfi.py</text>
+<!-- Text -->
+<text xml:space="preserve" x="1795" y="1795" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="normal" font-size="252" text-anchor="start">CSCTFObjectKeysOnline_cfi.py</text>
+<!-- Text -->
+<text xml:space="preserve" x="1795" y="4157" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="normal" font-size="252" text-anchor="start">L1RPCObjectKeysOnline_cfi.py</text>
+<!-- Text -->
+<text xml:space="preserve" x="3496" y="3307" fill="#000000"  font-family="Times" font-style="normal" font-weight="normal" font-size="605" text-anchor="start">. . .</text>
+<!-- Text -->
+<text xml:space="preserve" x="8645" y="4251" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="normal" font-size="252" text-anchor="start">L1CondDBPayloadWriter_cff.py</text>
+<!-- Text -->
+<text xml:space="preserve" x="8881" y="5055" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="normal" font-size="202" text-anchor="start">outputDBConnect = sqlite:l1config.db</text>
+<!-- Text -->
+<text xml:space="preserve" x="8881" y="4724" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="normal" font-size="202" text-anchor="start">tagBaseVec          = L1O2OTags_cff.py</text>
+<!-- Text -->
+<text xml:space="preserve" x="2976" y="5102" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="normal" font-size="252" text-anchor="start">L1ConfigTSCKeys_cff.py</text>
+<!-- Text -->
+<text xml:space="preserve" x="4157" y="6283" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="normal" font-size="252" text-anchor="start">L1ConfigWritePayloadOnline_cfg.py</text>
+<!-- Text -->
+<text xml:space="preserve" x="4157" y="9732" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="normal" font-size="252" text-anchor="start">runL1-O2O-iov.sh $run $tscKey</text>
+<!-- Text -->
+<text xml:space="preserve" x="5574" y="8645" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="normal" font-size="252" text-anchor="start">L1ConfigWriteIOVOnline_cfg.py</text>
+<!-- Text -->
+<text xml:space="preserve" x="755" y="614" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="normal" font-size="328" text-anchor="start">OMDS</text>
+<!-- Text -->
+<text xml:space="preserve" x="11007" y="6472" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="normal" font-size="252" text-anchor="start">sqlite:l1config.db</text>
+<!-- Text -->
+<text xml:space="preserve" x="9590" y="3023" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="normal" font-size="252" text-anchor="start">L1O2OTags_cff.py</text>
+<!-- Text -->
+<text xml:space="preserve" x="5574" y="7464" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="normal" font-size="252" text-anchor="start">L1CondDBIOVWriter_cfg.py</text>
+</g>
+</svg>
