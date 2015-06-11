@@ -1,0 +1,33 @@
+---
+title       : "L1 Menu in O2O"
+subtitle    : 
+author      : Khristian Kotov
+job         : 
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow      # 
+github:
+  user: kkotov 
+  repo: talks
+url:
+  lib:    ../../../../monohiggs/plots/libraries
+  assets: ../../../../monohiggs/plots/assets
+widgets     : [mathjax]     # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+---
+
+## Summary
+
+<br>
+
+As of Tuesday, L1-O2O runs in <span style="font-family:monospace; color:blue; font-weight:bold">CMSSW_7_4_2</span>
+
+<br>
+
+It includes Vasile's update to the <span style="font-family:monospace; color:blue; font-weight:bold">L1GtTriggerMenuConfigOnlineProd<span> 
+
+<br>
+
+The <span style="font-family:monospace; color:blue; font-weight:bold">L1GtTriggerMenu</span> records are available in ORCON/ORCOFF
+
+--- .class #id
