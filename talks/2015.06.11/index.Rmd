@@ -16,18 +16,30 @@ widgets     : [mathjax]     # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft}
 ---
 
-## Summary
+## Status of L1-O2O
 
 <br>
 
-As of Tuesday, L1-O2O runs in <span style="font-family:monospace; color:blue; font-weight:bold">CMSSW_7_4_2</span>
-
-<br>
-
-It includes Vasile's update to the <span style="font-family:monospace; color:blue; font-weight:bold">L1GtTriggerMenuConfigOnlineProd<span> 
-
-<br>
-
-The <span style="font-family:monospace; color:blue; font-weight:bold">L1GtTriggerMenu</span> records are available in ORCON/ORCOFF
+* [System is upgraded](http://kkotov.github.io/l1o2o/talks/2015.04.20/) from the LHC Run 1 (thanks to Mike, et al.)
+* It runs at p5: till 2015-06-03 (run #247955) in 72X and 74X after
+ * according to Vasile, 74X includes the latest greatest L1 menu
+* Soon it'll need to include the Stage 1 calorimeter trigger 
 
 --- .class #id
+
+
+## Status of the L1 menu
+
+* The last menu picked up by L1-O2O: <span style="font-family:monospace; color:blue; font-weight:bold">L1Menu_Collisions2015_50nsGct_v3</span>
+* On request from Andrea Bocci following menus were queued for MC GT in 75X:
+<span style="font-family:monospace; color:blue; font-weight:bold">
+ * [L1Menu_Collisions2015_25nsStage1_v3](https://mmm.cern.ch/owa/redir.aspx?C=g0fmToO5rUCT1OBWlc5N8EHT2WH2e9IIekA0inysQfM8WHFKUDGl0jVwWe4c1LnnggldF9AzZMw.&URL=https%3a%2f%2fcms-conddb.cern.ch%2fbrowser%2f%23search%2fProd%2fL1Menu_Collisions2015_25nsStage1_v3)
+ * [L1Menu_Collisions2015_50nsGct_v3](https://mmm.cern.ch/owa/redir.aspx?C=g0fmToO5rUCT1OBWlc5N8EHT2WH2e9IIekA0inysQfM8WHFKUDGl0jVwWe4c1LnnggldF9AzZMw.&URL=https%3a%2f%2fcms-conddb.cern.ch%2fbrowser%2f%23search%2fProd%2fL1Menu_Collisions2015_50nsGct_v3)
+ * [L1Menu_Collisions2015_lowPU_v3](https://mmm.cern.ch/owa/redir.aspx?C=g0fmToO5rUCT1OBWlc5N8EHT2WH2e9IIekA0inysQfM8WHFKUDGl0jVwWe4c1LnnggldF9AzZMw.&URL=https%3a%2f%2fcms-conddb.cern.ch%2fbrowser%2f%23search%2fProd%2fL1Menu_Collisions2015_lowPU_v3)
+</span>
+* Several more requested menus were not found in OMDS:
+ * L1Menu_Collisions2015_50nsGct_v2
+ * L1Menu_Collisions2015_50ns_v1
+ * L1Menu_Collisions2015_25ns_v2
+ * L1Menu_CollisionsHeavyIons2015_v0
+
