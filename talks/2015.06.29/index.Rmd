@@ -1,0 +1,67 @@
+---
+title       : "Comparing GR_R_74_V9 with V9A"
+subtitle    : 
+author      : Khristian Kotov
+job         : 
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow      # 
+github:
+  user: kkotov 
+  repo: talks
+url:
+  lib:    ../../../../monohiggs/plots/libraries
+  assets: ../../../../monohiggs/plots/assets
+widgets     : [mathjax]     # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+---
+
+## Different payloads 
+[https://cms-conddb.cern.ch/browser/#diff/Prod/gts/GR_R_74_V9/GR_R_74_V9A](https://cms-conddb.cern.ch/browser/#diff/Prod/gts/GR_R_74_V9/GR_R_74_V9A):
+
+<img class=center src=GR_R_74_V9.png height=280>
+
+<br>
+
+Need to check 7 payloads
+
+--- .class #id
+
+## Benchmark runs (from run matrix)
+
+                                          '10 A | '10 Cosm     | '10 B   | '11 Cosm | '11 A   |  '11 B   | '12 A  | '12 B  | '12 C  | '12 D  |
+------------------------------------------------|--------------|---------|----------|---------|----------|--------|--------|--------|--------|
+ <span style="font-weight:normal">138937</span> | 142089       | 149011  | 160960   | 161121  |  177719  | 191226 | 194533 | 199812 | 208307 | 
+ <span style="font-weight:normal">138934</span> |              |         |          | 172802  |  177790  |        | 194912 | 203002 | 207454 |
+ <span style="font-weight:normal">138924</span> |              |         |          |         |  177096  |        | 195016 |        |        |
+ <span style="font-weight:normal">138923</span> |              |         |          |         |  175874  |        |        |        |        |
+ <span style="font-weight:normal">139790</span> |
+ <span style="font-weight:normal">139789</span> |
+ <span style="font-weight:normal">139788</span> |
+ <span style="font-weight:normal">139787</span> |
+ <span style="font-weight:normal">144086</span> |
+ <span style="font-weight:normal">144085</span> |
+ <span style="font-weight:normal">144084</span> |
+ <span style="font-weight:normal">144083</span> |
+ <span style="font-weight:normal">144011</span> |
+
+--- .class #id
+
+
+## Agreement
+
+Running [this recipe](tagCmp.tgz) in CMSSW_7_4_0_pre7 I get:
+
+Payload               | Agrees for
+----------------------|-----------------
+L1GtTriggerMenu       | Always disagree
+L1GctJetFinderParams  | >= 2012 C
+L1MuDTTFParameters    | >= 2012 C
+L1MuCSCPtLut          | >= 2012 B
+L1JetEtScale          | >= 2011 Cosmics
+L1HtMissScale         | >= 2011 Cosmics 
+L1HfRingEtScale       | >= 2011 Cosmics
+
+
+--- .class #id
+
