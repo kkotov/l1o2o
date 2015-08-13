@@ -1,0 +1,48 @@
+---
+title       : "O2O for Stage-1 calorimeter upgrade"
+subtitle    : 
+author      : Khristian Kotov
+job         : 
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow      # 
+github:
+  user: kkotov 
+  repo: talks
+url:
+  lib:    ../../../../monohiggs/plots/libraries
+  assets: ../../../../monohiggs/plots/assets
+widgets     : [mathjax]     # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+---
+
+## New O2O payloads
+
+<br>
+
+Payload                                                                                                           | Legend
+------------------------------------------------------------------------------------------------------------------|-------------------------------------
+[l1t::CaloParams](https://github.com/cms-sw/cmssw/blob/CMSSW_7_4_X/CondFormats/L1TObjects/interface/CaloParams.h) | All the L1T Calorimeter emulator parameters
+[l1t::CaloConfig](https://github.com/cms-sw/cmssw/blob/CMSSW_7_4_X/CondFormats/L1TObjects/interface/CaloConfig.h) | Something absent from OMDS (i.e. `epoch`, `firmware`)
+
+<br>
+
+The development version of the O2O is now aware of the l1t::CaloParams (well, CaloParams)
+
+Thanks to Marcelo, the payload is now populated with parameters from OMDS (e.g. some LUTs)
+
+But not all of the parameters in CaloParams are filled (e.g. EG stuff)
+
+Question: should we use for these the defaults from [caloStage1Params_cfi.py](https://github.com/cms-sw/cmssw/blob/CMSSW_7_4_X/L1Trigger/L1TCalorimeter/python/caloStage1Params_cfi.py)?
+(that will introduce some extra work on how the L1Trigger/L1TCalorimeter is configured)
+
+--- .class #id
+
+## Next steps
+
+* Let Marcelo finish his work on filling the l1t::CaloParams payload
+* Decide how to go about defaults (fast and dirty way: hack the emulator)
+* Test the payload with the emulator (Len volunteered for that)
+* Run a "shadow" O2O pushing the payloads to the development DB
+* Move on to the production
+

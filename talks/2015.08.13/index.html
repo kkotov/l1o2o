@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>O2O for Stage-1 calorimeter upgrade</title>
+  <meta charset="utf-8">
+  <meta name="description" content="O2O for Stage-1 calorimeter upgrade">
+  <meta name="author" content="Khristian Kotov">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../../../../monohiggs/plots/libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../../../monohiggs/plots/libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../../../../monohiggs/plots/libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../../../monohiggs/plots/libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="../../../../monohiggs/plots/libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="../../../../monohiggs/plots/libraries/frameworks/io2012/js/slides" 
+    src="../../../../monohiggs/plots/libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>O2O for Stage-1 calorimeter upgrade</h1>
+    <h2></h2>
+    <p>Khristian Kotov<br/></p>
+  </hgroup>
+    <a href="https://github.com/kkotov/talks/zipball/gh-pages" class="example">
+     Download
+    </a>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>New O2O payloads</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><br></p>
+
+<table><thead>
+<tr>
+<th>Payload</th>
+<th>Legend</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><a href="https://github.com/cms-sw/cmssw/blob/CMSSW_7_4_X/CondFormats/L1TObjects/interface/CaloParams.h">l1t::CaloParams</a></td>
+<td>All the L1T Calorimeter emulator parameters</td>
+</tr>
+<tr>
+<td><a href="https://github.com/cms-sw/cmssw/blob/CMSSW_7_4_X/CondFormats/L1TObjects/interface/CaloConfig.h">l1t::CaloConfig</a></td>
+<td>Something absent from OMDS (i.e. <code>epoch</code>, <code>firmware</code>)</td>
+</tr>
+</tbody></table>
+
+<p><br></p>
+
+<p>The development version of the O2O is now aware of the l1t::CaloParams (well, CaloParams)</p>
+
+<p>Thanks to Marcelo, the payload is now populated with parameters from OMDS (e.g. some LUTs)</p>
+
+<p>But not all of the parameters in CaloParams are filled (e.g. EG stuff)</p>
+
+<p>Question: should we use for these the defaults from <a href="https://github.com/cms-sw/cmssw/blob/CMSSW_7_4_X/L1Trigger/L1TCalorimeter/python/caloStage1Params_cfi.py">caloStage1Params_cfi.py</a>?
+(that will introduce some extra work on how the L1Trigger/L1TCalorimeter is configured)</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Next steps</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Let Marcelo finish his work on filling the l1t::CaloParams payload</li>
+<li>Decide how to go about defaults (fast and dirty way: hack the emulator)</li>
+<li>Test the payload with the emulator (Len volunteered for that)</li>
+<li>Run a &quot;shadow&quot; O2O pushing the payloads to the development DB</li>
+<li>Move on to the production</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='New O2O payloads'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Next steps'>
+         2
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script> -->
+  <script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../../../monohiggs/plots/libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="../../../../monohiggs/plots/libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>
