@@ -1,0 +1,46 @@
+---
+title       : "Upgrade of the L1T O2O"
+subtitle    : 
+author      : Khristian Kotov
+job         : 
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow      # 
+github:
+  user: kkotov 
+  repo: talks
+url:
+  lib:    ../../../../monohiggs/plots/libraries
+  assets: ../../../../monohiggs/plots/assets
+widgets     : [mathjax]     # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+---
+
+## The L1T O2O development
+
+The detector upgrade renders some payloads obsolete and requires new payloads
+
+We preserve the Run I O2O (legacy O2O) as is thus ensuring format compatibility
+
+Development happens within the new O2O (upgrade O2O) which is a "clone" of the legacy O2O
+* all legacy payloads are still O2O'ed
+* new payloads can be accommodated independently 
+
+New code (none of it is yet in git):
+* `L1TriggerKeyStage1` and `L1TriggerKeyListStage1` payloads
+* `CondTools/L1TriggerStage1` package 
+* `L1TriggerConfig/<Some_Online_Producers>`
+
+(we consider to change "Stage1" suffix to something more generic)
+
+--- .class #id
+
+## Stage-1 calorimeter upgrade:
+
+Payloads:
+* legacy `L1GctJetFinderParamsRcd` is still used for 50ns runs
+* new `L1TCaloParams` replaces the above for 25ns runs
+
+(Even if we shut the legacy O2O down the legacy payloads in CondDB are still "infinitely" valid)
+
+Thanks to Mike's effort last week we now have the MC version of [`L1TCaloParams`](https://cms-conddb.cern.ch/browser/#search/Prod/L1TCaloParams_collisions_v1_mc) identical to what is now used online
