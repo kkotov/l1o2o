@@ -1,0 +1,33 @@
+---
+title       : "Using configuration from DB in Swatch Cell"
+subtitle    : 
+author      : Khristian Kotov
+job         : 
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow      # 
+github:
+  user: kkotov 
+  repo: talks
+url:
+  lib:    ../../../../monohiggs/plots/libraries
+  assets: ../../../../monohiggs/plots/assets
+widgets     : [mathjax]     # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+---
+
+## Some technical details
+
+Upon triggering [SystemTransition::exec](https://svnweb.cern.ch/trac/cactus/browser/trunk/cactuscore/swatch/core/src/common/SystemStateMachine.cpp#L227)
+[StateMachine::Transition::exec](https://svnweb.cern.ch/trac/cactus/browser/trunk/cactuscore/swatch/core/src/common/StateMachine.cpp#L266) is called
+and extract the configuration parameters from the [GateKeeper](https://svnweb.cern.ch/trac/cactus/browser/trunk/cactuscore/swatch/core/include/swatch/core/GateKeeper.hpp)
+container class by means of a function in [CommandVec](https://svnweb.cern.ch/trac/cactus/browser/trunk/cactuscore/swatch/core/src/common/CommandVec.cpp#L244) parent class.
+
+As of now the [GateKeeper]() container can also be initialized from a DB table:
+
+<img class=center src=prove.png height=280>
+
+<br>
+
+That only requires a simple change in [SetupPanel](https://svnweb.cern.ch/trac/cactus/browser/trunk/cactuscore/swatchcell/framework/src/common/SetupPanel.cc#L627) class
+

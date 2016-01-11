@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Using configuration from DB in Swatch Cell</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Using configuration from DB in Swatch Cell">
+  <meta name="author" content="Khristian Kotov">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../../DevDataProducts/libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../DevDataProducts/libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../../DevDataProducts/libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../DevDataProducts/libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="../../DevDataProducts/libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="../../DevDataProducts/libraries/frameworks/io2012/js/slides" 
+    src="../../DevDataProducts/libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>Using configuration from DB in Swatch Cell</h1>
+    <h2></h2>
+    <p>Khristian Kotov<br/></p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Some technical details</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Upon triggering <a href="https://svnweb.cern.ch/trac/cactus/browser/trunk/cactuscore/swatch/core/src/common/SystemStateMachine.cpp#L227">SystemTransition::exec</a>
+<a href="https://svnweb.cern.ch/trac/cactus/browser/trunk/cactuscore/swatch/core/src/common/StateMachine.cpp#L266">StateMachine::Transition::exec</a> is called
+and extract the configuration parameters from the <a href="https://svnweb.cern.ch/trac/cactus/browser/trunk/cactuscore/swatch/core/include/swatch/core/GateKeeper.hpp">GateKeeper</a>
+container class by means of a function in <a href="https://svnweb.cern.ch/trac/cactus/browser/trunk/cactuscore/swatch/core/src/common/CommandVec.cpp#L244">CommandVec</a> parent class.</p>
+
+<p>As of now the <a href="">GateKeeper</a> container can also be initialized from a DB table:</p>
+
+<p><img class=center src=prove.png height=280></p>
+
+<p><br></p>
+
+<p>That only requires a simple change in <a href="https://svnweb.cern.ch/trac/cactus/browser/trunk/cactuscore/swatchcell/framework/src/common/SetupPanel.cc#L627">SetupPanel</a> class</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='Some technical details'>
+         1
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script> -->
+  <script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../DevDataProducts/libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="../../DevDataProducts/libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>
