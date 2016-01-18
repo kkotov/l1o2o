@@ -1,0 +1,92 @@
+---
+title       : "Overview of legacy online L1T tables"
+subtitle    : 
+author      : Khristian Kotov
+job         : 
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow      # 
+github:
+  user: kkotov 
+  repo: talks
+url:
+  lib:    ../../../../monohiggs/plots/libraries
+  assets: ../../../../monohiggs/plots/assets
+widgets     : [mathjax]     # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+---
+
+## Organization of systems' keys
+
+The top level key are `L1_KEY` (indexing _configuration_ and _settings_ keys) and `TSC_KEY` (indexing in a separate table _configuration_ keys only):
+
+<img class=center src=top.svg height=280>
+
+Current `<subsys>` are: `CSCTF`, `DTTF`, `RPC`, `RCT`, `GCT`, `GMT`, `GT`, `S1CALOL2`
+
+(`S1CALOL2` FK constraint was mistakenly moved from `TRIGGERSUP_CONF` to `L1_CONF`)
+
+--- .class #id
+
+## Hierarchy of a few configuration tables
+
+
+<img class=center src=levels.svg height=450>
+
+So there is effectively 1 level of tables for `CSCTF` and `DTTF`, but 3 levels for RCT
+
+--- .class #id
+
+## Systems' configuration subkeys
+
+
+System   |    Schema    |  Table     |  Relevant Subkeys   | Depth
+---------|--------------|------------|---------------------|------------------------
+<span style="font-weight:bold; color:green">CSCTF</span>   | <span style="font-weight:bold;font-size:smaller;color:grey">CMS_TRG_L1_CONF</span> | <span style="font-weight:bold;font-size:smaller;color:grey">TRIGGERSUP_CONF</span> | <span style="font-weight:bold;font-size:smaller;color:brown">CSCTF_KEY</span> | 0
+                                                           | <span style="font-weight:bold;font-size:smaller;color:red">CMS_CSC_TF</span> | <span style="font-weight:bold;font-size:smaller;color:red">CSCTF_SP_CONF</span> | <span style="font-weight:bold;font-size:smaller;color:brown">PTLUT_VERSION</span> | 1
+<span style="font-weight:bold; color:green">DTTF</span>    | <span style="font-weight:bold;font-size:smaller;color:grey">CMS_TRG_L1_CONF</span> | <span style="font-weight:bold;font-size:smaller;color:grey">TRIGGERSUP_CONF</span> |  <span style="font-weight:bold;font-size:smaller;color:brown">DTTF_KEY</span> | 0
+                                                              | <span style="font-weight:bold;font-size:smaller;color:red">CMS_DT_TF</span>  | <span style="font-weight:bold;font-size:smaller;color:red">DTTF_CONF</span> | <span style="font-weight:bold;font-size:smaller;color:brown">LUT_KEY</span> | 1
+<span style="font-weight:bold; color:green">GMT</span>   | <span style="font-weight:bold;font-size:smaller;color:red">CMS_GMT</span> | <span style="font-weight:bold;font-size:smaller;color:red">GMT_CONFIG</span> | <span style="font-weight:bold;font-size:smaller;color:brown">SCALES_KEY</span> | 1
+                                                         | <span style="font-weight:bold;font-size:smaller;color:red">CMS_GMT</span> | <span style="font-weight:bold;font-size:smaller;color:red">GMT_LUTS</span> | <span style="font-weight:bold;font-size:smaller;color:brown">GMT_SOFTWARE_CONFIG</span> | 2
+<span style="font-weight:bold; color:green">RCT</span>   | <span style="font-weight:bold;font-size:smaller;color:red">CMS_RCT</span> | <span style="font-weight:bold;font-size:smaller;color:red">RCT_CONF</span> | <span style="font-weight:bold;font-size:smaller;color:brown">RCT_PARAMETERS, HCAL_CONF</span> | 1
+                                                        | <span style="font-weight:bold;font-size:smaller;color:red">CMS_RCT</span> | <span style="font-weight:bold;font-size:smaller;color:red">PAREM_CONF</span> | <span style="font-weight:bold;font-size:smaller;color:brown">L1T_SCALE_CALO_ET_THRESHOLD_ID</span> | 2
+                                                        | <span style="font-weight:bold;font-size:smaller;color:red">CMS_RCT</span> | <span style="font-weight:bold;font-size:smaller;color:red">ECAL_SCALE_KEY</span> | <span style="font-weight:bold;font-size:smaller;color:brown">ECAL_LUT_CONFIG_ID</span> | 2
+<span style="font-weight:bold; color:green">GCT</span>   | <span style="font-weight:bold;font-size:smaller;color:red">CMS_GCT</span> | <span style="font-weight:bold;font-size:smaller;color:red">GCT_MAIN_CRATE</span> | <span style="font-weight:bold;font-size:smaller;color:brown">GCT_PHYS_PARAMS_KEY</span> | 2
+<span style="font-weight:bold; color:green">GT</span>   | <span style="font-weight:bold;font-size:smaller;color:red">CMS_GT</span> | <span style="font-weight:bold;font-size:smaller;color:red">GT_SETUP</span> | <span style="font-weight:bold;font-size:smaller;color:brown">GTFE_SETUP_FK, L1T_MENU_FK</span> | 1
+
+<!--<span style="font-weight:bold; color:green">S1CALOL2</span>   | <span style="font-weight:bold;font-size:smaller;color:red">CMS_S1CALOL2</span> | <span style="font-weight:bold;font-size:smaller;color:red">S1CALOL2_CONF</span> | <span style="font-weight:bold;font-size:smaller;color:brown">MP7_PP_CONF_KEY, MP7_HI_CONF_KEY</span> | 1 -->
+
+<!--
+* `CMS_GCT.GCR_MAIN_CRATE` in indexed by `GCT_MAIN_CRATE_KEY` of `CMS_GCT.GCT_CONFIG`
+* `CMS_GMT.CMT_LUTS` is indexed by `LUT_KEY` of `CMS_GMT.CMS_CONFIG`
+* `CMS_RCT.PAREM_CONF` is indexed by `RCT_PARAMETERS` in `CMS_RCT.RCT.CONF`
+-->
+
+--- .class #id
+
+## Possible unification with Vector Keys
+
+For each system create tables of 4 kinds: `PHYSICS`, `HARDWARE`, `LUTS`, and `RS`
+* `PHYSICS` - thresholds, scales factors, tiny luts, ... (everything relevant for offline)
+* `HARDWARE` - timing info 
+* `LUTS` - look up tables
+* `RS` - masks and other possible run settings 
+
+For each system create a Master Table that contains 4 Vector Keys indexing the tables above
+
+For example, `TAU_CALIB_LUT` and `JET_CALIB_LUT` of RCTs would be stored in different rows in
+new `LUT` table, but queried simultaneously as `LUT_KEY` in the Master Table contains `TAU`
+and `JET` elements indexing these two LUTs
+
+Another example is `S1CALOL2` that was configured differently for PP and HI runs.
+Here the very same `PHYSICS` table would contain rows for the both types of runs
+(as opposed to current `PP_ALGO_REGS` and `HI_ALGO_REGS` separate tables). And the
+PHYSICS_KEY in the Master Table indexes these with `PP` and `HI` elements
+
+--- .class #id
+
+## Comments on Vector Keys
+
+* Vector Key presented as a small XML, thus it can include meta data (e.g. hash/CRC-sums)
+* Number of fields is unlimited so as to have maximum flexibility for future evolution
+* With XML we loose built-in SQL constraint functionality, so editing requires caution 

@@ -1,0 +1,113 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Creator: fig2dev Version 3.2 Patchlevel 5e -->
+<!-- CreationDate: Fri Jan 15 16:15:07 2016 -->
+<!-- Magnification: 1.050 -->
+<svg	xmlns="http://www.w3.org/2000/svg"
+	xmlns:xlink="http://www.w3.org/1999/xlink"
+	width="5.1in" height="1.5in"
+	viewBox="129 106 6119 1796">
+<g style="stroke-width:.025in; fill:none">
+<!-- Line -->
+<polyline points="425,992
+1653,992
+" style="stroke:#000000;stroke-width:8;
+stroke-linejoin:miter; stroke-linecap:butt;
+"/>
+<!-- Line -->
+<polyline points="3732,983
+4913,983
+" style="stroke:#000000;stroke-width:8;
+stroke-linejoin:miter; stroke-linecap:butt;
+"/>
+<!-- Line -->
+<polyline points="2125,708
+2362,827
+" style="stroke:#000000;stroke-width:8;
+stroke-linejoin:miter; stroke-linecap:butt;
+"/>
+<!-- Line -->
+<polyline points="2125,827
+2362,827
+" style="stroke:#000000;stroke-width:8;
+stroke-linejoin:miter; stroke-linecap:butt;
+"/>
+<!-- Line -->
+<polyline points="2125,944
+2362,827
+" style="stroke:#000000;stroke-width:8;
+stroke-linejoin:miter; stroke-linecap:butt;
+"/>
+<!-- Line -->
+<polyline points="236,708
+2125,708
+" style="stroke:#000000;stroke-width:8;
+stroke-linejoin:miter; stroke-linecap:butt;
+"/>
+<!-- Line: box -->
+<rect x="141" y="118" width="6094" height="1771" rx="0" 
+style="stroke:#000000;stroke-width:8;
+stroke-linejoin:miter; stroke-linecap:butt;
+"/>
+<!-- Line -->
+<polyline points="3448,708
+3448,944
+" style="stroke:#000000;stroke-width:8;
+stroke-linejoin:miter; stroke-linecap:butt;
+"/>
+<!-- Line: box -->
+<rect x="236" y="236" width="1889" height="1559" rx="0" 
+style="stroke:#000000;stroke-width:8;
+stroke-linejoin:miter; stroke-linecap:butt;
+"/>
+<!-- Line: box -->
+<rect x="3543" y="236" width="2598" height="1559" rx="0" 
+style="stroke:#000000;stroke-width:8;
+stroke-linejoin:miter; stroke-linecap:butt;
+"/>
+<!-- Line -->
+<polyline points="2362,827
+3543,827
+" style="stroke:#000000;stroke-width:8;
+stroke-linejoin:miter; stroke-linecap:butt;
+"/>
+<!-- Line -->
+<polyline points="3354,708
+3354,944
+" style="stroke:#000000;stroke-width:8;
+stroke-linejoin:miter; stroke-linecap:butt;
+"/>
+<!-- Line -->
+<polyline points="3543,708
+6141,708
+" style="stroke:#000000;stroke-width:8;
+stroke-linejoin:miter; stroke-linecap:butt;
+"/>
+<!-- Line -->
+<polyline points="2362,708
+2362,944
+" style="stroke:#000000;stroke-width:8;
+stroke-linejoin:miter; stroke-linecap:butt;
+"/>
+<!-- Text -->
+<text xml:space="preserve" x="425" y="944" fill="#000000"  font-family="Times" font-style="normal" font-weight="normal" font-size="152" text-anchor="start">L1_KEY (PK)</text>
+<!-- Text -->
+<text xml:space="preserve" x="425" y="1181" fill="#000000"  font-family="Times" font-style="normal" font-weight="normal" font-size="152" text-anchor="start">TSC_KEY (FK)</text>
+<!-- Text -->
+<text xml:space="preserve" x="425" y="1417" fill="#000000"  font-family="Times" font-style="normal" font-weight="normal" font-size="152" text-anchor="start">&#60;subsys&#62;_KEY</text>
+<!-- Text -->
+<text xml:space="preserve" x="425" y="1653" fill="#000000"  font-family="Times" font-style="normal" font-weight="normal" font-size="152" text-anchor="start">&#60;subsys&#62;_RS_KEY (FK)</text>
+<!-- Text -->
+<text xml:space="preserve" x="3732" y="936" fill="#000000"  font-family="Times" font-style="normal" font-weight="normal" font-size="139" text-anchor="start">TS_KEY (PK)</text>
+<!-- Text -->
+<text xml:space="preserve" x="3732" y="1174" fill="#000000"  font-family="Times" font-style="normal" font-weight="normal" font-size="139" text-anchor="start">&#60;subsys&#62;_KEY (FK)</text>
+<!-- Text -->
+<!--  L1_CONF_DETAILS_VIEW  -->
+<text xml:space="preserve" x="519" y="566" fill="#000000"  font-family="Times" font-style="normal" font-weight="normal" font-size="227" text-anchor="start">L1_CONF</text>
+<!-- Text -->
+<text xml:space="preserve" x="2456" y="708" fill="#000000"  font-family="Times" font-style="normal" font-weight="normal" font-size="152" text-anchor="start">duplicates</text>
+<!-- Text -->
+<text xml:space="preserve" x="3826" y="566" fill="#000000"  font-family="Times" font-style="normal" font-weight="normal" font-size="227" text-anchor="start">TRIGGERSUP_CONF</text>
+</g>
+</svg>

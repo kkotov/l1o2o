@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Overview of legacy online L1T tables</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Overview of legacy online L1T tables">
+  <meta name="author" content="Khristian Kotov">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../../../../monohiggs/plots/libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../../../monohiggs/plots/libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../../../../monohiggs/plots/libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../../../monohiggs/plots/libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="../../../../monohiggs/plots/libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="../../../../monohiggs/plots/libraries/frameworks/io2012/js/slides" 
+    src="../../../../monohiggs/plots/libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>Overview of legacy online L1T tables</h1>
+    <h2></h2>
+    <p>Khristian Kotov<br/></p>
+  </hgroup>
+    <a href="https://github.com/kkotov/talks/zipball/gh-pages" class="example">
+     Download
+    </a>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Organization of systems&#39; keys</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>The top level key are <code>L1_KEY</code> (indexing <em>configuration</em> and <em>settings</em> keys) and <code>TSC_KEY</code> (indexing in a separate table <em>configuration</em> keys only):</p>
+
+<p><img class=center src=top.svg height=280></p>
+
+<p>Current <code>&lt;subsys&gt;</code> are: <code>CSCTF</code>, <code>DTTF</code>, <code>RPC</code>, <code>RCT</code>, <code>GCT</code>, <code>GMT</code>, <code>GT</code>, <code>S1CALOL2</code></p>
+
+<p>(<code>S1CALOL2</code> FK constraint was mistakenly moved from <code>TRIGGERSUP_CONF</code> to <code>L1_CONF</code>)</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Hierarchy of a few configuration tables</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img class=center src=levels.svg height=450></p>
+
+<p>So there is effectively 1 level of tables for <code>CSCTF</code> and <code>DTTF</code>, but 3 levels for RCT</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Systems&#39; configuration subkeys</h2>
+  </hgroup>
+  <article data-timings="">
+    <table><thead>
+<tr>
+<th>System</th>
+<th>Schema</th>
+<th>Table</th>
+<th>Relevant Subkeys</th>
+<th>Depth</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><span style="font-weight:bold; color:green">CSCTF</span></td>
+<td><span style="font-weight:bold;font-size:smaller;color:grey">CMS_TRG_L1_CONF</span></td>
+<td><span style="font-weight:bold;font-size:smaller;color:grey">TRIGGERSUP_CONF</span></td>
+<td><span style="font-weight:bold;font-size:smaller;color:brown">CSCTF_KEY</span></td>
+<td>0</td>
+</tr>
+<tr>
+<td></td>
+<td><span style="font-weight:bold;font-size:smaller;color:red">CMS_CSC_TF</span></td>
+<td><span style="font-weight:bold;font-size:smaller;color:red">CSCTF_SP_CONF</span></td>
+<td><span style="font-weight:bold;font-size:smaller;color:brown">PTLUT_VERSION</span></td>
+<td>1</td>
+</tr>
+<tr>
+<td><span style="font-weight:bold; color:green">DTTF</span></td>
+<td><span style="font-weight:bold;font-size:smaller;color:grey">CMS_TRG_L1_CONF</span></td>
+<td><span style="font-weight:bold;font-size:smaller;color:grey">TRIGGERSUP_CONF</span></td>
+<td><span style="font-weight:bold;font-size:smaller;color:brown">DTTF_KEY</span></td>
+<td>0</td>
+</tr>
+<tr>
+<td></td>
+<td><span style="font-weight:bold;font-size:smaller;color:red">CMS_DT_TF</span></td>
+<td><span style="font-weight:bold;font-size:smaller;color:red">DTTF_CONF</span></td>
+<td><span style="font-weight:bold;font-size:smaller;color:brown">LUT_KEY</span></td>
+<td>1</td>
+</tr>
+<tr>
+<td><span style="font-weight:bold; color:green">GMT</span></td>
+<td><span style="font-weight:bold;font-size:smaller;color:red">CMS_GMT</span></td>
+<td><span style="font-weight:bold;font-size:smaller;color:red">GMT_CONFIG</span></td>
+<td><span style="font-weight:bold;font-size:smaller;color:brown">SCALES_KEY</span></td>
+<td>1</td>
+</tr>
+<tr>
+<td></td>
+<td><span style="font-weight:bold;font-size:smaller;color:red">CMS_GMT</span></td>
+<td><span style="font-weight:bold;font-size:smaller;color:red">GMT_LUTS</span></td>
+<td><span style="font-weight:bold;font-size:smaller;color:brown">GMT_SOFTWARE_CONFIG</span></td>
+<td>2</td>
+</tr>
+<tr>
+<td><span style="font-weight:bold; color:green">RCT</span></td>
+<td><span style="font-weight:bold;font-size:smaller;color:red">CMS_RCT</span></td>
+<td><span style="font-weight:bold;font-size:smaller;color:red">RCT_CONF</span></td>
+<td><span style="font-weight:bold;font-size:smaller;color:brown">RCT_PARAMETERS, HCAL_CONF</span></td>
+<td>1</td>
+</tr>
+<tr>
+<td></td>
+<td><span style="font-weight:bold;font-size:smaller;color:red">CMS_RCT</span></td>
+<td><span style="font-weight:bold;font-size:smaller;color:red">PAREM_CONF</span></td>
+<td><span style="font-weight:bold;font-size:smaller;color:brown">L1T_SCALE_CALO_ET_THRESHOLD_ID</span></td>
+<td>2</td>
+</tr>
+<tr>
+<td></td>
+<td><span style="font-weight:bold;font-size:smaller;color:red">CMS_RCT</span></td>
+<td><span style="font-weight:bold;font-size:smaller;color:red">ECAL_SCALE_KEY</span></td>
+<td><span style="font-weight:bold;font-size:smaller;color:brown">ECAL_LUT_CONFIG_ID</span></td>
+<td>2</td>
+</tr>
+<tr>
+<td><span style="font-weight:bold; color:green">GCT</span></td>
+<td><span style="font-weight:bold;font-size:smaller;color:red">CMS_GCT</span></td>
+<td><span style="font-weight:bold;font-size:smaller;color:red">GCT_MAIN_CRATE</span></td>
+<td><span style="font-weight:bold;font-size:smaller;color:brown">GCT_PHYS_PARAMS_KEY</span></td>
+<td>2</td>
+</tr>
+<tr>
+<td><span style="font-weight:bold; color:green">GT</span></td>
+<td><span style="font-weight:bold;font-size:smaller;color:red">CMS_GT</span></td>
+<td><span style="font-weight:bold;font-size:smaller;color:red">GT_SETUP</span></td>
+<td><span style="font-weight:bold;font-size:smaller;color:brown">GTFE_SETUP_FK, L1T_MENU_FK</span></td>
+<td>1</td>
+</tr>
+</tbody></table>
+
+<!--<span style="font-weight:bold; color:green">S1CALOL2</span>   | <span style="font-weight:bold;font-size:smaller;color:red">CMS_S1CALOL2</span> | <span style="font-weight:bold;font-size:smaller;color:red">S1CALOL2_CONF</span> | <span style="font-weight:bold;font-size:smaller;color:brown">MP7_PP_CONF_KEY, MP7_HI_CONF_KEY</span> | 1 -->
+
+<!--
+* `CMS_GCT.GCR_MAIN_CRATE` in indexed by `GCT_MAIN_CRATE_KEY` of `CMS_GCT.GCT_CONFIG`
+* `CMS_GMT.CMT_LUTS` is indexed by `LUT_KEY` of `CMS_GMT.CMS_CONFIG`
+* `CMS_RCT.PAREM_CONF` is indexed by `RCT_PARAMETERS` in `CMS_RCT.RCT.CONF`
+-->
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Possible unification with Vector Keys</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>For each system create tables of 4 kinds: <code>PHYSICS</code>, <code>HARDWARE</code>, <code>LUTS</code>, and <code>RS</code></p>
+
+<ul>
+<li><code>PHYSICS</code> - thresholds, scales factors, tiny luts, ... (everything relevant for offline)</li>
+<li><code>HARDWARE</code> - timing info </li>
+<li><code>LUTS</code> - look up tables</li>
+<li><code>RS</code> - masks and other possible run settings </li>
+</ul>
+
+<p>For each system create a Master Table that contains 4 Vector Keys indexing the tables above</p>
+
+<p>For example, <code>TAU_CALIB_LUT</code> and <code>JET_CALIB_LUT</code> of RCTs would be stored in different rows in
+new <code>LUT</code> table, but queried simultaneously as <code>LUT_KEY</code> in the Master Table contains <code>TAU</code>
+and <code>JET</code> elements indexing these two LUTs</p>
+
+<p>Another example is <code>S1CALOL2</code> that was configured differently for PP and HI runs.
+Here the very same <code>PHYSICS</code> table would contain rows for the both types of runs
+(as opposed to current <code>PP_ALGO_REGS</code> and <code>HI_ALGO_REGS</code> separate tables). And the
+PHYSICS_KEY in the Master Table indexes these with <code>PP</code> and <code>HI</code> elements</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Comments on Vector Keys</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Vector Key presented as a small XML, thus it can include meta data (e.g. hash/CRC-sums)</li>
+<li>Number of fields is unlimited so as to have maximum flexibility for future evolution</li>
+<li>With XML we loose built-in SQL constraint functionality, so editing requires caution </li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='Organization of systems&#39; keys'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Hierarchy of a few configuration tables'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Systems&#39; configuration subkeys'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Possible unification with Vector Keys'>
+         4
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=5 title='Comments on Vector Keys'>
+         5
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script> -->
+  <script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../../../monohiggs/plots/libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="../../../../monohiggs/plots/libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>
