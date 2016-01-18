@@ -1,5 +1,5 @@
 ---
-title       : "Overview of legacy online L1T tables"
+title       : "Organization of information in OMDS"
 subtitle    : 
 author      : Khristian Kotov
 job         : 
