@@ -210,9 +210,14 @@ PHYSICS_KEY in the Master Table indexes these with <code>PP</code> and <code>HI<
   </hgroup>
   <article data-timings="">
     <ul>
-<li>Vector Key presented as a small XML, thus it can include meta data (e.g. hash/CRC-sums)</li>
+<li>Vector Key presented as a small XML, thus it can include meta data (e.g. hash/CRC-sums)
+
+<ul>
+<li>potentially adopt Cond DB approach of hash sum keys with an additional description</li>
+</ul></li>
 <li>Number of fields is unlimited so as to have maximum flexibility for future evolution</li>
-<li>With XML we loose built-in SQL constraint functionality, so editing requires caution </li>
+<li>With XML we loose built-in SQL constraint functionality, so editing requires caution</li>
+<li>Interactions with DB can be hidden in swatch given format of Vector Keys is enforced</li>
 </ul>
 
   </article>
