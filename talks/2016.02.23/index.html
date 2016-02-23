@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>L1T O2O: status and prospects</title>
+  <meta charset="utf-8">
+  <meta name="description" content="L1T O2O: status and prospects">
+  <meta name="author" content="Khristian Kotov">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../../../../monohiggs/plots/libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../../../monohiggs/plots/libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../../../../monohiggs/plots/libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../../../monohiggs/plots/libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="../../../../monohiggs/plots/libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="../../../../monohiggs/plots/libraries/frameworks/io2012/js/slides" 
+    src="../../../../monohiggs/plots/libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>L1T O2O: status and prospects</h1>
+    <h2></h2>
+    <p>Khristian Kotov<br/></p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Status (current version)</h2>
+  </hgroup>
+  <article data-timings="">
+    <!--L1T O2O was running through 2015 on legacy system ( + `S1CALOL2` )-->
+
+<p>The workflow:</p>
+
+<ul>
+<li><p>code is invoked by a Function Manager (FM) call that provides <code>Run #</code> and <code>L1_KEY</code> arguments</p></li>
+<li><p>using <code>L1_KEY</code> it identifies subsystem specific keys and run the online producers</p></li>
+<li><p>online producers navigate further down the tables and pack the info in CondFormats</p></li>
+<li><p>no feedback to FM is provided</p></li>
+</ul>
+
+<p>Logging and monitoring:</p>
+
+<ul>
+<li><p>system produces a very comprehensive set of log files</p></li>
+<li><p>monitoring is done by looking at the logs on daily basis</p></li>
+</ul>
+
+<p>Possible failures:</p>
+
+<ul>
+<li>development in <code>pro</code> version parallel to the data taking</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Prospects (future development addressing upgrade)</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>The new offline CondFormats are already in 80X</p>
+
+<p>Current version of L1T O2O knows nothing about the upgrade (apart from <code>S1CALOL2</code>)</p>
+
+<p>Swatch team is working on the online DB schema for all of the new systems:</p>
+
+<ul>
+<li>configuration is stored as XMLs uniformly across all subsystems</li>
+</ul>
+
+<p>Once online tables are done we will proceed with the online producers</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='Status (current version)'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Prospects (future development addressing upgrade)'>
+         2
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script> -->
+  <script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../../../monohiggs/plots/libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="../../../../monohiggs/plots/libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>
