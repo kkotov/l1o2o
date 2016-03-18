@@ -12,21 +12,9 @@ def initL1SubsystemsExt( tagBaseVec = [],
     initL1SubsystemsExt.params = cms.PSet(
         recordInfo = cms.VPSet(
         cms.PSet(
-            record = cms.string('L1TCaloParamsRcd'),
-            tag = cms.string('L1TCaloParams_' + tagBaseVec[ L1CondEnumExt.L1TCaloParams ]),
-            type = cms.string('l1t::CaloParams'),
-            key = cms.string(objectKey)
-        ),
-        cms.PSet(
-            record = cms.string('L1TCaloParamsStage1PPRcd'),
-            tag = cms.string('L1TCaloParamsStage1PP_' + tagBaseVec[ L1CondEnumExt.L1TCaloParams ]),
-            type = cms.string('l1t::CaloParams'),
-            key = cms.string(objectKey)
-        ),
-        cms.PSet(
-            record = cms.string('L1TCaloParamsStage1HIRcd'),
-            tag = cms.string('L1TCaloParamsStage1HI_' + tagBaseVec[ L1CondEnumExt.L1TCaloParams ]),
-            type = cms.string('l1t::CaloParams'),
+            record = cms.string('L1TUtmTriggerMenuRcd'),
+            tag = cms.string('L1TUtmTriggerMenu_' + tagBaseVec[ L1CondEnumExt.L1TUtmTriggerMenu ]),
+            type = cms.string('L1TUtmTriggerMenu'),
             key = cms.string(objectKey)
         ))
         )

@@ -34,15 +34,8 @@ REGISTER_L1_WRITER(L1TriggerKeyListExtRcd, L1TriggerKeyListExt);
 
 // Ext Records:
 
-#include "CondFormats/L1TObjects/interface/CaloParams.h"
-#include "CondFormats/DataRecord/interface/L1TCaloParamsRcd.h"
-#include "CondFormats/DataRecord/interface/L1TCaloParamsStage1HIRcd.h"
-#include "CondFormats/DataRecord/interface/L1TCaloParamsStage1PPRcd.h"
-#include "CondFormats/L1TObjects/interface/CaloConfig.h"
-#include "CondFormats/DataRecord/interface/L1TCaloConfigRcd.h"
+#include "CondFormats/L1TObjects/interface/L1TUtmTriggerMenu.h"
+#include "CondFormats/DataRecord/interface/L1TUtmTriggerMenuRcd.h"
 
 using namespace l1t;
-REGISTER_L1_WRITER(L1TCaloParamsRcd, CaloParams);
-REGISTER_L1_WRITER(L1TCaloParamsStage1HIRcd, CaloParams);
-REGISTER_L1_WRITER(L1TCaloParamsStage1PPRcd, CaloParams);
-REGISTER_L1_WRITER(L1TCaloConfigRcd, CaloConfig);
+REGISTER_L1_WRITER(L1TUtmTriggerMenuRcd, L1TUtmTriggerMenu);

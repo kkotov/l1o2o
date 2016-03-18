@@ -3,7 +3,7 @@ import FWCore.ParameterSet.Config as cms
 L1TriggerKeyDummyExt = cms.ESProducer("L1TriggerKeyDummyProdExt",
     objectKeys = cms.VPSet(),
     tscKey = cms.string('dummy'),
-    s1calol2Key = cms.string('dummy'),
+    uGTKey = cms.string('dummy'),
     label = cms.string('')
 )
 

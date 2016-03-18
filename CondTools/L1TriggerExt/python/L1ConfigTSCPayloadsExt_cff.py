@@ -1,3 +1,1 @@
-from L1TriggerConfig.L1TCaloParamsStage1Producers.L1TCaloParamsStage1Online_cfi import *
-from L1TriggerConfig.L1TCaloParamsStage1Producers.L1TCaloParamsStage1PPOnline_cfi import *
-from L1TriggerConfig.L1TCaloParamsStage1Producers.L1TCaloParamsStage1HIOnline_cfi import *
+from L1TriggerConfig.L1TUtmTriggerMenuProducers.L1TUtmTriggerMenuOnline_cfi import *

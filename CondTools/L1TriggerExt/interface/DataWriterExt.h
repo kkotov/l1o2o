@@ -85,14 +85,15 @@ void DataWriterExt::readObject( const std::string& payloadToken,
       throw cond::Exception( "DataWriter: PoolDBOutputService not available."
 			     ) ;
     }
-  
+
+  poolDb->forceInit();
   cond::persistency::Session session = poolDb->session();
-  session.transaction().start(true);
+///  session.transaction().start(true);
  
   // Get object from CondDB
   boost::shared_ptr<T> ref = session.fetchPayload<T>(payloadToken) ;
   outputObject = *ref ;
-  session.transaction().commit ();
+///  session.transaction().commit ();
 }
 
 } // ns

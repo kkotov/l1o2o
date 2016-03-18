@@ -67,15 +67,15 @@ L1SubsystemKeysOnlineProdExt::produce(const L1TriggerKeyExtRcd& iRecord)
 
        // Get subsystem keys from OMDS
 
-       // SELECT S1CALOL2_KEY FROM TRIGGERSUP_CONF WHERE TRIGGERSUP_CONF.TS_KEY = m_tscKey
+       // SELECT uGT_KEY FROM TRIGGERSUP_CONF WHERE TRIGGERSUP_CONF.TS_KEY = m_tscKey
        std::vector< std::string > queryStrings ;
-       queryStrings.push_back( "S1CALOL2_KEY" ) ;
+       queryStrings.push_back( "UGT_KEY" ) ;
 
        l1t::OMDSReader::QueryResults subkeyResults =
 	 m_omdsReader.basicQuery( queryStrings,
 				  "CMS_TRG_L1_CONF",
-				  "TRIGGERSUP_CONF",
-				  "TRIGGERSUP_CONF.TS_KEY",
+				  "L1_TRG_CONF_KEYS",
+				  "L1_TRG_CONF_KEYS.ID",
 				  m_omdsReader.singleAttribute( m_tscKey ) ) ;
 
        if( subkeyResults.queryFailed() ||
@@ -85,11 +85,11 @@ L1SubsystemKeysOnlineProdExt::produce(const L1TriggerKeyExtRcd& iRecord)
 	   return pL1TriggerKey ;
 	 }
 
-       std::string s1calol2Key;
+       std::string uGTKey;
 
-       subkeyResults.fillVariable( "S1CALOL2_KEY", s1calol2Key ) ;
-       pL1TriggerKey->setSubsystemKey( L1TriggerKeyExt::kS1CALOL2, s1calol2Key ) ;
-       edm::LogVerbatim( "L1-O2O" ) << "S1CALOL2_KEY " << s1calol2Key ;
+       subkeyResults.fillVariable( "UGT_KEY", uGTKey ) ;
+       pL1TriggerKey->setSubsystemKey( L1TriggerKeyExt::kuGT, uGTKey ) ;
+       edm::LogVerbatim( "L1-O2O" ) << "UGT_KEY " << uGTKey ;
 
    }
    else

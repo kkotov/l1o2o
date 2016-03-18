@@ -1,1 +1,2 @@
-from L1TriggerConfig.L1TCaloParamsStage1Producers.L1TCaloStage1ObjectKeysOnline_cfi import *
+from L1TriggerConfig.L1TUtmTriggerMenuProducers.L1TUtmTriggerMenuObjectKeysOnline_cfi import *
+

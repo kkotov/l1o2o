@@ -5,9 +5,10 @@ def initL1O2OTagsExt():
 
     initL1O2OTagsExt.tagBaseVec = [None] * L1CondEnumExt.NumL1Cond
 
-    initL1O2OTagsExt.tagBaseVec[ L1CondEnumExt.L1TriggerKeyListExt ] = "CRAFT09_hlt"
-    initL1O2OTagsExt.tagBaseVec[ L1CondEnumExt.L1TriggerKeyExt ] = "CRAFT09_hlt"
-    initL1O2OTagsExt.tagBaseVec[ L1CondEnumExt.L1TCaloParams ] = "CRAFT09_hlt"
+    initL1O2OTagsExt.tagBaseVec[ L1CondEnumExt.L1TriggerKeyListExt ] = "Stage2v0_hlt"
+    initL1O2OTagsExt.tagBaseVec[ L1CondEnumExt.L1TriggerKeyExt ] = "Stage2v0_hlt"
+
+    initL1O2OTagsExt.tagBaseVec[ L1CondEnumExt.L1TUtmTriggerMenu ] = "Stage2v0_hlt"
     
 #    for i in range( 0, L1CondEnumExt.NumL1Cond ):
 #        print i, initL1O2OTagsExt.tagBaseVec[ i ]

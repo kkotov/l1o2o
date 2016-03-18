@@ -139,7 +139,7 @@ L1O2OTestAnalyzerExt::analyze(const edm::Event& iEvent, const edm::EventSetup& i
 		     << std::endl << std::endl ;
 
 	   std::cout << "Current subsystem keys:" << std::endl ;
-	   std::cout << "TSP0 " << pKey->subsystemKey( L1TriggerKeyExt::kS1CALOL2 )
+	   std::cout << "TSP0 " << pKey->subsystemKey( L1TriggerKeyExt::kuGT )
 		     << std::endl << std::endl ;
 
 	   std::cout << "Object keys:" << std::endl ;

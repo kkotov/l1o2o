@@ -2,15 +2,11 @@
 
 #include "CondTools/L1TriggerExt/interface/DataWriterExt.h"
 #include "CondTools/L1Trigger/interface/Exception.h"
-#include "CondCore/MetaDataService/interface/MetaData.h"
-#include "CondCore/IOVService/interface/IOVProxy.h"
-#include "CondCore/DBCommon/interface/Exception.h"
+#include "CondCore/CondDB/interface/Exception.h"
 
 #include "CondCore/CondDB/interface/Serialization.h"
 
 #include <utility>
-#include <iostream>
-using namespace std;
 
 namespace l1t
 {
@@ -23,7 +19,6 @@ std::string
 DataWriterExt::writePayload( const edm::EventSetup& setup,
 			  const std::string& recordType )
 {
-
   WriterFactory* factory = WriterFactory::get();
   std::auto_ptr<WriterProxy> writer(factory->create( recordType + "@Writer" )) ;
   if( writer.get() == 0 )
@@ -45,7 +40,7 @@ DataWriterExt::writePayload( const edm::EventSetup& setup,
 //   cond::DbSession session = poolDb->session();
 //   cond::DbScopedTransaction tr(session);
 
-  cond::persistency::TransactionScope tr(poolDb->session().transaction());
+///  cond::persistency::TransactionScope tr(poolDb->session().transaction());
 //   // if throw transaction will unroll
 //   tr.start(false);
 
@@ -54,9 +49,9 @@ DataWriterExt::writePayload( const edm::EventSetup& setup,
   std::string payloadToken = writer->save( setup ) ;
 
   edm::LogVerbatim( "L1-O2O" ) << recordType << " PAYLOAD TOKEN "
-			       << payloadToken <<flush;
+			       << payloadToken ;
 
-  tr.close();
+////  tr.close();
 //   tr.commit ();
 
   return payloadToken ;
@@ -74,9 +69,10 @@ DataWriterExt::writeKeyList( L1TriggerKeyListExt* keyList,
 			     ) ;
     }
 
+  poolDb->forceInit();
   cond::persistency::Session session = poolDb->session();
   cond::persistency::TransactionScope tr(session.transaction());
-///  tr.start( false );
+///tr.start( false );
 
   // Write L1TriggerKeyListExt payload and save payload token before committing
   boost::shared_ptr<L1TriggerKeyListExt> pointer(keyList);
@@ -84,7 +80,7 @@ DataWriterExt::writeKeyList( L1TriggerKeyListExt* keyList,
 			
   // Commit before calling updateIOV(), otherwise PoolDBOutputService gets
   // confused.
-  //tr.commit ();
+///tr.commit ();
   tr.close ();
   
   // Set L1TriggerKeyListExt IOV

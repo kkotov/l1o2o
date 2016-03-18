@@ -6,5 +6,5 @@ L1O2OTestAnalyzerExt = cms.EDAnalyzer("L1O2OTestAnalyzerExt",
                                    printPayloadTokens = cms.bool(True),
                                    printESRecords = cms.bool(True),
                                    recordsToPrint = cms.vstring()
-#    'L1TCaloParamsRcd' ) # Run Settings records
+#    'L1TUtmTriggerMenuRcd' ) # Run Settings records
                                   )
