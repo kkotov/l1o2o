@@ -30,14 +30,14 @@ then
     INDB_OPTIONS="inputDBConnect=sqlite_file:l1config.db inputDBAuth=." 
     OUTDB_OPTIONS="outputDBConnect=sqlite_file:l1config.db outputDBAuth=." 
     COPY_OPTIONS="copyNonO2OPayloads=1 copyDBConnect=sqlite_file:l1config.db"
-#    COPY_OPTIONS="copyNonO2OPayloads=1 copyDBConnect=oracle://cms_orcoff_prep/CMS_CONDITIONS copyDBAuth=/nfshome0/l1emulator/run2/o2o/v1"
-#    COPY_OPTIONS="copyNonO2OPayloads=1 copyDBConnect=oracle://cms_orcon_prod/CMS_CONDITIONS copyDBAuth=/nfshome0/l1emulator/run2/o2o/v1"
+#    COPY_OPTIONS="copyNonO2OPayloads=1 copyDBConnect=oracle://cms_orcoff_prep/CMS_CONDITIONS copyDBAuth=/data/O2O/L1T/pro/o2o/"
+#    COPY_OPTIONS="copyNonO2OPayloads=1 copyDBConnect=oracle://cms_orcon_prod/CMS_CONDITIONS copyDBAuth=/data/O2O/L1T/pro/o2o/"
 else
     echo "Writing to cms_orcoff_prep"
-#    INDB_OPTIONS="inputDBConnect=oracle://cms_orcoff_prep/CMS_CONDITIONS inputDBAuth=/nfshome0/l1emulator/run2/o2o/v1"
-#    OUTDB_OPTIONS="outputDBConnect=oracle://cms_orcoff_prep/CMS_CONDITIONS outputDBAuth=/nfshome0/l1emulator/run2/o2o/v1"
-    INDB_OPTIONS="inputDBConnect=oracle://cms_orcon_prod/CMS_CONDITIONS inputDBAuth=/nfshome0/l1emulator/run2/o2o/prod"
-    OUTDB_OPTIONS="outputDBConnect=oracle://cms_orcon_prod/CMS_CONDITIONS outputDBAuth=/nfshome0/l1emulator/run2/o2o/prod"
+#    INDB_OPTIONS="inputDBConnect=oracle://cms_orcoff_prep/CMS_CONDITIONS inputDBAuth=/data/O2O/L1T/pro/o2o/"
+#    OUTDB_OPTIONS="outputDBConnect=oracle://cms_orcoff_prep/CMS_CONDITIONS outputDBAuth=/data/O2O/L1T/pro/o2o/"
+    INDB_OPTIONS="inputDBConnect=oracle://cms_orcon_prod/CMS_CONDITIONS inputDBAuth=/data/O2O/L1T/pro/o2o/"
+    OUTDB_OPTIONS="outputDBConnect=oracle://cms_orcon_prod/CMS_CONDITIONS outputDBAuth=/data/O2O/L1T/pro/o2o/"
     #echo "Cowardly refusing to write to the online database"
     #exit
 fi
