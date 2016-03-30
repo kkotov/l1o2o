@@ -28,6 +28,9 @@ public:
     enum L1Subsystems
       {
 	kuGT,
+	kEMTF,
+	kOMTF,
+	kBMTF,
 	kNumberSubsystems
       } ;
 
