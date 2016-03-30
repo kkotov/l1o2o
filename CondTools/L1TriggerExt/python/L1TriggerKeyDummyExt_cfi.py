@@ -4,6 +4,12 @@ L1TriggerKeyDummyExt = cms.ESProducer("L1TriggerKeyDummyProdExt",
     objectKeys = cms.VPSet(),
     tscKey = cms.string('dummy'),
     uGTKey = cms.string('dummy'),
+    uGMTKey = cms.string('dummy'),
+    CALOL1Key = cms.string('dummy'),
+    CALOL2Key = cms.string('dummy'),
+    BMTFKey = cms.string('dummy'),
+    OMTFKey = cms.string('dummy'),
+    EMTFKey = cms.string('dummy'),
     label = cms.string('')
 )
 
