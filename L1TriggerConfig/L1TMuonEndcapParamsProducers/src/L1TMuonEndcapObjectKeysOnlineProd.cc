@@ -25,7 +25,7 @@ void L1TMuonEndcapObjectKeysOnlineProd::fillObjectKeys( ReturnType pL1TriggerKey
 
     if( !EMTFKey.empty() ) {
         std::vector< std::string > queryStrings ;
-        queryStrings.push_back( "EMTF_ALGO" ) ;
+        queryStrings.push_back( "ALGO" ) ;
 
         std::string algo_key;
 
@@ -39,11 +39,11 @@ void L1TMuonEndcapObjectKeysOnlineProd::fillObjectKeys( ReturnType pL1TriggerKey
                                    ) ;
 
         if( queryResult.queryFailed() || queryResult.numberRows() != 1 ){
-            edm::LogError( "L1-O2O" ) << "Cannot get EMTF_KEYS.EMTF_ALGO" ;
+            edm::LogError( "L1-O2O" ) << "Cannot get EMTF_KEYS.ALGO" ;
             return ;
         }
 
-        if( !queryResult.fillVariable( "EMTF_ALGO", algo_key) ) algo_key = "";
+        if( !queryResult.fillVariable( "ALGO", algo_key) ) algo_key = "";
         
         pL1TriggerKey->add( "L1TMuonEndcapParamsRcd",
                             "L1TMuonEndcapParams",

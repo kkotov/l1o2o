@@ -25,7 +25,7 @@ void L1TMuonOverlapObjectKeysOnlineProd::fillObjectKeys( ReturnType pL1TriggerKe
 
     if( !OMTFKey.empty() ) {
         std::vector< std::string > queryStrings ;
-        queryStrings.push_back( "OMTF_ALGO" ) ;
+        queryStrings.push_back( "ALGO" ) ;
 
         std::string algo_key;
 
@@ -39,11 +39,11 @@ void L1TMuonOverlapObjectKeysOnlineProd::fillObjectKeys( ReturnType pL1TriggerKe
                                    ) ;
 
         if( queryResult.queryFailed() || queryResult.numberRows() != 1 ){
-            edm::LogError( "L1-O2O" ) << "Cannot get OMTF_KEYS.OMTF_ALGO" ;
+            edm::LogError( "L1-O2O" ) << "Cannot get OMTF_KEYS.ALGO" ;
             return ;
         }
 
-        if( !queryResult.fillVariable( "OMTF_ALGO", algo_key) ) algo_key = "";
+        if( !queryResult.fillVariable( "ALGO", algo_key) ) algo_key = "";
         
         pL1TriggerKey->add( "L1TMuonOverlapParamsRcd",
                             "L1TMuonOverlapParams",

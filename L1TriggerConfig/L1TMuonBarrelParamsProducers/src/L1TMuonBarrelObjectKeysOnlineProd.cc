@@ -25,7 +25,7 @@ void L1TMuonBarrelObjectKeysOnlineProd::fillObjectKeys( ReturnType pL1TriggerKey
 
     if( !BMTFKey.empty() ) {
         std::vector< std::string > queryStrings ;
-        queryStrings.push_back( "BMTF_ALGO" ) ;
+        queryStrings.push_back( "ALGO" ) ;
 
         std::string algo_key;
 
@@ -39,11 +39,11 @@ void L1TMuonBarrelObjectKeysOnlineProd::fillObjectKeys( ReturnType pL1TriggerKey
                                    ) ;
 
         if( queryResult.queryFailed() || queryResult.numberRows() != 1 ){
-            edm::LogError( "L1-O2O" ) << "Cannot get BMTF_KEYS.BMTF_ALGO" ;
+            edm::LogError( "L1-O2O" ) << "Cannot get BMTF_KEYS.ALGO" ;
             return ;
         }
 
-        if( !queryResult.fillVariable( "BMTF_ALGO", algo_key) ) algo_key = "";
+        if( !queryResult.fillVariable( "ALGO", algo_key) ) algo_key = "";
         
         pL1TriggerKey->add( "L1TMuonBarrelParamsRcd",
                             "L1TMuonBarrelParams",
