@@ -39,7 +39,7 @@ void L1TMuonEndcapObjectKeysOnlineProd::fillObjectKeys( ReturnType pL1TriggerKey
                                    ) ;
 
         if( queryResult.queryFailed() || queryResult.numberRows() != 1 ){
-            edm::LogError( "L1-O2O" ) << "Cannot get OMTF_KEYS.EMTF_ALGO" ;
+            edm::LogError( "L1-O2O" ) << "Cannot get EMTF_KEYS.EMTF_ALGO" ;
             return ;
         }
 

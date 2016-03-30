@@ -19,11 +19,11 @@ L1TMuonBarrelObjectKeysOnlineProd::L1TMuonBarrelObjectKeysOnlineProd(const edm::
 
 void L1TMuonBarrelObjectKeysOnlineProd::fillObjectKeys( ReturnType pL1TriggerKey ){
 
-    std::string OMTFKey = pL1TriggerKey->subsystemKey( L1TriggerKeyExt::kOMTF ) ;
+    std::string BMTFKey = pL1TriggerKey->subsystemKey( L1TriggerKeyExt::kBMTF ) ;
 
     std::string stage2Schema = "CMS_TRG_L1_CONF" ;
 
-    if( !OMTFKey.empty() ) {
+    if( !BMTFKey.empty() ) {
         std::vector< std::string > queryStrings ;
         queryStrings.push_back( "BMTF_ALGO" ) ;
 
@@ -35,7 +35,7 @@ void L1TMuonBarrelObjectKeysOnlineProd::fillObjectKeys( ReturnType pL1TriggerKey
                                      stage2Schema,
                                      "BMTF_KEYS",
                                      "BMTF_KEYS.ID",
-                                     m_omdsReader.singleAttribute(OMTFKey)
+                                     m_omdsReader.singleAttribute(BMTFKey)
                                    ) ;
 
         if( queryResult.queryFailed() || queryResult.numberRows() != 1 ){
