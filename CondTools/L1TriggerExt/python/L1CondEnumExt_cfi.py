@@ -4,5 +4,8 @@ class L1CondEnumExt:
     L1TriggerKeyListExt=0
     L1TriggerKeyExt=1
     L1TUtmTriggerMenu=2
-    NumL1Cond=3
+    L1TMuonBarrelParams=3
+    L1TMuonOverlapParams=4
+    L1TMuonEndcapParams=5
+    NumL1Cond=6
     

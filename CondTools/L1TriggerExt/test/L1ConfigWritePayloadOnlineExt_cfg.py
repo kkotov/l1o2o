@@ -59,12 +59,7 @@ process.load("CondTools.L1TriggerExt.L1ConfigTSCKeysExt_cff")
 process.load("CondTools.L1TriggerExt.L1TriggerKeyOnlineExt_cfi")
 process.L1TriggerKeyOnlineExt.subsystemLabels = cms.vstring(
                                                           'uGT',
-                                                          'uGMT',
-                                                          'CALOL1',
-                                                          'CALOL2',
-                                                          'BMTF',
-                                                          'OMTF',
-                                                          'EMTF'
+                                                          'BMTF'
                                                         )
 
 # Generate configuration data from OMDS

@@ -14,6 +14,8 @@ L1TriggerKeyDummyProdExt::L1TriggerKeyDummyProdExt(const edm::ParameterSet& iCon
    m_key.setTSCKey( iConfig.getParameter< std::string >( "tscKey" ) ) ;
    m_key.setSubsystemKey( L1TriggerKeyExt::kuGT,
 			  iConfig.getParameter< std::string >( "uGTKey" ) ) ;
+   m_key.setSubsystemKey( L1TriggerKeyExt::kBMTF,
+			  iConfig.getParameter< std::string >( "BMTFKey" ) ) ;
 
    if( label != "SubsystemKeysOnly" )
      {

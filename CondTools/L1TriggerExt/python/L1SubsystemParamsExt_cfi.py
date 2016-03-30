@@ -16,8 +16,20 @@ def initL1SubsystemsExt( tagBaseVec = [],
             tag = cms.string('L1TUtmTriggerMenu_' + tagBaseVec[ L1CondEnumExt.L1TUtmTriggerMenu ]),
             type = cms.string('L1TUtmTriggerMenu'),
             key = cms.string(objectKey)
+        ),
+        cms.PSet(
+            record = cms.string('L1TMuonBarrelParamsRcd'),
+            tag = cms.string('L1TMuonBarrelParams_' + tagBaseVec[ L1CondEnumExt.L1TMuonBarrelParams ]),
+            type = cms.string('L1TMuonBarrelParams'),
+            key = cms.string(objectKey)
+        ),
+        cms.PSet(
+            record = cms.string('L1TMuonOverlapParamsRcd'),
+            tag = cms.string('L1TMuonOverlapParams_' + tagBaseVec[ L1CondEnumExt.L1TMuonOverlapParams ]),
+            type = cms.string('L1TMuonOverlapParams'),
+            key = cms.string(objectKey)
         ))
-        )
+    )
 
     from CondTools.L1TriggerExt.L1RSSubsystemParamsExt_cfi import initL1RSSubsystemsExt
     initL1RSSubsystemsExt( tagBaseVec )
