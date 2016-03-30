@@ -28,9 +28,13 @@ public:
     enum L1Subsystems
       {
 	kuGT,
+	kuGMT,
+	kCALOL1,
+	kCALOL2,
 	kEMTF,
 	kOMTF,
 	kBMTF,
+	kTWINMUX,
 	kNumberSubsystems
       } ;
 
