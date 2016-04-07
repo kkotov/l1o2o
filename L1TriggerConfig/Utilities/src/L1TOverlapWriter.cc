@@ -1,4 +1,3 @@
-#include "L1TriggerConfig/Utilities/interface/L1TOverlapWriter.h"
 #include <iomanip>
 #include <iostream>
 
@@ -15,6 +14,14 @@
 
 #include "FWCore/ServiceRegistry/interface/Service.h"
 #include "CondCore/DBOutputService/interface/PoolDBOutputService.h"
+
+class L1TOverlapWriter : public edm::EDAnalyzer {
+public:
+    virtual void analyze(const edm::Event&, const edm::EventSetup&);
+
+    explicit L1TOverlapWriter(const edm::ParameterSet&) : edm::EDAnalyzer(){}
+    virtual ~L1TOverlapWriter(void){}
+};
 
 void L1TOverlapWriter::analyze(const edm::Event& iEvent, const edm::EventSetup& evSetup){
 

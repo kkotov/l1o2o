@@ -1,4 +1,3 @@
-#include "L1TriggerConfig/Utilities/interface/L1TOverlapReader.h"
 #include <iomanip>
 #include <iostream>
 
@@ -19,6 +18,14 @@
 
 #include <iostream>
 using namespace std;
+
+class L1TOverlapReader: public edm::EDAnalyzer {
+public:
+    virtual void analyze(const edm::Event&, const edm::EventSetup&);
+
+    explicit L1TOverlapReader(const edm::ParameterSet&) : edm::EDAnalyzer(){}
+    virtual ~L1TOverlapReader(void){}
+};
 
 void L1TOverlapReader::analyze(const edm::Event& iEvent, const edm::EventSetup& evSetup){
 

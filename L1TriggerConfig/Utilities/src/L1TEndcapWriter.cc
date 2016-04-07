@@ -1,4 +1,3 @@
-#include "L1TriggerConfig/Utilities/interface/L1TEndcapWriter.h"
 #include <iomanip>
 #include <iostream>
 
@@ -15,6 +14,14 @@
 
 #include "FWCore/ServiceRegistry/interface/Service.h"
 #include "CondCore/DBOutputService/interface/PoolDBOutputService.h"
+
+class L1TEndcapWriter : public edm::EDAnalyzer {
+public:
+    virtual void analyze(const edm::Event&, const edm::EventSetup&);
+
+    explicit L1TEndcapWriter(const edm::ParameterSet&) : edm::EDAnalyzer(){}
+    virtual ~L1TEndcapWriter(void){}
+};
 
 void L1TEndcapWriter::analyze(const edm::Event& iEvent, const edm::EventSetup& evSetup){
 
