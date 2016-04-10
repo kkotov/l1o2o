@@ -1,4 +1,3 @@
-#include "L1TriggerConfig/Utilities/interface/L1TEndcapReader.h"
 #include <iomanip>
 #include <iostream>
 
@@ -18,6 +17,14 @@
 
 #include <iostream>
 using namespace std;
+
+class L1TEndcapReader: public edm::EDAnalyzer {
+public:
+    virtual void analyze(const edm::Event&, const edm::EventSetup&);
+
+    explicit L1TEndcapReader(const edm::ParameterSet&) : edm::EDAnalyzer(){}
+    virtual ~L1TEndcapReader(void){}
+};
 
 void L1TEndcapReader::analyze(const edm::Event& iEvent, const edm::EventSetup& evSetup){
 

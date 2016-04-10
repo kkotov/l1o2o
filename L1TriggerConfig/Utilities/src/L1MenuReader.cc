@@ -1,4 +1,3 @@
-#include "L1TriggerConfig/Utilities/interface/L1MenuReader.h"
 #include <iomanip>
 #include <iostream>
 
@@ -18,6 +17,14 @@
 
 #include <iostream>
 using namespace std;
+
+class L1MenuReader : public edm::EDAnalyzer {
+public:
+    virtual void analyze(const edm::Event&, const edm::EventSetup&);
+
+    explicit L1MenuReader(const edm::ParameterSet&) : edm::EDAnalyzer(){}
+    virtual ~L1MenuReader(void){}
+};
 
 void L1MenuReader::analyze(const edm::Event& iEvent, const edm::EventSetup& evSetup){
 
