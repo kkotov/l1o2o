@@ -4,6 +4,7 @@
 #include "CondTools/L1TriggerExt/interface/L1ConfigOnlineProdBaseExt.h"
 #include "CondFormats/L1TObjects/interface/L1TMuonBarrelParams.h"
 #include "CondFormats/DataRecord/interface/L1TMuonBarrelParamsRcd.h"
+#include "L1Trigger/L1TCommon/interface/trigSystem.h"
 
 class L1TMuonBarrelParamsOnlineProd : public L1ConfigOnlineProdBaseExt<L1TMuonBarrelParamsRcd,L1TMuonBarrelParams> {
 private:
@@ -45,12 +46,23 @@ boost::shared_ptr<L1TMuonBarrelParams> L1TMuonBarrelParamsOnlineProd::newObject(
 
     std::string xmlConfig;
     queryResult.fillVariable( "CONF", xmlConfig );
-///    std::istringstream iss(xmlConfig);
+
+    std::ofstream output("/tmp/bmtf_cur_conf.xml");
+    output<<xmlConfig;
+
+// copy-and-edit the trigSystem::configureSystem:
+    l1t::trigSystem ts;
+
+    ts.addProcRole("processors", "bmtf_processor");
+    ts._sysId = "bmtf";
+    ts._xmlRdr.readDOMFromFile("/tmp/bmtf_cur_conf.xml");
+    ts._xmlRdr.buildGlobalDoc("TestKey1");
+    ts._xmlRdr.readContexts("TestKey1", ts._sysId, ts);
+
+    ts._isConfigured = true;
  
     boost::shared_ptr< L1TMuonBarrelParams > retval( new L1TMuonBarrelParams() ) ;
 
-////// your code here ////////
- 
     return retval;
 }
 
