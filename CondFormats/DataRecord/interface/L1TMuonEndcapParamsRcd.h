@@ -9,7 +9,9 @@
 //
 
 #include "FWCore/Framework/interface/EventSetupRecordImplementation.h"
+#include "CondFormats/DataRecord/interface/L1TriggerKeyListExtRcd.h"
+#include "CondFormats/DataRecord/interface/L1TriggerKeyExtRcd.h"
 
-class L1TMuonEndcapParamsRcd : public edm::eventsetup::EventSetupRecordImplementation<L1TMuonEndcapParamsRcd> {};
+class L1TMuonEndcapParamsRcd : public edm::eventsetup::DependentRecordImplementation<L1TMuonEndcapParamsRcd, boost::mpl::vector<L1TriggerKeyListExtRcd,L1TriggerKeyExtRcd> > {};
 
 #endif
