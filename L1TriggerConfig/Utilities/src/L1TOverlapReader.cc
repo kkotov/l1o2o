@@ -10,7 +10,7 @@
 #include "FWCore/Framework/interface/ESHandle.h"
 
 #include "CondFormats/DataRecord/interface/L1TMuonOverlapParamsRcd.h"
-#include "CondFormats/DataRecord/interface/L1TMuonOverlapPatternParamsRcd.h"
+///#include "CondFormats/DataRecord/interface/L1TMuonOverlapPatternParamsRcd.h"
 #include "CondFormats/L1TObjects/interface/L1TMuonOverlapParams.h"
 #include "FWCore/ServiceRegistry/interface/Service.h"
 #include "CondCore/DBOutputService/interface/PoolDBOutputService.h"
@@ -35,13 +35,13 @@ void L1TOverlapReader::analyze(const edm::Event& iEvent, const edm::EventSetup& 
     boost::shared_ptr<L1TMuonOverlapParams> ptr1(new L1TMuonOverlapParams(*(handle1.product ())));
 
     // Separately pull patterns from the ES
-    edm::ESHandle<L1TMuonOverlapParams> handle2;
-    evSetup.get<L1TMuonOverlapPatternParamsRcd>().get( handle2 ) ; // note: another data record type here
-    boost::shared_ptr<L1TMuonOverlapParams> ptr2(new L1TMuonOverlapParams(*(handle2.product ())));
+///    edm::ESHandle<L1TMuonOverlapParams> handle2;
+///    evSetup.get<L1TMuonOverlapPatternParamsRcd>().get( handle2 ) ; // note: another data record type here
+///    boost::shared_ptr<L1TMuonOverlapParams> ptr2(new L1TMuonOverlapParams(*(handle2.product ())));
 
     cout<<"Some fields in L1TMuonOverlapParams: "<<endl;
 
-    cout<<"nGoldenPatterns() = "<<ptr2->nGoldenPatterns()<<endl;
+///    cout<<"nGoldenPatterns() = "<<ptr2->nGoldenPatterns()<<endl;
 
     const std::vector<int>* gp = ptr1->generalParams();
     cout<<"number of general parameters: = "<<gp->size()<<endl;
