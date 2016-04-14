@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <strstream>
 
 #include "CondTools/L1TriggerExt/interface/L1ConfigOnlineProdBaseExt.h"
 #include "CondFormats/L1TObjects/interface/L1TMuonGlobalParams.h"
@@ -69,25 +70,77 @@ boost::shared_ptr<L1TMuonGlobalParams> L1TMuonGlobalParamsOnlineProd::newObject(
         std::cout<<"Unknown tag: "<<xercesc::XMLString::transcode(rootElement->getTagName())<<std::endl;
         return boost::shared_ptr< L1TMuonGlobalParams >( new L1TMuonGlobalParams() ) ;
     }
-/*
-    ts.addProcRole("processors", "procMP7");
+
+    ts.addProcRole("processors", "processors");
     ts._sysId = "ugmt";
     ts._xmlRdr.readContext(rootElement, ts._sysId, ts);
     ts._isConfigured = true;
-*/
-//    std::map<std::string, l1t::setting> settings = ts.getSettings("procMP7");
-//    std::map<std::string, l1t::mask>    rs     = ts.getMasks("procMP7"); // this call throws an exception as there is currently no masks in BMTF
+
+    std::map<std::string, l1t::setting> settings = ts.getSettings("processors");
+//    std::map<std::string, l1t::mask>    rs     = ts.getMasks("processors"); // this call throws an exception if there is nothing for masks
 
 // following example code is similar to https://github.com/cms-l1t-offline/cmssw/blob/cms_o2o_devel-CMSSW_8_0_2/L1Trigger/L1TMuon/plugins/L1TMuonGlobalParamsESProducer.cc
-//    L1TMuonGlobalParamsHelper m_params_helper;
-//    m_params_helper.setBmtfInputsToDisable( settings["bmtfInputsToDisable"] );
-//    m_params = (L1TMuonGlobalParams)m_params_helper;
-// a more relevant code in https://github.com/cms-l1t-offline/cmssw/blob/cms_o2o_devel-CMSSW_8_0_2/L1Trigger/L1TMuonGlobal/plugins/L1TMuonGlobalParamsESProducer.cc
-// (no helper class available) would require to bring here too many BMTF-specific details
+    L1TMuonGlobalParamsHelper m_params_helper;
 
-    boost::shared_ptr< L1TMuonGlobalParams > retval( new L1TMuonGlobalParams() ) ;
+    std::string bmtfInputsToDisableStr = settings["bmtfInputsToDisable"].getValueAsStr();
+    std::string omtfInputsToDisableStr = settings["omtfInputsToDisable"].getValueAsStr();
+    std::string emtfInputsToDisableStr = settings["emtfInputsToDisable"].getValueAsStr();
 
-    return retval;
+    std::stringstream ss;
+
+    std::bitset<12> bmtfDisables;
+    std::bitset<6>  omtfpDisables, omtfnDisables;
+    std::bitset<6>  emtfpDisables, emtfnDisables;
+    for(size_t i=0; i<12; i++){
+
+        ss.str("");
+        ss<<"BMTF"<<i+1;
+        if( bmtfInputsToDisableStr.find(ss.str()) != std::string::npos )
+            bmtfDisables.set(i, 1);
+        else
+            bmtfDisables.set(i, 0);
+
+        ss.str("");
+        ss<<"OMTF";
+        if( i < 6 ){
+           ss << "p" << i+1;
+           if( omtfInputsToDisableStr.find(ss.str()) != std::string::npos )
+               omtfpDisables.set(i, 1);
+           else
+               omtfpDisables.set(i, 0);
+        } else {
+           ss << "n" << i-5;
+           if( omtfInputsToDisableStr.find(ss.str()) != std::string::npos )
+               omtfnDisables.set(i-6, 1);
+           else
+               omtfnDisables.set(i-6, 0);
+        }
+
+        ss.str("");
+        ss<<"EMTF";
+        if( i < 6 ){
+           ss << "p" << i+1;
+           if( emtfInputsToDisableStr.find(ss.str()) != std::string::npos )
+               emtfpDisables.set(i, 1);
+           else
+               emtfpDisables.set(i, 0);
+        } else {
+           ss << "n" << i-5;
+           if( emtfInputsToDisableStr.find(ss.str()) != std::string::npos )
+               emtfnDisables.set(i-6, 1);
+           else
+               emtfnDisables.set(i-6, 0);
+        }
+
+   }
+
+   m_params_helper.setBmtfInputsToDisable(bmtfDisables);
+   m_params_helper.setEmtfpInputsToDisable(emtfpDisables);
+   m_params_helper.setEmtfnInputsToDisable(emtfnDisables);
+   m_params_helper.setOmtfpInputsToDisable(omtfpDisables);
+   m_params_helper.setOmtfnInputsToDisable(omtfnDisables);
+
+   return boost::shared_ptr< L1TMuonGlobalParams >( new L1TMuonGlobalParams( m_params_helper ) ) ;
 }
 
 //define this as a plug-in
