@@ -136,9 +136,18 @@ DB, and <a href="https://github.com/kkotov/l1o2o/blob/master/CondTools/L1Trigger
 <p>2) <code>*OnlineProd*</code> pulling actual online DB configuration and constructing the payload:</p>
 
 <ul>
-<li>from online DB by the key from previous step </li>
-<li>the later uses XML parser and CondFormats helper classes to construct the payload</li>
+<li>using the key from previous step fetch all the relevant XML strings</li>
+<li>build an associated array <code>subkey</code> -&gt; XML string</li>
+<li>pass it over to the <a href="https://github.com/cms-l1t-offline/cmssw/blob/cms_o2o_devel-CMSSW_8_0_2/L1Trigger/L1TCommon/src/trigSystem.cpp">trigSystem</a> that
+&#39;ll parse the XMLs and merge contexts</li>
+<li>feed the results to the relevant CondFormats helper classes to construct the payload</li>
 </ul>
+
+<p>The last couple of bullets are currently being developed with help from Vangelis and Thomas</p>
+
+<p>The XML parser/merger code is (almost) ready and should be recycled in swatch</p>
+
+<p>Once above is done, the producers above become trivial and I&#39;ll be to happy implement them</p>
 
   </article>
   <!-- Presenter Notes -->
@@ -146,10 +155,18 @@ DB, and <a href="https://github.com/kkotov/l1o2o/blob/master/CondTools/L1Trigger
 
 <slide class="class" id="id" style="background:;">
   <hgroup>
-    <h2>XML parsing</h2>
+    <h2>Summary</h2>
   </hgroup>
   <article data-timings="">
-    
+    <p><br></p>
+
+<ul>
+<li><p>Converging rapidly to having the complete L1T O2O ready</p></li>
+<li><p>Need last push to get all CondFormats helper classes running off the <code>trigSystem</code> results</p></li>
+<li><p>The <code>ALGO</code>/<code>RS</code> tables for the subsystems of course have to be populated</p></li>
+<li><p>May still need just a bit of work on the swatch cells for systems</p></li>
+</ul>
+
   </article>
   <!-- Presenter Notes -->
 </slide>
@@ -184,7 +201,7 @@ DB, and <a href="https://github.com/kkotov/l1o2o/blob/master/CondTools/L1Trigger
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=5 title='XML parsing'>
+        data-slide=5 title='Summary'>
          5
       </a>
     </li>

@@ -81,15 +81,27 @@ Each L1T subsystem instantiates two ESProducers (see examples in [L1TriggerConfi
 
 2) `*OnlineProd*` pulling actual online DB configuration and constructing the payload:
   * using the key from previous step fetch all the relevant XML strings
-  * build an associated array  combine strings 
+  * build an associated array `subkey` -> XML string
+  * pass it over to the [trigSystem](https://github.com/cms-l1t-offline/cmssw/blob/cms_o2o_devel-CMSSW_8_0_2/L1Trigger/L1TCommon/src/trigSystem.cpp) that
+'ll parse the XMLs and merge contexts
+  * feed the results to the relevant CondFormats helper classes to construct the payload
 
-  * the later uses XML parser and CondFormats helper classes to construct the payload
+The last couple of bullets are currently being developed with help from Vangelis and Thomas
 
+The XML parser/merger code is (almost) ready and should be recycled in swatch
 
+Once above is done, the producers above become trivial and I'll be to happy implement them
 
 --- .class #id
 
-## XML parsing
+## Summary
 
+<br>
 
+* Converging rapidly to having the complete L1T O2O ready
 
+* Need last push to get all CondFormats helper classes running off the `trigSystem` results
+
+* The `ALGO`/`RS` tables for the subsystems of course have to be populated
+
+* May still need just a bit of work on the swatch cells for systems
