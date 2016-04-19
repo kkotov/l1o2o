@@ -1,0 +1,93 @@
+---
+title       : "L1T O2O status"
+subtitle    : 
+author      : Khristian Kotov
+job         : 
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow      # 
+github:
+  user: kkotov 
+  repo: talks
+url:
+  lib:    ../../../../monohiggs/plots/libraries
+  assets: ../../../../monohiggs/plots/assets
+widgets     : [mathjax]     # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+---
+
+## New online DB schema (top level)
+
+The very top level of the `CMS_TRG_L1_CONG` schema includes all L1T systems (almost) uniformly:
+
+<br>
+
+<img class=center src=schema.svg height=220>
+
+<br>
+
+It is integrated in swatch and editable with the old L1 Configuration Editor
+
+
+--- &twocol
+
+## New online DB schema (subsystem configuration)
+
+*** =left
+
+One XML per key:
+
+<img class=center src=subsys1.svg height=250>
+
+*** =right
+
+Several XMLs per key:
+
+<img class=center src=subsys2.svg height=450>
+
+
+--- .class #id
+
+## L1T O2O workflow
+
+Bookkeeping relies on [L1TriggerKeyList](https://github.com/kkotov/l1o2o/blob/master/CondFormats/L1TObjects/interface/L1TriggerKeyListExt.h)
+(`keyList`) listing all payloads ever written to CondDB
+
+L1T O2O gets evoked by the Function Manager and performs two steps:
+
+1) Write payloads [step](https://github.com/kkotov/l1o2o/blob/master/CondTools/L1TriggerExt/scripts/runL1-O2O-iov.sh#L49):
+
+* do nothing [if](https://github.com/kkotov/l1o2o/blob/master/CondTools/L1TriggerExt/scripts/runL1-O2O-iov.sh#L46) the current `TSC` key is already in the `keyList`, [else](https://github.com/kkotov/l1o2o/blob/master/CondTools/L1TriggerExt/plugins/L1CondDBPayloadWriterExt.cc#L67):
+  * [loop](https://github.com/kkotov/l1o2o/blob/master/CondTools/L1TriggerExt/plugins/L1CondDBPayloadWriterExt.cc#L112) over all records in `TSC` key
+and [check](https://github.com/kkotov/l1o2o/blob/master/CondTools/L1TriggerExt/plugins/L1CondDBPayloadWriterExt.cc#L124) if 
+(`record`,`key`) pair is already in `keyList`
+  * if not, [write](https://github.com/kkotov/l1o2o/blob/master/CondTools/L1TriggerExt/plugins/L1CondDBPayloadWriterExt.cc#L143) payload to
+    DB, and [extend](https://github.com/kkotov/l1o2o/blob/master/CondTools/L1TriggerExt/plugins/L1CondDBPayloadWriterExt.cc#L164) `keyList` with the new (`record`,`key`,`db_token`)
+
+2) Write IOVs [step](https://github.com/kkotov/l1o2o/blob/master/CondTools/L1TriggerExt/scripts/runL1-O2O-iov.sh#L59) (i.e. write to the `IOV` table of CondDB (`db_token`,`first_run_valid`) pairs):
+
+* [update](https://github.com/kkotov/l1o2o/blob/master/CondTools/L1TriggerExt/plugins/L1CondDBIOVWriterExt.cc#L81) payload's IOV for the `TSC` key by its `db_token`
+* [loop](https://github.com/kkotov/l1o2o/blob/master/CondTools/L1TriggerExt/plugins/L1CondDBIOVWriterExt.cc#L134) over all (`record`,`key`) pairs in the `TSC` key
+  * [extract](https://github.com/kkotov/l1o2o/blob/master/CondTools/L1TriggerExt/plugins/L1CondDBIOVWriterExt.cc#L165) `db_token` from the `keyList`
+  * [update](https://github.com/kkotov/l1o2o/blob/master/CondTools/L1TriggerExt/plugins/L1CondDBIOVWriterExt.cc#L177) `IOVs` for the `db_token`
+
+--- .class #id
+
+## Subsystem modules for the L1T O2O framework
+
+Each L1T subsystem instantiates two ESProducers (see examples in [L1TriggerConfig](https://github.com/kkotov/l1o2o/tree/master/L1TriggerConfig)): 
+
+1) `*ObjectKeysOnlineProd*` exploring tables in [slide #3](index.html#3) and relating `record` to `key`
+
+2) `*OnlineProd*` pulling actual online DB configuration and constructing the payload:
+  * from online DB by the key from previous step 
+  * the later uses XML parser and CondFormats helper classes to construct the payload
+
+
+
+--- .class #id
+
+## XML parsing
+
+
+

@@ -1,0 +1,148 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Creator: fig2dev Version 3.2 Patchlevel 5e -->
+<!-- CreationDate: Mon Apr 18 20:22:44 2016 -->
+<!-- Magnification: 1.050 -->
+<svg	xmlns="http://www.w3.org/2000/svg"
+	xmlns:xlink="http://www.w3.org/1999/xlink"
+	width="2.2in" height="4.9in"
+	viewBox="-12 -12 2623 5930">
+<g style="stroke-width:.025in; fill:none">
+<!-- Line -->
+<polyline points="1039,1417
+1322,1417
+" style="stroke:#000000;stroke-width:8;
+stroke-linejoin:miter; stroke-linecap:butt;
+"/>
+<!-- Line -->
+<polyline points="1039,1889
+1322,1889
+" style="stroke:#000000;stroke-width:8;
+stroke-linejoin:miter; stroke-linecap:butt;
+"/>
+<!-- Line -->
+<polyline points="1181,1181
+1181,2125
+" style="stroke:#000000;stroke-width:8;
+stroke-linejoin:miter; stroke-linecap:butt;
+"/>
+<!-- Line -->
+<polyline points="1039,1181
+1181,1417
+" style="stroke:#000000;stroke-width:8;
+stroke-linejoin:miter; stroke-linecap:butt;
+"/>
+<!-- Line -->
+<polyline points="1322,1181
+1181,1417
+" style="stroke:#000000;stroke-width:8;
+stroke-linejoin:miter; stroke-linecap:butt;
+"/>
+<!-- Line -->
+<polyline points="0,472
+2598,472
+" style="stroke:#000000;stroke-width:8;
+stroke-linejoin:miter; stroke-linecap:butt;
+"/>
+<!-- Line -->
+<polyline points="188,747
+1370,747
+" style="stroke:#000000;stroke-width:8;
+stroke-linejoin:miter; stroke-linecap:butt;
+"/>
+<!-- Line: box -->
+<rect x="0" y="0" width="2598" height="1181" rx="0" 
+style="stroke:#000000;stroke-width:8;
+stroke-linejoin:miter; stroke-linecap:butt;
+"/>
+<!-- Line -->
+<polyline points="0,5196
+2598,5196
+" style="stroke:#000000;stroke-width:8;
+stroke-linejoin:miter; stroke-linecap:butt;
+"/>
+<!-- Line -->
+<polyline points="188,5471
+1370,5471
+" style="stroke:#000000;stroke-width:8;
+stroke-linejoin:miter; stroke-linecap:butt;
+"/>
+<!-- Line: box -->
+<rect x="0" y="4724" width="2598" height="1181" rx="0" 
+style="stroke:#000000;stroke-width:8;
+stroke-linejoin:miter; stroke-linecap:butt;
+"/>
+<!-- Line -->
+<polyline points="1039,4488
+1322,4488
+" style="stroke:#000000;stroke-width:8;
+stroke-linejoin:miter; stroke-linecap:butt;
+"/>
+<!-- Line -->
+<polyline points="1039,4015
+1322,4015
+" style="stroke:#000000;stroke-width:8;
+stroke-linejoin:miter; stroke-linecap:butt;
+"/>
+<!-- Line -->
+<polyline points="1181,4724
+1181,3779
+" style="stroke:#000000;stroke-width:8;
+stroke-linejoin:miter; stroke-linecap:butt;
+"/>
+<!-- Line -->
+<polyline points="1039,4724
+1181,4488
+" style="stroke:#000000;stroke-width:8;
+stroke-linejoin:miter; stroke-linecap:butt;
+"/>
+<!-- Line -->
+<polyline points="1322,4724
+1181,4488
+" style="stroke:#000000;stroke-width:8;
+stroke-linejoin:miter; stroke-linecap:butt;
+"/>
+<!-- Line -->
+<polyline points="0,2598
+2598,2598
+" style="stroke:#000000;stroke-width:8;
+stroke-linejoin:miter; stroke-linecap:butt;
+"/>
+<!-- Line -->
+<polyline points="188,2873
+1370,2873
+" style="stroke:#000000;stroke-width:8;
+stroke-linejoin:miter; stroke-linecap:butt;
+"/>
+<!-- Line: box -->
+<rect x="0" y="2125" width="2598" height="1653" rx="0" 
+style="stroke:#000000;stroke-width:8;
+stroke-linejoin:miter; stroke-linecap:butt;
+"/>
+<!-- Text -->
+<text xml:space="preserve" x="283" y="330" fill="#000000"  font-family="Times" font-style="normal" font-weight="normal" font-size="227" text-anchor="start">&#60;subsys&#62;_KEYS</text>
+<!-- Text -->
+<text xml:space="preserve" x="188" y="700" fill="#000000"  font-family="Times" font-style="normal" font-weight="normal" font-size="177" text-anchor="start">ID (PK)</text>
+<!-- Text -->
+<text xml:space="preserve" x="188" y="938" fill="#000000"  font-family="Times" font-style="normal" font-weight="normal" font-size="177" text-anchor="start">ALGO (FK)</text>
+<!-- Text -->
+<text xml:space="preserve" x="283" y="5055" fill="#000000"  font-family="Times" font-style="normal" font-weight="normal" font-size="227" text-anchor="start">&#60;subsys&#62;_ALGO</text>
+<!-- Text -->
+<text xml:space="preserve" x="188" y="5424" fill="#000000"  font-family="Times" font-style="normal" font-weight="normal" font-size="177" text-anchor="start">ID (PK)</text>
+<!-- Text -->
+<text xml:space="preserve" x="188" y="5662" fill="#000000"  font-family="Times" font-style="normal" font-weight="normal" font-size="177" text-anchor="start">CONF (XML CLOB)</text>
+<!-- Text -->
+<text xml:space="preserve" x="283" y="2456" fill="#000000"  font-family="Times" font-style="normal" font-weight="normal" font-size="227" text-anchor="start">&#60;subsys&#62;_ALGO_KEYS</text>
+<!-- Text -->
+<text xml:space="preserve" x="188" y="2826" fill="#000000"  font-family="Times" font-style="normal" font-weight="normal" font-size="177" text-anchor="start">ID (PK)</text>
+<!-- Text -->
+<text xml:space="preserve" x="188" y="3307" fill="#000000"  font-family="Times" font-style="normal" font-weight="normal" font-size="177" text-anchor="start">KEY_2 (FK)</text>
+<!-- Text -->
+<text xml:space="preserve" x="188" y="3064" fill="#000000"  font-family="Times" font-style="normal" font-weight="normal" font-size="177" text-anchor="start">KEY_1 (FK)</text>
+<!-- Text -->
+<text xml:space="preserve" x="188" y="3637" fill="#000000"  font-family="Times" font-style="normal" font-weight="normal" font-size="177" text-anchor="start">KEY_N (FK)</text>
+<!-- Text -->
+<text xml:space="preserve" x="188" y="3448" fill="#000000"  font-family="Times" font-style="normal" font-weight="normal" font-size="177" text-anchor="start"> . . .</text>
+</g>
+</svg>

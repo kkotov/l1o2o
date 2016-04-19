@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>L1T O2O status</title>
+  <meta charset="utf-8">
+  <meta name="description" content="L1T O2O status">
+  <meta name="author" content="Khristian Kotov">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../../../../monohiggs/plots/libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../../../monohiggs/plots/libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../../../../monohiggs/plots/libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../../../monohiggs/plots/libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="../../../../monohiggs/plots/libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="../../../../monohiggs/plots/libraries/frameworks/io2012/js/slides" 
+    src="../../../../monohiggs/plots/libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>L1T O2O status</h1>
+    <h2></h2>
+    <p>Khristian Kotov<br/></p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>New online DB schema (top level)</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>The very top level of the <code>CMS_TRG_L1_CONG</code> schema includes all L1T systems (almost) uniformly:</p>
+
+<p><br></p>
+
+<p><img class=center src=schema.svg height=220></p>
+
+<p><br></p>
+
+<p>It is integrated in swatch and editable with the old L1 Configuration Editor</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>New online DB schema (subsystem configuration)</h2>
+  </hgroup>
+  <article data-timings="">
+    
+<div style='float:left;width:48%;' class='centered'>
+  <p>One XML per key:</p>
+
+<p><img class=center src=subsys1.svg height=250></p>
+
+</div>
+<div style='float:right;width:48%;'>
+  <p>Several XMLs per key:</p>
+
+<p><img class=center src=subsys2.svg height=450></p>
+
+</div>
+<div style='float:right;width:100%;'>
+  
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>L1T O2O workflow</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Bookkeeping relies on <a href="https://github.com/kkotov/l1o2o/blob/master/CondFormats/L1TObjects/interface/L1TriggerKeyListExt.h">L1TriggerKeyList</a>
+(<code>keyList</code>) listing all payloads ever written to CondDB</p>
+
+<p>L1T O2O gets evoked by the Function Manager and performs two steps:</p>
+
+<p>1) Write payloads <a href="https://github.com/kkotov/l1o2o/blob/master/CondTools/L1TriggerExt/scripts/runL1-O2O-iov.sh#L49">step</a>:</p>
+
+<ul>
+<li>do nothing <a href="https://github.com/kkotov/l1o2o/blob/master/CondTools/L1TriggerExt/scripts/runL1-O2O-iov.sh#L46">if</a> the current <code>TSC</code> key is already in the <code>keyList</code>, <a href="https://github.com/kkotov/l1o2o/blob/master/CondTools/L1TriggerExt/plugins/L1CondDBPayloadWriterExt.cc#L67">else</a>:
+
+<ul>
+<li><a href="https://github.com/kkotov/l1o2o/blob/master/CondTools/L1TriggerExt/plugins/L1CondDBPayloadWriterExt.cc#L112">loop</a> over all records in <code>TSC</code> key
+and <a href="https://github.com/kkotov/l1o2o/blob/master/CondTools/L1TriggerExt/plugins/L1CondDBPayloadWriterExt.cc#L124">check</a> if 
+(<code>record</code>,<code>key</code>) pair is already in <code>keyList</code></li>
+<li>if not, <a href="https://github.com/kkotov/l1o2o/blob/master/CondTools/L1TriggerExt/plugins/L1CondDBPayloadWriterExt.cc#L143">write</a> payload to
+DB, and <a href="https://github.com/kkotov/l1o2o/blob/master/CondTools/L1TriggerExt/plugins/L1CondDBPayloadWriterExt.cc#L164">extend</a> <code>keyList</code> with the new (<code>record</code>,<code>key</code>,<code>db_token</code>)</li>
+</ul></li>
+</ul>
+
+<p>2) Write IOVs <a href="https://github.com/kkotov/l1o2o/blob/master/CondTools/L1TriggerExt/scripts/runL1-O2O-iov.sh#L59">step</a> (i.e. write to the <code>IOV</code> table of CondDB (<code>db_token</code>,<code>first_run_valid</code>) pairs):</p>
+
+<ul>
+<li><a href="https://github.com/kkotov/l1o2o/blob/master/CondTools/L1TriggerExt/plugins/L1CondDBIOVWriterExt.cc#L81">update</a> payload&#39;s IOV for the <code>TSC</code> key by its <code>db_token</code></li>
+<li><a href="https://github.com/kkotov/l1o2o/blob/master/CondTools/L1TriggerExt/plugins/L1CondDBIOVWriterExt.cc#L134">loop</a> over all (<code>record</code>,<code>key</code>) pairs in the <code>TSC</code> key
+
+<ul>
+<li><a href="https://github.com/kkotov/l1o2o/blob/master/CondTools/L1TriggerExt/plugins/L1CondDBIOVWriterExt.cc#L165">extract</a> <code>db_token</code> from the <code>keyList</code></li>
+<li><a href="https://github.com/kkotov/l1o2o/blob/master/CondTools/L1TriggerExt/plugins/L1CondDBIOVWriterExt.cc#L177">update</a> <code>IOVs</code> for the <code>db_token</code></li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Subsystem modules for the L1T O2O framework</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Each L1T subsystem instantiates two ESProducers (see examples in <a href="https://github.com/kkotov/l1o2o/tree/master/L1TriggerConfig">L1TriggerConfig</a>): </p>
+
+<p>1) <code>*ObjectKeysOnlineProd*</code> exploring tables in <a href="index.html#3">slide #3</a> and relating <code>record</code> to <code>key</code></p>
+
+<p>2) <code>*OnlineProd*</code> pulling actual online DB configuration and constructing the payload:</p>
+
+<ul>
+<li>from online DB by the key from previous step </li>
+<li>the later uses XML parser and CondFormats helper classes to construct the payload</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>XML parsing</h2>
+  </hgroup>
+  <article data-timings="">
+    
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='New online DB schema (top level)'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='New online DB schema (subsystem configuration)'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='L1T O2O workflow'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Subsystem modules for the L1T O2O framework'>
+         4
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=5 title='XML parsing'>
+         5
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script> -->
+  <script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../../../monohiggs/plots/libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="../../../../monohiggs/plots/libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>
