@@ -51,41 +51,19 @@ boost::shared_ptr<L1TMuonBarrelParams> L1TMuonBarrelParamsOnlineProd::newObject(
     std::string xmlConfig;
     queryResult.fillVariable( "CONF", xmlConfig );
 
-    std::ofstream output("/tmp/bmtf_cur_conf.xml");
-    output<<xmlConfig;
-    output.close();
-
-    XMLPlatformUtils::Initialize();
-    xercesc::XercesDOMParser *parser_ = new XercesDOMParser();
-    parser_->setValidationScheme(XercesDOMParser::Val_Auto);
-    parser_->setDoNamespaces(false);
-    parser_->parse("/tmp/bmtf_cur_conf.xml");
-    xercesc::DOMDocument *doc_ = parser_->getDocument();
-    DOMElement* rootElement = doc_->getDocumentElement();
+    std::map<std::string,std::string> contexts; // associates key -> XML config string
+    contexts[objectKey] = xmlConfig;            // just one XML config here
 
     l1t::trigSystem ts;
 
-    if( xercesc::XMLString::transcode(rootElement->getTagName()) != ts._xmlRdr.kModuleNameAlgo && xercesc::XMLString::transcode(rootElement->getTagName()) != ts._xmlRdr.kModuleNameRunSettings){
-        std::cout<<"Unknown tag: "<<xercesc::XMLString::transcode(rootElement->getTagName())<<std::endl;
-        return boost::shared_ptr< L1TMuonBarrelParams >( new L1TMuonBarrelParams() ) ;
-    }
+    ts.configureSystem(contexts,"BMTF");
 
-    ts.addProcRole("processors", "procMP7");
-    ts._sysId = "bmtf";
-    ts._xmlRdr.readContext(rootElement, ts._sysId, ts);
-    ts._isConfigured = true;
+    std::map<std::string, l1t::setting> settings = ts.getSettings("processors");
+    std::map<std::string, l1t::mask>    rs       = ts.getMasks   ("processors");
 
-    std::map<std::string, l1t::setting> settings = ts.getSettings("procMP7");
-//    std::map<std::string, l1t::mask>    rs     = ts.getMasks("procMP7"); // this call throws an exception as there is currently no masks in BMTF
+    L1TMuonBarrelParamsHelper m_params_helper(settings,rs);
 
-// following example code is similar to https://github.com/cms-l1t-offline/cmssw/blob/cms_o2o_devel-CMSSW_8_0_2/L1Trigger/L1TMuon/plugins/L1TMuonGlobalParamsESProducer.cc
-//    L1TMuonBarrelParamsHelper m_params_helper;
-//    m_params_helper.setBmtfInputsToDisable( settings["bmtfInputsToDisable"] );
-//    m_params = (L1TMuonBarrelParams)m_params_helper;
-// a more relevant code in https://github.com/cms-l1t-offline/cmssw/blob/cms_o2o_devel-CMSSW_8_0_2/L1Trigger/L1TMuonBarrel/plugins/L1TMuonBarrelParamsESProducer.cc
-// (no helper class available) would require to bring here too many BMTF-specific details
-
-    boost::shared_ptr< L1TMuonBarrelParams > retval( new L1TMuonBarrelParams() ) ;
+    boost::shared_ptr< L1TMuonBarrelParams > retval( new L1TMuonBarrelParams(m_params_helper) ) ;
 
     return retval;
 }
