@@ -52,6 +52,9 @@ boost::shared_ptr<L1TMuonGlobalParams> L1TMuonGlobalParamsOnlineProd::newObject(
     std::string xmlConfig;
     queryResult.fillVariable( "CONF", xmlConfig );
 
+
+
+/// this chunk of code should go away with a proper interface to the XML parser
     std::ofstream output("/tmp/ugmt_cur_conf.xml");
     output<<xmlConfig;
     output.close();
@@ -63,9 +66,14 @@ boost::shared_ptr<L1TMuonGlobalParams> L1TMuonGlobalParamsOnlineProd::newObject(
     parser_->parse("/tmp/ugmt_cur_conf.xml");
     xercesc::DOMDocument *doc_ = parser_->getDocument();
     DOMElement* rootElement = doc_->getDocumentElement();
+///
+
+
+
 
     l1t::trigSystem ts;
 
+/// temporary solution that will be replaced with just one ts.readContexts call
     if( xercesc::XMLString::transcode(rootElement->getTagName()) != ts._xmlRdr.kModuleNameAlgo && xercesc::XMLString::transcode(rootElement->getTagName()) != ts._xmlRdr.kModuleNameRunSettings){
         std::cout<<"Unknown tag: "<<xercesc::XMLString::transcode(rootElement->getTagName())<<std::endl;
         return boost::shared_ptr< L1TMuonGlobalParams >( new L1TMuonGlobalParams() ) ;
@@ -75,7 +83,11 @@ boost::shared_ptr<L1TMuonGlobalParams> L1TMuonGlobalParamsOnlineProd::newObject(
     ts._sysId = "ugmt";
     ts._xmlRdr.readContext(rootElement, ts._sysId, ts);
     ts._isConfigured = true;
+///
 
+
+
+/// this code should belong to the helper class
     std::map<std::string, l1t::setting> settings = ts.getSettings("processors");
 //    std::map<std::string, l1t::mask>    rs     = ts.getMasks("processors"); // this call throws an exception if there is nothing for masks
 
@@ -139,6 +151,9 @@ boost::shared_ptr<L1TMuonGlobalParams> L1TMuonGlobalParamsOnlineProd::newObject(
    m_params_helper.setEmtfnInputsToDisable(emtfnDisables);
    m_params_helper.setOmtfpInputsToDisable(omtfpDisables);
    m_params_helper.setOmtfnInputsToDisable(omtfnDisables);
+///
+
+
 
    return boost::shared_ptr< L1TMuonGlobalParams >( new L1TMuonGlobalParams( m_params_helper ) ) ;
 }
