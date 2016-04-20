@@ -29,7 +29,7 @@ void L1TMuonBarrelObjectKeysOnlineProd::fillObjectKeys( ReturnType pL1TriggerKey
 
         std::string algo_key;
 
-        // select MP7_PP_CONF_KEY from CMS_S1CALOL2.S1CALOL2_CONF where S1CALOL2_CONF_KEY = objectKey ;
+        // select ALGO from CMS_TRG_L1_CONF.BMTF_KEYS where ID = objectKey ;
         l1t::OMDSReader::QueryResults queryResult =
             m_omdsReader.basicQuery( queryStrings,
                                      stage2Schema,
