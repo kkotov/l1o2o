@@ -52,8 +52,28 @@ boost::shared_ptr<L1TMuonGlobalParams> L1TMuonGlobalParamsOnlineProd::newObject(
     std::string xmlConfig;
     queryResult.fillVariable( "CONF", xmlConfig );
 
+/* Ideally, the code should look like this:
 
+    std::map<std::string,std::string> contexts; // associates key -> XML config string
+    contexts[objectKey] = xmlConfig;            // just one XML config here
 
+    l1t::trigSystem ts;
+
+    ts.configureSystem(contexts,"UGMT");
+
+    std::map<std::string, l1t::setting> settings = ts.getSettings("processors");
+    std::map<std::string, l1t::mask>    rs       = ts.getMasks   ("processors");
+
+    L1TMuonGlobalParamsHelper m_params_helper(settings,rs);
+
+    boost::shared_ptr< L1TMuonGlobalParams > retval( new L1TMuonGlobalParams(m_params_helper) ) ;
+
+    return retval;
+
+*/ 
+
+/// But in reality we have something like this:
+//
 /// this chunk of code should go away with a proper interface to the XML parser
     std::ofstream output("/tmp/ugmt_cur_conf.xml");
     output<<xmlConfig;
