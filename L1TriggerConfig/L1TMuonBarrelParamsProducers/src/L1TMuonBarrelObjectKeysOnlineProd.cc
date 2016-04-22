@@ -24,30 +24,10 @@ void L1TMuonBarrelObjectKeysOnlineProd::fillObjectKeys( ReturnType pL1TriggerKey
     std::string stage2Schema = "CMS_TRG_L1_CONF" ;
 
     if( !BMTFKey.empty() ) {
-        std::vector< std::string > queryStrings ;
-        queryStrings.push_back( "ALGO" ) ;
-
-        std::string algo_key;
-
-        // select ALGO from CMS_TRG_L1_CONF.BMTF_KEYS where ID = objectKey ;
-        l1t::OMDSReader::QueryResults queryResult =
-            m_omdsReader.basicQuery( queryStrings,
-                                     stage2Schema,
-                                     "BMTF_KEYS",
-                                     "BMTF_KEYS.ID",
-                                     m_omdsReader.singleAttribute(BMTFKey)
-                                   ) ;
-
-        if( queryResult.queryFailed() || queryResult.numberRows() != 1 ){
-            edm::LogError( "L1-O2O" ) << "Cannot get BMTF_KEYS.ALGO" ;
-            return ;
-        }
-
-        if( !queryResult.fillVariable( "ALGO", algo_key) ) algo_key = "";
-        
+        // simply assign the top level key to the record
         pL1TriggerKey->add( "L1TMuonBarrelParamsRcd",
                             "L1TMuonBarrelParams",
-			    algo_key) ;
+			    BMTFKey) ;
     }
 }
 
