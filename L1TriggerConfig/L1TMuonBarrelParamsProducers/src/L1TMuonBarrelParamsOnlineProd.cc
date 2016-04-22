@@ -147,14 +147,9 @@ boost::shared_ptr<L1TMuonBarrelParams> L1TMuonBarrelParamsOnlineProd::newObject(
         // remember AMC13 RS configuration
         configs[rs_amc13_key] = xmlConfig;
 
-std::cout << "configs.size(): " << configs.size() << std::endl;
-
 // for debugging dump the configs to local files
 for(auto &conf : configs){ 
-    std::ofstream output(std::string("/tmp/").append(conf.first).append(".xml"));
-
-std::cout<<" !!!!!!!!!!!!!!!!1 writing to "<<std::string("/tmp/").append(conf.first).append(".xml") <<std::endl;
-
+    std::ofstream output(std::string("/tmp/").append(conf.first.substr(0,conf.first.find("/"))).append(".xml"));
     output<<conf.second;
     output.close();
 }
