@@ -29,8 +29,7 @@ public:
       {
 	kuGT,
 	kuGMT,
-	kCALOL1,
-	kCALOL2,
+	kCALO,
 	kEMTF,
 	kOMTF,
 	kBMTF,

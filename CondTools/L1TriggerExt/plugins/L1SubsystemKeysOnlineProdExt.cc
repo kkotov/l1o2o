@@ -157,13 +157,13 @@ L1SubsystemKeysOnlineProdExt::produce(const L1TriggerKeyExtRcd& iRecord)
        pL1TriggerKey->setSubsystemKey( L1TriggerKeyExt::kEMTF,   EMTFKey    + delimeter + EMTFrsKey   ) ;
        pL1TriggerKey->setSubsystemKey( L1TriggerKeyExt::kTWINMUX,TWINMUXKey + delimeter + TWINMUXrsKey) ;
 
-       edm::LogVerbatim( "L1-O2O" ) << "UGT_KEY "    << uGTKey    << " UGT_RS_KEY "    << uGTrsKey ;
-       edm::LogVerbatim( "L1-O2O" ) << "UGMT_KEY "   << uGMTKey   << " UGMT_RS_KEY "   << uGMTrsKey ;
-       edm::LogVerbatim( "L1-O2O" ) << "CALO_KEY "   << CALOKey   << " CALO_RS_KEY "   << CALOrsKey ;
-       edm::LogVerbatim( "L1-O2O" ) << "BMTF_KEY "   << BMTFKey   << " BMTF_RS_KEY "   << BMTFrsKey ;
-       edm::LogVerbatim( "L1-O2O" ) << "OMTF_KEY "   << OMTFKey   << " OMTF_RS_KEY "   << OMTFrsKey ;
-       edm::LogVerbatim( "L1-O2O" ) << "EMTF_KEY "   << EMTFKey   << " EMTF_RS_KEY "   << EMTFrsKey ;
-       edm::LogVerbatim( "L1-O2O" ) << "TWINMUX_KEY "<< TWINMUXKey<< " TWINMUX_RS_KEY "<< TWINMUXrsKey ;
+       edm::LogVerbatim( "L1-O2O" ) << "UGT_KEY "    << uGTKey    << " , UGT_RS_KEY "    << uGTrsKey ;
+       edm::LogVerbatim( "L1-O2O" ) << "UGMT_KEY "   << uGMTKey   << " , UGMT_RS_KEY "   << uGMTrsKey ;
+       edm::LogVerbatim( "L1-O2O" ) << "CALO_KEY "   << CALOKey   << " , CALO_RS_KEY "   << CALOrsKey ;
+       edm::LogVerbatim( "L1-O2O" ) << "BMTF_KEY "   << BMTFKey   << " , BMTF_RS_KEY "   << BMTFrsKey ;
+       edm::LogVerbatim( "L1-O2O" ) << "OMTF_KEY "   << OMTFKey   << " , OMTF_RS_KEY "   << OMTFrsKey ;
+       edm::LogVerbatim( "L1-O2O" ) << "EMTF_KEY "   << EMTFKey   << " , EMTF_RS_KEY "   << EMTFrsKey ;
+       edm::LogVerbatim( "L1-O2O" ) << "TWINMUX_KEY "<< TWINMUXKey<< " , TWINMUX_RS_KEY "<< TWINMUXrsKey ;
 
    }
    else
