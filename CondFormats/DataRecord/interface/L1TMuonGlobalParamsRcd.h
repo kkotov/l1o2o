@@ -19,9 +19,7 @@
 //
 
 #include "FWCore/Framework/interface/EventSetupRecordImplementation.h"
-#include "CondFormats/DataRecord/interface/L1TriggerKeyListExtRcd.h"
-#include "CondFormats/DataRecord/interface/L1TriggerKeyExtRcd.h"
 
-class L1TMuonGlobalParamsRcd : public edm::eventsetup::DependentRecordImplementation<L1TMuonGlobalParamsRcd, boost::mpl::vector<L1TriggerKeyListExtRcd,L1TriggerKeyExtRcd> > {};
+class L1TMuonGlobalParamsRcd : public edm::eventsetup::EventSetupRecordImplementation<L1TMuonGlobalParamsRcd> {};
 
 #endif

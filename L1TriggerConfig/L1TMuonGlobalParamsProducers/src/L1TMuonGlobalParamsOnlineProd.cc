@@ -5,24 +5,25 @@
 #include "CondTools/L1TriggerExt/interface/L1ConfigOnlineProdBaseExt.h"
 #include "CondFormats/L1TObjects/interface/L1TMuonGlobalParams.h"
 #include "CondFormats/DataRecord/interface/L1TMuonGlobalParamsRcd.h"
-#include "L1Trigger/L1TCommon/interface/trigSystem.h"
+#include "CondFormats/DataRecord/interface/L1TMuonGlobalParamsO2ORcd.h"
+//#include "L1Trigger/L1TCommon/interface/trigSystem.h"
 #include "L1Trigger/L1TMuon/interface/L1TMuonGlobalParamsHelper.h"
 
 #include "xercesc/util/PlatformUtils.hpp"
 using namespace XERCES_CPP_NAMESPACE;
 
-class L1TMuonGlobalParamsOnlineProd : public L1ConfigOnlineProdBaseExt<L1TMuonGlobalParamsRcd,L1TMuonGlobalParams> {
+class L1TMuonGlobalParamsOnlineProd : public L1ConfigOnlineProdBaseExt<L1TMuonGlobalParamsO2ORcd,L1TMuonGlobalParams> {
 private:
 public:
-    virtual boost::shared_ptr<L1TMuonGlobalParams> newObject(const std::string& objectKey) override ;
+    virtual boost::shared_ptr<L1TMuonGlobalParams> newObject(const std::string& objectKey, const L1TMuonGlobalParamsO2ORcd &record) override ;
 
     L1TMuonGlobalParamsOnlineProd(const edm::ParameterSet&);
     ~L1TMuonGlobalParamsOnlineProd(void){}
 };
 
-L1TMuonGlobalParamsOnlineProd::L1TMuonGlobalParamsOnlineProd(const edm::ParameterSet& iConfig) : L1ConfigOnlineProdBaseExt<L1TMuonGlobalParamsRcd,L1TMuonGlobalParams>(iConfig) {}
+L1TMuonGlobalParamsOnlineProd::L1TMuonGlobalParamsOnlineProd(const edm::ParameterSet& iConfig) : L1ConfigOnlineProdBaseExt<L1TMuonGlobalParamsO2ORcd,L1TMuonGlobalParams>(iConfig) {}
 
-boost::shared_ptr<L1TMuonGlobalParams> L1TMuonGlobalParamsOnlineProd::newObject(const std::string& objectKey) {
+boost::shared_ptr<L1TMuonGlobalParams> L1TMuonGlobalParamsOnlineProd::newObject(const std::string& objectKey, const L1TMuonGlobalParamsO2ORcd &record) {
     using namespace edm::es;
 
     std::string stage2Schema = "CMS_TRG_L1_CONF" ;
@@ -75,6 +76,8 @@ boost::shared_ptr<L1TMuonGlobalParams> L1TMuonGlobalParamsOnlineProd::newObject(
 /// But in reality we have something like this:
 //
 /// this chunk of code should go away with a proper interface to the XML parser
+
+/*
     std::ofstream output("/tmp/ugmt_cur_conf.xml");
     output<<xmlConfig;
     output.close();
@@ -87,7 +90,6 @@ boost::shared_ptr<L1TMuonGlobalParams> L1TMuonGlobalParamsOnlineProd::newObject(
     xercesc::DOMDocument *doc_ = parser_->getDocument();
     DOMElement* rootElement = doc_->getDocumentElement();
 ///
-
 
 
 
@@ -176,6 +178,8 @@ boost::shared_ptr<L1TMuonGlobalParams> L1TMuonGlobalParamsOnlineProd::newObject(
 
 
    return boost::shared_ptr< L1TMuonGlobalParams >( new L1TMuonGlobalParams( m_params_helper ) ) ;
+*/
+   return boost::shared_ptr< L1TMuonGlobalParams >( new L1TMuonGlobalParams() ) ;
 }
 
 //define this as a plug-in

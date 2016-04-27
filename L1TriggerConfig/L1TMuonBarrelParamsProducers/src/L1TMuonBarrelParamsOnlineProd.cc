@@ -4,24 +4,25 @@
 #include "CondTools/L1TriggerExt/interface/L1ConfigOnlineProdBaseExt.h"
 #include "CondFormats/L1TObjects/interface/L1TMuonBarrelParams.h"
 #include "CondFormats/DataRecord/interface/L1TMuonBarrelParamsRcd.h"
-#include "L1Trigger/L1TCommon/interface/trigSystem.h"
+#include "CondFormats/DataRecord/interface/L1TMuonBarrelParamsO2ORcd.h"
+//#include "L1Trigger/L1TCommon/interface/trigSystem.h"
 #include "L1Trigger/L1TMuon/interface/L1TMuonGlobalParamsHelper.h"
 
 #include "xercesc/util/PlatformUtils.hpp"
 using namespace XERCES_CPP_NAMESPACE;
 
-class L1TMuonBarrelParamsOnlineProd : public L1ConfigOnlineProdBaseExt<L1TMuonBarrelParamsRcd,L1TMuonBarrelParams> {
+class L1TMuonBarrelParamsOnlineProd : public L1ConfigOnlineProdBaseExt<L1TMuonBarrelParamsO2ORcd,L1TMuonBarrelParams> {
 private:
 public:
-    virtual boost::shared_ptr<L1TMuonBarrelParams> newObject(const std::string& objectKey) override ;
+    virtual boost::shared_ptr<L1TMuonBarrelParams> newObject(const std::string& objectKey, const L1TMuonBarrelParamsO2ORcd& record) override ;
 
     L1TMuonBarrelParamsOnlineProd(const edm::ParameterSet&);
     ~L1TMuonBarrelParamsOnlineProd(void){}
 };
 
-L1TMuonBarrelParamsOnlineProd::L1TMuonBarrelParamsOnlineProd(const edm::ParameterSet& iConfig) : L1ConfigOnlineProdBaseExt<L1TMuonBarrelParamsRcd,L1TMuonBarrelParams>(iConfig) {}
+L1TMuonBarrelParamsOnlineProd::L1TMuonBarrelParamsOnlineProd(const edm::ParameterSet& iConfig) : L1ConfigOnlineProdBaseExt<L1TMuonBarrelParamsO2ORcd,L1TMuonBarrelParams>(iConfig) {}
 
-boost::shared_ptr<L1TMuonBarrelParams> L1TMuonBarrelParamsOnlineProd::newObject(const std::string& objectKey) {
+boost::shared_ptr<L1TMuonBarrelParams> L1TMuonBarrelParamsOnlineProd::newObject(const std::string& objectKey, const L1TMuonBarrelParamsO2ORcd& record) {
     using namespace edm::es;
 
     if (objectKey.empty()) {
@@ -158,7 +159,7 @@ for(auto &conf : configs){
 /*
         l1t::trigSystem ts;
 
-        ts.configureSystem(contexts,"BMTF");
+        ts.configureSystem(configs,"BMTF");
 
         std::map<std::string, l1t::setting> settings = ts.getSettings("processors");
         std::map<std::string, l1t::mask>    rs       = ts.getMasks   ("processors");

@@ -21,6 +21,8 @@ void L1TMuonGlobalObjectKeysOnlineProd::fillObjectKeys( ReturnType pL1TriggerKey
 
     std::string uGMTKey = pL1TriggerKey->subsystemKey( L1TriggerKeyExt::kuGMT ) ;
 
+    uGMTKey = uGMTKey.substr( 0, uGMTKey.find(":") );
+
     std::string stage2Schema = "CMS_TRG_L1_CONF" ;
 
     if( !uGMTKey.empty() ) {
@@ -45,7 +47,7 @@ void L1TMuonGlobalObjectKeysOnlineProd::fillObjectKeys( ReturnType pL1TriggerKey
 
         if( !queryResult.fillVariable( "ALGO", algo_key) ) algo_key = "";
         
-        pL1TriggerKey->add( "L1TMuonGlobalParamsRcd",
+        pL1TriggerKey->add( "L1TMuonGlobalParamsO2ORcd",
                             "L1TMuonGlobalParams",
 			    algo_key) ;
     }

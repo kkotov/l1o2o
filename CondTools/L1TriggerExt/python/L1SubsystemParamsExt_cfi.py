@@ -12,33 +12,39 @@ def initL1SubsystemsExt( tagBaseVec = [],
     initL1SubsystemsExt.params = cms.PSet(
         recordInfo = cms.VPSet(
         cms.PSet(
-            record = cms.string('L1TUtmTriggerMenuRcd'),
+            record = cms.string('L1TUtmTriggerMenuO2ORcd'),
             tag = cms.string('L1TUtmTriggerMenu_' + tagBaseVec[ L1CondEnumExt.L1TUtmTriggerMenu ]),
             type = cms.string('L1TUtmTriggerMenu'),
             key = cms.string(objectKey)
         ),
         cms.PSet(
-            record = cms.string('L1TMuonGlobalParamsRcd'),
+            record = cms.string('L1TMuonGlobalParamsO2ORcd'),
             tag = cms.string('L1TMuonGlobalParams_' + tagBaseVec[ L1CondEnumExt.L1TMuonGlobalParams ]),
             type = cms.string('L1TMuonGlobalParams'),
             key = cms.string(objectKey)
         ),
+#        cms.PSet(
+#            record = cms.string('L1TMuonEndcapParamsO2ORcd'),
+#            tag = cms.string('L1TMuonEndcapParams_' + tagBaseVec[ L1CondEnumExt.L1TMuonEndcapParams ]),
+#            type = cms.string('L1TMuonEndcapParams'),
+#            key = cms.string(objectKey)
+#        ),
+#        cms.PSet(
+#            record = cms.string('L1TMuonOverlapParamsO2ORcd'),
+#            tag = cms.string('L1TMuonOverlapParams_' + tagBaseVec[ L1CondEnumExt.L1TMuonOverlapParams ]),
+#            type = cms.string('L1TMuonOverlapParams'),
+#            key = cms.string(objectKey)
+#        ),
         cms.PSet(
-            record = cms.string('L1TMuonEndcapParamsRcd'),
-            tag = cms.string('L1TMuonEndcapParams_' + tagBaseVec[ L1CondEnumExt.L1TMuonEndcapParams ]),
-            type = cms.string('L1TMuonEndcapParams'),
-            key = cms.string(objectKey)
-        ),
-        cms.PSet(
-            record = cms.string('L1TMuonOverlapParamsRcd'),
-            tag = cms.string('L1TMuonOverlapParams_' + tagBaseVec[ L1CondEnumExt.L1TMuonOverlapParams ]),
-            type = cms.string('L1TMuonOverlapParams'),
-            key = cms.string(objectKey)
-        ),
-        cms.PSet(
-            record = cms.string('L1TMuonBarrelParamsRcd'),
+            record = cms.string('L1TMuonBarrelParamsO2ORcd'),
             tag = cms.string('L1TMuonBarrelParams_' + tagBaseVec[ L1CondEnumExt.L1TMuonBarrelParams ]),
             type = cms.string('L1TMuonBarrelParams'),
+            key = cms.string(objectKey)
+        ),
+        cms.PSet(
+            record = cms.string('L1TCaloParamsO2ORcd'),
+            tag = cms.string('L1TCaloParams_' + tagBaseVec[ L1CondEnumExt.L1TCaloParams ]),
+            type = cms.string('L1TCaloParams'),
             key = cms.string(objectKey)
         )
         )

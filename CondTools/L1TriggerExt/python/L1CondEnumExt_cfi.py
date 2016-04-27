@@ -8,5 +8,6 @@ class L1CondEnumExt:
     L1TMuonOverlapParams=4
     L1TMuonEndcapParams=5
     L1TMuonGlobalParams=6
-    NumL1Cond=7
+    L1TCaloParams=7
+    NumL1Cond=8
     

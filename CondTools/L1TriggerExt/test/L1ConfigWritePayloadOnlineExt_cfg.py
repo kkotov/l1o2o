@@ -15,6 +15,11 @@ options.register('tscKey',
                  VarParsing.VarParsing.multiplicity.singleton,
                  VarParsing.VarParsing.varType.string,
                  "TSC key")
+options.register('rsKey',
+                 '', #default value
+                 VarParsing.VarParsing.multiplicity.singleton,
+                 VarParsing.VarParsing.varType.string,
+                 "RS key")
 options.register('outputDBConnect',
                  'sqlite_file:l1config.db', #default value
                  VarParsing.VarParsing.multiplicity.singleton,
@@ -55,11 +60,13 @@ options.parseArguments()
 # Generate L1TriggerKeyExt from OMDS
 process.load("CondTools.L1TriggerExt.L1SubsystemKeysOnlineExt_cfi")
 process.L1SubsystemKeysOnlineExt.tscKey = cms.string( options.tscKey )
+process.L1SubsystemKeysOnlineExt.rsKey  = cms.string( options.rsKey )
 process.load("CondTools.L1TriggerExt.L1ConfigTSCKeysExt_cff")
 process.load("CondTools.L1TriggerExt.L1TriggerKeyOnlineExt_cfi")
 process.L1TriggerKeyOnlineExt.subsystemLabels = cms.vstring(
                                                           'uGT',
                                                           'uGMT',
+                                                          'CALO',
                                                           'BMTF'
                                                         )
 

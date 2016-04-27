@@ -19,10 +19,7 @@
 //
 
 #include "FWCore/Framework/interface/EventSetupRecordImplementation.h"
-#include "CondFormats/DataRecord/interface/L1TriggerKeyListExtRcd.h"
-#include "CondFormats/DataRecord/interface/L1TriggerKeyExtRcd.h"
-class L1TMuonOverlapParamsRcd : public edm::eventsetup::DependentRecordImplementation<L1TMuonOverlapParamsRcd, boost::mpl::vector<L1TriggerKeyListExtRcd,L1TriggerKeyExtRcd> > {};
 
-//class L1TMuonOverlapParamsRcd : public edm::eventsetup::EventSetupRecordImplementation<L1TMuonOverlapParamsRcd> {};
+class L1TMuonOverlapParamsRcd : public edm::eventsetup::EventSetupRecordImplementation<L1TMuonOverlapParamsRcd> {};
 
 #endif

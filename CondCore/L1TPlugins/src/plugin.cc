@@ -212,28 +212,40 @@ REGISTER_PLUGIN(L1CaloGeometryRecord, L1CaloGeometry);
 
 #include "CondFormats/L1TObjects/interface/CaloParams.h"
 #include "CondFormats/DataRecord/interface/L1TCaloParamsRcd.h"
+#include "CondFormats/DataRecord/interface/L1TCaloParamsO2ORcd.h"
 #include "CondFormats/L1TObjects/interface/CaloConfig.h"
 #include "CondFormats/DataRecord/interface/L1TCaloConfigRcd.h"
+///#include "CondFormats/DataRecord/interface/L1TCaloConfigO2ORcd.h"
 using namespace l1t;
+REGISTER_PLUGIN(L1TCaloParamsO2ORcd, CaloParams);
 REGISTER_PLUGIN(L1TCaloParamsRcd, CaloParams);
-REGISTER_PLUGIN(L1TCaloConfigRcd, CaloConfig);
+///REGISTER_PLUGIN(L1TCaloConfigRcd, CaloConfig);
 
 #include "CondFormats/L1TObjects/interface/L1TMuonOverlapParams.h"
 #include "CondFormats/DataRecord/interface/L1TMuonOverlapParamsRcd.h"
+#include "CondFormats/DataRecord/interface/L1TMuonOverlapParamsO2ORcd.h"
 
 #include "CondFormats/L1TObjects/interface/L1TMuonBarrelParams.h"
 #include "CondFormats/DataRecord/interface/L1TMuonBarrelParamsRcd.h"
+#include "CondFormats/DataRecord/interface/L1TMuonBarrelParamsO2ORcd.h"
 
 #include "CondFormats/L1TObjects/interface/L1TMuonEndcapParams.h"
 #include "CondFormats/DataRecord/interface/L1TMuonEndcapParamsRcd.h"
+#include "CondFormats/DataRecord/interface/L1TMuonEndcapParamsO2ORcd.h"
 
 #include "CondFormats/L1TObjects/interface/L1TMuonGlobalParams.h"
 #include "CondFormats/DataRecord/interface/L1TMuonGlobalParamsRcd.h"
+#include "CondFormats/DataRecord/interface/L1TMuonGlobalParamsO2ORcd.h"
 
 REGISTER_PLUGIN(L1TMuonOverlapParamsRcd, L1TMuonOverlapParams);
 REGISTER_PLUGIN(L1TMuonBarrelParamsRcd, L1TMuonBarrelParams);
 REGISTER_PLUGIN(L1TMuonEndcapParamsRcd, L1TMuonEndcapParams);
 REGISTER_PLUGIN(L1TMuonGlobalParamsRcd, L1TMuonGlobalParams);
+
+REGISTER_PLUGIN(L1TMuonOverlapParamsO2ORcd, L1TMuonOverlapParams);
+REGISTER_PLUGIN(L1TMuonBarrelParamsO2ORcd, L1TMuonBarrelParams);
+REGISTER_PLUGIN(L1TMuonEndcapParamsO2ORcd, L1TMuonEndcapParams);
+REGISTER_PLUGIN(L1TMuonGlobalParamsO2ORcd, L1TMuonGlobalParams);
 
 #include "CondFormats/L1TObjects/interface/L1TUtmAlgorithm.h"
 #include "CondFormats/DataRecord/interface/L1TUtmAlgorithmRcd.h"
@@ -265,4 +277,6 @@ REGISTER_PLUGIN(L1TUtmScaleRcd, L1TUtmScale);
 
 #include "CondFormats/L1TObjects/interface/L1TUtmTriggerMenu.h"
 #include "CondFormats/DataRecord/interface/L1TUtmTriggerMenuRcd.h"
+#include "CondFormats/DataRecord/interface/L1TUtmTriggerMenuO2ORcd.h"
 REGISTER_PLUGIN(L1TUtmTriggerMenuRcd, L1TUtmTriggerMenu);
+REGISTER_PLUGIN(L1TUtmTriggerMenuO2ORcd, L1TUtmTriggerMenu);

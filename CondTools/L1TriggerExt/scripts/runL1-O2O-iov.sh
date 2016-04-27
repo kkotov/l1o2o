@@ -21,6 +21,7 @@ shift $(($OPTIND - 1))
 
 runnum=$1
 tsckey=$2
+rskey=$3
 
 echo "INFO: ADDITIONAL CMS OPTIONS:  " $CMS_OPTIONS
 
@@ -43,10 +44,10 @@ else
 fi
 
 
-if cmsRun ${CMSSW_BASE}/src/CondTools/L1TriggerExt/test/l1o2otestanalyzer_cfg.py ${INDB_OPTIONS} printL1TriggerKeyListExt=1 | grep ${tsckey} ; then echo "TSC payloads present"
+if cmsRun ${CMSSW_BASE}/src/CondTools/L1TriggerExt/test/l1o2otestanalyzer_cfg.py ${INDB_OPTIONS} printL1TriggerKeyListExt=1 | grep "${tsckey}:${rskey}" ; then echo "TSC payloads present"
 else
     echo "TSC payloads absent; writing now"
-    cmsRun ${CMSSW_BASE}/src/CondTools/L1TriggerExt/test/L1ConfigWritePayloadOnlineExt_cfg.py tscKey=${tsckey} ${OUTDB_OPTIONS} ${COPY_OPTIONS} logTransactions=0 print
+    cmsRun ${CMSSW_BASE}/src/CondTools/L1TriggerExt/test/L1ConfigWritePayloadOnlineExt_cfg.py tscKey=${tsckey} rsKey=${rskey} ${OUTDB_OPTIONS} ${COPY_OPTIONS} logTransactions=0 print
     o2ocode=$?
     if [ ${o2ocode} -ne 0 ]
     then
@@ -56,7 +57,7 @@ else
     fi
 fi
 
-cmsRun $CMSSW_BASE/src/CondTools/L1TriggerExt/test/L1ConfigWriteIOVOnlineExt_cfg.py ${CMS_OPTIONS} tscKey=${tsckey} runNumber=${runnum} ${OUTDB_OPTIONS} logTransactions=0 print
+cmsRun $CMSSW_BASE/src/CondTools/L1TriggerExt/test/L1ConfigWriteIOVOnlineExt_cfg.py ${CMS_OPTIONS} tscKey=${tsckey} rsKey=${rskey} runNumber=${runnum} ${OUTDB_OPTIONS} logTransactions=0 print
 o2ocode=$?
 
 if [ ${o2ocode} -eq 0 ]
