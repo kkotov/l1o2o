@@ -72,7 +72,8 @@ L1SubsystemKeysOnlineProdExt::produce(const L1TriggerKeyExtRcd& iRecord)
 
        pL1TriggerKey->setTSCKey( m_Key ) ;
 
-       edm::LogVerbatim( "L1-O2O" ) << "TSC KEY " << m_tscKey << " RS_KEY " << m_rsKey ;
+       edm::LogVerbatim( "L1-O2O" ) << "TSC KEY:	" << m_tscKey ;
+       edm::LogVerbatim( "L1-O2O" ) << "RS_KEY: 	" << m_rsKey ;
 
        // Get subsystem keys from OMDS
 
@@ -157,13 +158,20 @@ L1SubsystemKeysOnlineProdExt::produce(const L1TriggerKeyExtRcd& iRecord)
        pL1TriggerKey->setSubsystemKey( L1TriggerKeyExt::kEMTF,   EMTFKey    + delimeter + EMTFrsKey   ) ;
        pL1TriggerKey->setSubsystemKey( L1TriggerKeyExt::kTWINMUX,TWINMUXKey + delimeter + TWINMUXrsKey) ;
 
-       edm::LogVerbatim( "L1-O2O" ) << "UGT_KEY "    << uGTKey    << " , UGT_RS_KEY "    << uGTrsKey ;
-       edm::LogVerbatim( "L1-O2O" ) << "UGMT_KEY "   << uGMTKey   << " , UGMT_RS_KEY "   << uGMTrsKey ;
-       edm::LogVerbatim( "L1-O2O" ) << "CALO_KEY "   << CALOKey   << " , CALO_RS_KEY "   << CALOrsKey ;
-       edm::LogVerbatim( "L1-O2O" ) << "BMTF_KEY "   << BMTFKey   << " , BMTF_RS_KEY "   << BMTFrsKey ;
-       edm::LogVerbatim( "L1-O2O" ) << "OMTF_KEY "   << OMTFKey   << " , OMTF_RS_KEY "   << OMTFrsKey ;
-       edm::LogVerbatim( "L1-O2O" ) << "EMTF_KEY "   << EMTFKey   << " , EMTF_RS_KEY "   << EMTFrsKey ;
-       edm::LogVerbatim( "L1-O2O" ) << "TWINMUX_KEY "<< TWINMUXKey<< " , TWINMUX_RS_KEY "<< TWINMUXrsKey ;
+       edm::LogVerbatim( "L1-O2O" ) << "UGT_KEY:	" << uGTKey   ;
+       edm::LogVerbatim( "L1-O2O" ) << "UGT_RS_KEY:	" << uGTrsKey ;
+       edm::LogVerbatim( "L1-O2O" ) << "UGMT_KEY:	" << uGMTKey  ;
+       edm::LogVerbatim( "L1-O2O" ) << "UGMT_RS_KEY:	" << uGMTrsKey ;
+       edm::LogVerbatim( "L1-O2O" ) << "CALO_KEY:	" << CALOKey  ;
+       edm::LogVerbatim( "L1-O2O" ) << "CALO_RS_KEY:	" << CALOrsKey ;
+       edm::LogVerbatim( "L1-O2O" ) << "BMTF_KEY:	" << BMTFKey  ;
+       edm::LogVerbatim( "L1-O2O" ) << "BMTF_RS_KEY:	" << BMTFrsKey ;
+       edm::LogVerbatim( "L1-O2O" ) << "OMTF_KEY:	" << OMTFKey  ;
+       edm::LogVerbatim( "L1-O2O" ) << "OMTF_RS_KEY:	" << OMTFrsKey ;
+       edm::LogVerbatim( "L1-O2O" ) << "EMTF_KEY:	" << EMTFKey  ;
+       edm::LogVerbatim( "L1-O2O" ) << "EMTF_RS_KEY:	" << EMTFrsKey ;
+       edm::LogVerbatim( "L1-O2O" ) << "TWINMUX_KEY:	" << TWINMUXKey;
+       edm::LogVerbatim( "L1-O2O" ) << "TWINMUX_RS_KEY:	" << TWINMUXrsKey ;
 
    }
    else
