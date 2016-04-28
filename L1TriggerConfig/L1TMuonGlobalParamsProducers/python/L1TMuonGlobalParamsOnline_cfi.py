@@ -1,6 +1,6 @@
 import FWCore.ParameterSet.Config as cms
 
-###from L1Trigger.L1TMuon.fakeGmtParams_cff import *
+from L1Trigger.L1TMuon.fakeGmtParams_cff import *
 
 L1TMuonGlobalParamsOnline = cms.ESProducer("L1TMuonGlobalParamsOnlineProd",
     onlineAuthentication = cms.string('.'),
