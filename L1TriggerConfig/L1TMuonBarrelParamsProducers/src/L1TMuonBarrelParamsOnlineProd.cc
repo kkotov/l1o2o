@@ -5,7 +5,7 @@
 #include "CondFormats/L1TObjects/interface/L1TMuonBarrelParams.h"
 #include "CondFormats/DataRecord/interface/L1TMuonBarrelParamsRcd.h"
 #include "CondFormats/DataRecord/interface/L1TMuonBarrelParamsO2ORcd.h"
-//#include "L1Trigger/L1TCommon/interface/trigSystem.h"
+#include "L1Trigger/L1TCommon/interface/XmlConfigReader.h"
 #include "L1Trigger/L1TMuon/interface/L1TMuonGlobalParamsHelper.h"
 
 #include "xercesc/util/PlatformUtils.hpp"
@@ -25,9 +25,14 @@ L1TMuonBarrelParamsOnlineProd::L1TMuonBarrelParamsOnlineProd(const edm::Paramete
 boost::shared_ptr<L1TMuonBarrelParams> L1TMuonBarrelParamsOnlineProd::newObject(const std::string& objectKey, const L1TMuonBarrelParamsO2ORcd& record) {
     using namespace edm::es;
 
+    const L1TMuonBarrelParamsRcd& baseRcd = record.template getRecord< L1TMuonBarrelParamsRcd >() ;
+    edm::ESHandle< L1TMuonBarrelParams > baseSettings ;
+    baseRcd.get( baseSettings ) ;
+
+
     if (objectKey.empty()) {
         edm::LogInfo( "L1-O2O: L1TMuonBarrelParamsOnlineProd" ) << "Key is empty, returning empty L1TMuonBarrelParams";
-        return boost::shared_ptr< L1TMuonBarrelParams > ( new L1TMuonBarrelParams() );
+        return boost::shared_ptr< L1TMuonBarrelParams > ( new L1TMuonBarrelParams( *(baseSettings.product()) ) );
     }
 
     std::string tscKey = objectKey.substr(0, objectKey.find(":") );
@@ -39,13 +44,14 @@ boost::shared_ptr<L1TMuonBarrelParams> L1TMuonBarrelParamsOnlineProd::newObject(
 
         // first, find keys for the algo and RS tables
 
-        // ALGO
+        // ALGO and HW
         std::vector< std::string > queryStrings ;
         queryStrings.push_back( "ALGO" ) ;
+        queryStrings.push_back( "HW"   ) ;
 
-        std::string algo_key;
+        std::string algo_key, hw_key;
 
-        // select ALGO from CMS_TRG_L1_CONF.BMTF_KEYS where ID = tscKey ;
+        // select ALGO,HW from CMS_TRG_L1_CONF.BMTF_KEYS where ID = tscKey ;
         l1t::OMDSReader::QueryResults queryResult =
             m_omdsReader.basicQuery( queryStrings,
                                      stage2Schema,
@@ -55,11 +61,12 @@ boost::shared_ptr<L1TMuonBarrelParams> L1TMuonBarrelParamsOnlineProd::newObject(
                                    ) ;
 
         if( queryResult.queryFailed() || queryResult.numberRows() != 1 ){
-            edm::LogError( "L1-O2O" ) << "Cannot get BMTF_KEYS.ALGO" ;
-            return boost::shared_ptr< L1TMuonBarrelParams > ( new L1TMuonBarrelParams() );
+            edm::LogError( "L1-O2O" ) << "Cannot get BMTF_KEYS.{ALGO,HW}" ;
+            return boost::shared_ptr< L1TMuonBarrelParams > ( new L1TMuonBarrelParams( *(baseSettings.product()) ) );
         }
 
         if( !queryResult.fillVariable( "ALGO", algo_key) ) algo_key = "";
+        if( !queryResult.fillVariable( "HW",   hw_key  ) ) hw_key   = "";
 
 
         // RS
@@ -80,16 +87,18 @@ boost::shared_ptr<L1TMuonBarrelParams> L1TMuonBarrelParamsOnlineProd::newObject(
 
         if( queryResult.queryFailed() || queryResult.numberRows() != 1 ){
             edm::LogError( "L1-O2O" ) << "Cannot get BMTF_RS_KEYS.{MP7,DAQTTC}" ;
-            return boost::shared_ptr< L1TMuonBarrelParams > ( new L1TMuonBarrelParams() );
+            return boost::shared_ptr< L1TMuonBarrelParams > ( new L1TMuonBarrelParams( *(baseSettings.product()) ) );
         }
 
         if( !queryResult.fillVariable( "MP7",    rs_mp7_key  ) ) rs_mp7_key   = "";
         if( !queryResult.fillVariable( "DAQTTC", rs_amc13_key) ) rs_amc13_key = "";
 
 
-        // At this point we have three keys: one ALGO key and two RS keys; now query the payloads for these keys
-        std::map<std::string,std::string> configs;  // associates key -> XML config string
-        std::string xmlConfig;
+        // At this point we have four keys: one ALGO key, one HW key, and two RS keys; now query the payloads for these keys
+        // Now querry the actual payloads
+        enum {kALGO=0, kRS, kHW, NUM_TYPES};
+        std::map<std::string,std::string> payloads[NUM_TYPES];  // associates key -> XML payload for a given type of payloads
+        std::string xmlPayload;
 
         queryStrings.clear();
         queryStrings.push_back( "CONF" );
@@ -105,12 +114,30 @@ boost::shared_ptr<L1TMuonBarrelParams> L1TMuonBarrelParamsOnlineProd::newObject(
 
         if( queryResult.queryFailed() || queryResult.numberRows() != 1 ){
             edm::LogError( "L1-O2O: L1TMuonBarrelParamsOnlineProd" ) << "Cannot get BMTF_ALGO.CONF for ID="<<algo_key;
-            return boost::shared_ptr< L1TMuonBarrelParams >( new L1TMuonBarrelParams() ) ;
+            return boost::shared_ptr< L1TMuonBarrelParams >( new L1TMuonBarrelParams( *(baseSettings.product()) ) ) ;
         }
 
-        if( !queryResult.fillVariable( "CONF", xmlConfig ) ) xmlConfig = "";
+        if( !queryResult.fillVariable( "CONF", xmlPayload ) ) xmlPayload = "";
         // remember ALGO configuration
-        configs[algo_key] = xmlConfig;
+        payloads[kALGO][algo_key] = xmlPayload;
+
+        // query HW configuration
+        queryResult =
+            m_omdsReader.basicQuery( queryStrings,
+                                     stage2Schema,
+                                     "BMTF_HW",
+                                     "BMTF_HW.ID",
+                                     m_omdsReader.singleAttribute(hw_key)
+                                   ) ;
+
+        if( queryResult.queryFailed() || queryResult.numberRows() != 1 ){
+            edm::LogError( "L1-O2O: L1TMuonBarrelParamsOnlineProd" ) << "Cannot get BMTF_HW.CONF for ID="<<hw_key;
+            return boost::shared_ptr< L1TMuonBarrelParams >( new L1TMuonBarrelParams( *(baseSettings.product()) ) ) ;
+        }
+
+        if( !queryResult.fillVariable( "CONF", xmlPayload ) ) xmlPayload = "";
+        // remember HW configuration
+        payloads[kHW][hw_key] = xmlPayload;
 
         // query MP7 RS configuration
         queryResult =
@@ -123,12 +150,12 @@ boost::shared_ptr<L1TMuonBarrelParams> L1TMuonBarrelParamsOnlineProd::newObject(
 
         if( queryResult.queryFailed() || queryResult.numberRows() != 1 ){
             edm::LogError( "L1-O2O: L1TMuonBarrelParamsOnlineProd" ) << "Cannot get BMTF_RS.CONF for ID="<<rs_mp7_key;
-            return boost::shared_ptr< L1TMuonBarrelParams >( new L1TMuonBarrelParams() ) ;
+            return boost::shared_ptr< L1TMuonBarrelParams >( new L1TMuonBarrelParams( *(baseSettings.product()) ) ) ;
         }
 
-        if( !queryResult.fillVariable( "CONF", xmlConfig ) ) xmlConfig = "";
+        if( !queryResult.fillVariable( "CONF", xmlPayload ) ) xmlPayload = "";
         // remember MP7 RS configuration
-        configs[rs_mp7_key] = xmlConfig;
+        payloads[kRS][rs_mp7_key] = xmlPayload;
 
         // query AMC13 RS configuration
         queryResult =
@@ -141,36 +168,39 @@ boost::shared_ptr<L1TMuonBarrelParams> L1TMuonBarrelParamsOnlineProd::newObject(
 
         if( queryResult.queryFailed() || queryResult.numberRows() != 1 ){
             edm::LogError( "L1-O2O: L1TMuonBarrelParamsOnlineProd" ) << "Cannot get BMTF_RS.CONF for ID="<<rs_amc13_key;
-            return boost::shared_ptr< L1TMuonBarrelParams >( new L1TMuonBarrelParams() ) ;
+            return boost::shared_ptr< L1TMuonBarrelParams >( new L1TMuonBarrelParams( *(baseSettings.product()) ) ) ;
         }
 
-        if( !queryResult.fillVariable( "CONF", xmlConfig ) ) xmlConfig = "";
+        if( !queryResult.fillVariable( "CONF", xmlPayload ) ) xmlPayload = "";
         // remember AMC13 RS configuration
-        configs[rs_amc13_key] = xmlConfig;
+        payloads[kRS][rs_mp7_key] = xmlPayload;
 
-// for debugging dump the configs to local files
-for(auto &conf : configs){ 
-    std::ofstream output(std::string("/tmp/").append(conf.first.substr(0,conf.first.find("/"))).append(".xml"));
-    output<<conf.second;
-    output.close();
-}
+        // finally, push all payloads to the XML parser and construct the trigSystem objects with each of those
+        XmlConfigReader xmlRdr;
+        std::map<std::string,l1t::trigSystem> parsedALGO, parsedRS, parsedHW; // associates key -> triggerSystem
 
-        // now use standard tool for XML parsing and context merging
-/*
-        l1t::trigSystem ts;
+        for(size_t type=0; type<NUM_TYPES; type++)
 
-        ts.configureSystem(configs,"BMTF");
+            for(auto &conf : payloads[type]){
 
-        std::map<std::string, l1t::setting> settings = ts.getSettings("processors");
-        std::map<std::string, l1t::mask>    rs       = ts.getMasks   ("processors");
+                l1t::trigSystem &ts = ( type == kALGO ? parsedALGO[conf.first] : (type == kRS ? parsedRS[conf.first] : parsedHW[conf.first]) )
 
-        L1TMuonBarrelParamsHelper m_params_helper(settings,rs);
+                xmlRdr.readDOMFromString(conf.second);
+                xmlRdr.readRootElement("bmtf", ts);
+                ts.setConfigured();
+                // for debugging also dump the configs to local files
+                std::ofstream output(std::string("/tmp/").append(conf.first.substr(0,conf.first.find("/"))).append(".xml"));
+                output<<conf.second;
+                output.close();
+            }
 
-        boost::shared_ptr< L1TMuonBarrelParams > retval( new L1TMuonBarrelParams(m_params_helper) ) ;
+//        L1TMuonBarrelParamsHelper m_params_helper( *(baseSettings.product()) );
+//        m_params_helper.loadFromOnline(parsedALGO, parsedRS, parsedHW);
 
+//        boost::shared_ptr< L1TMuonBarrelParams > retval( new L1TMuonBarrelParams(m_params_helper) ) ;
+        boost::shared_ptr< L1TMuonBarrelParams > retval = new L1TMuonBarrelParams( *(baseSettings.product()) ); 
+ 
         return retval;
-*/
-    return boost::shared_ptr< L1TMuonBarrelParams >( new L1TMuonBarrelParams() ) ;
 
 }
 
