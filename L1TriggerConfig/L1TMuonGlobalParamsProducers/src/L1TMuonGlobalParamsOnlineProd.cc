@@ -6,7 +6,7 @@
 #include "CondFormats/L1TObjects/interface/L1TMuonGlobalParams.h"
 #include "CondFormats/DataRecord/interface/L1TMuonGlobalParamsRcd.h"
 #include "CondFormats/DataRecord/interface/L1TMuonGlobalParamsO2ORcd.h"
-//#include "L1Trigger/L1TCommon/interface/trigSystem.h"
+#include "L1Trigger/L1TCommon/interface/trigSystem.h"
 #include "L1Trigger/L1TMuon/interface/L1TMuonGlobalParamsHelper.h"
 
 #include "xercesc/util/PlatformUtils.hpp"
@@ -26,12 +26,17 @@ L1TMuonGlobalParamsOnlineProd::L1TMuonGlobalParamsOnlineProd(const edm::Paramete
 boost::shared_ptr<L1TMuonGlobalParams> L1TMuonGlobalParamsOnlineProd::newObject(const std::string& objectKey, const L1TMuonGlobalParamsO2ORcd &record) {
     using namespace edm::es;
 
+    const L1TMuonGlobalParamsRcd& baseRcd = record.template getRecord< L1TMuonGlobalParamsRcd >() ;
+    edm::ESHandle< L1TMuonGlobalParams > baseSettings ;
+    baseRcd.get( baseSettings ) ;
+
+
     std::string stage2Schema = "CMS_TRG_L1_CONF" ;
     edm::LogInfo( "L1-O2O: L1TMuonGlobalParamsOnlineProd" ) << "Producing L1TMuonGlobalParams with key =" << objectKey ;
 
     if (objectKey.empty()) {
         edm::LogInfo( "L1-O2O: L1TMuonGlobalParamsOnlineProd" ) << "Key is empty, returning empty L1TMuonGlobalParams";
-        return boost::shared_ptr< L1TMuonGlobalParams > ( new L1TMuonGlobalParams() );
+        return boost::shared_ptr< L1TMuonGlobalParams > ( new L1TMuonGlobalParams( *(baseSettings.product()) ) );
     }
 
     std::vector< std::string > queryColumns;
@@ -47,7 +52,7 @@ boost::shared_ptr<L1TMuonGlobalParams> L1TMuonGlobalParamsOnlineProd::newObject(
 
     if( queryResult.queryFailed() || queryResult.numberRows() != 1 ){
         edm::LogError( "L1-O2O: L1TMuonGlobalParamsOnlineProd" ) << "Cannot get BMTF_ALGO.CONF for ID="<<objectKey ;
-        return boost::shared_ptr< L1TMuonGlobalParams >( new L1TMuonGlobalParams() ) ;
+        return boost::shared_ptr< L1TMuonGlobalParams >( new L1TMuonGlobalParams( *(baseSettings.product()) ) ) ;
     }
 
     std::string xmlConfig;
@@ -179,7 +184,7 @@ boost::shared_ptr<L1TMuonGlobalParams> L1TMuonGlobalParamsOnlineProd::newObject(
 
    return boost::shared_ptr< L1TMuonGlobalParams >( new L1TMuonGlobalParams( m_params_helper ) ) ;
 */
-   return boost::shared_ptr< L1TMuonGlobalParams >( new L1TMuonGlobalParams() ) ;
+   return boost::shared_ptr< L1TMuonGlobalParams >( new L1TMuonGlobalParams( *(baseSettings.product()) ) ) ;
 }
 
 //define this as a plug-in
