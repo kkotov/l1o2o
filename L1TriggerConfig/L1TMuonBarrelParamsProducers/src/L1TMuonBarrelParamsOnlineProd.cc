@@ -176,27 +176,37 @@ boost::shared_ptr<L1TMuonBarrelParams> L1TMuonBarrelParamsOnlineProd::newObject(
         payloads[kRS][rs_mp7_key] = xmlPayload;
 
         // finally, push all payloads to the XML parser and construct the trigSystem objects with each of those
-        string mergedXMLs;
+        l1t::XmlConfigReader xmlRdr;
+        l1t::trigSystem parsedXMLs;
+        // HW settings should always go first
+        for(auto &conf : payloads[ kHW ]){
+            xmlRdr.readDOMFromString( conf.second );
+            xmlRdr.readRootElement  ( parsedXMLs  );
+        }
+        // now let's parse ALGO and then RS settings 
+        for(auto &conf : payloads[ kALGO ]){
+            xmlRdr.readDOMFromString( conf.second );
+            xmlRdr.readRootElement  ( parsedXMLs  );
+        }
+        for(auto &conf : payloads[ kRS ]){
+            xmlRdr.readDOMFromString( conf.second );
+            xmlRdr.readRootElement  ( parsedXMLs  );
+        }
+        parsedXMLs.setConfigured();
+
+        // for debugging also dump the configs to local files
         for(size_t type=0; type<NUM_TYPES; type++)
-            for(auto &conf : payloads[ sequence[type] ]){
-                mergedXMLs.append( conf.second );
-                // for debugging also dump the configs to local files
+            for(auto &conf : payloads[ type ]){
                 std::ofstream output(std::string("/tmp/").append(conf.first.substr(0,conf.first.find("/"))).append(".xml"));
                 output<<conf.second;
                 output.close();
             }
 
-        XmlConfigReader xmlRdr;
-        l1t::trigSystem parsedXMLs;
-        xmlRdr.readDOMFromString( mergedXMLs );
-        xmlRdr.readRootElement( parsedXMLs );
-        parsedXML.setConfigured();
-
 //        L1TMuonBarrelParamsHelper m_params_helper( *(baseSettings.product()) );
 //        m_params_helper.loadFromOnline(parsedXMLs);
 
 //        boost::shared_ptr< L1TMuonBarrelParams > retval( new L1TMuonBarrelParams(m_params_helper) ) ;
-        boost::shared_ptr< L1TMuonBarrelParams > retval = new L1TMuonBarrelParams( *(baseSettings.product()) ); 
+        boost::shared_ptr< L1TMuonBarrelParams > retval( new L1TMuonBarrelParams( *(baseSettings.product()) ) );
  
         return retval;
 
