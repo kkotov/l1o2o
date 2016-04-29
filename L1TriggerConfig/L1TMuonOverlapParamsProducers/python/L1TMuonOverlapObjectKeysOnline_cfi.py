@@ -5,4 +5,3 @@ L1TMuonOverlapObjectKeysOnline = cms.ESProducer("L1TMuonOverlapObjectKeysOnlineP
     subsystemLabel = cms.string('OMTF'),
     onlineDB = cms.string('oracle://CMS_OMDS_LB/CMS_TRG_R')
 )
-

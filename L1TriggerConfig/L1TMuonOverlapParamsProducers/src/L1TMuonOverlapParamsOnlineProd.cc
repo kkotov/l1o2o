@@ -4,57 +4,22 @@
 #include "CondTools/L1TriggerExt/interface/L1ConfigOnlineProdBaseExt.h"
 #include "CondFormats/L1TObjects/interface/L1TMuonOverlapParams.h"
 #include "CondFormats/DataRecord/interface/L1TMuonOverlapParamsRcd.h"
-#include "L1Trigger/L1TMuonOverlap/interface/XMLConfigReader.h"
+#include "CondFormats/DataRecord/interface/L1TMuonOverlapParamsO2ORcd.h"
 
-class L1TMuonOverlapParamsOnlineProd : public L1ConfigOnlineProdBaseExt<L1TMuonOverlapParamsRcd,L1TMuonOverlapParams> {
+class L1TMuonOverlapParamsOnlineProd : public L1ConfigOnlineProdBaseExt<L1TMuonOverlapParamsO2ORcd,L1TMuonOverlapParams> {
 private:
 public:
-    virtual boost::shared_ptr<L1TMuonOverlapParams> newObject(const std::string& objectKey) override ;
+    virtual boost::shared_ptr<L1TMuonOverlapParams> newObject(const std::string& objectKey, const L1TMuonOverlapParamsO2ORcd& record) override ;
 
     L1TMuonOverlapParamsOnlineProd(const edm::ParameterSet&);
     ~L1TMuonOverlapParamsOnlineProd(void){}
 };
 
-L1TMuonOverlapParamsOnlineProd::L1TMuonOverlapParamsOnlineProd(const edm::ParameterSet& iConfig) : L1ConfigOnlineProdBaseExt<L1TMuonOverlapParamsRcd,L1TMuonOverlapParams>(iConfig) {}
+L1TMuonOverlapParamsOnlineProd::L1TMuonOverlapParamsOnlineProd(const edm::ParameterSet& iConfig) : L1ConfigOnlineProdBaseExt<L1TMuonOverlapParamsO2ORcd,L1TMuonOverlapParams>(iConfig) {}
 
-boost::shared_ptr<L1TMuonOverlapParams> L1TMuonOverlapParamsOnlineProd::newObject(const std::string& objectKey) {
-    using namespace edm::es;
-
-    std::string stage2Schema = "CMS_TRG_L1_CONF" ;
-    edm::LogInfo( "L1-O2O: L1TMuonOverlapParamsOnlineProd" ) << "Producing L1TMuonOverlapParams with key =" << objectKey ;
-
-    if (objectKey.empty()) {
-        edm::LogInfo( "L1-O2O: L1TMuonOverlapParamsOnlineProd" ) << "Key is empty, returning empty L1TMuonOverlapParams";
-        return boost::shared_ptr< L1TMuonOverlapParams > ( new L1TMuonOverlapParams() );
-    }
-
-    std::vector< std::string > queryColumns;
-    queryColumns.push_back( "CONF" ) ;
-
-    l1t::OMDSReader::QueryResults queryResult =
-            m_omdsReader.basicQuery( queryColumns,
-                                     stage2Schema,
-                                     "OMTF_ALGO",
-                                     "OMTF_ALGO.ID",
-                                     m_omdsReader.singleAttribute(objectKey)
-                                   ) ;
-
-    if( queryResult.queryFailed() || queryResult.numberRows() != 1 ){
-        edm::LogError( "L1-O2O: L1TMuonOverlapParamsOnlineProd" ) << "Cannot get OMTF_ALGO.CONF for ID="<<objectKey ;
-        return boost::shared_ptr< L1TMuonOverlapParams >( new L1TMuonOverlapParams() ) ;
-    }
-
-    std::string xmlConfig;
-    queryResult.fillVariable( "CONF", xmlConfig );
-///    std::istringstream iss(xmlConfig);
- 
-    boost::shared_ptr< L1TMuonOverlapParams > retval( new L1TMuonOverlapParams() ) ;
- 
-    XMLConfigReader myReader;
-//    myReader.setConfigString(xmlConfig); // has yet to be implemented
-//    myReader.readConfig(retval);
-
-    return retval;
+boost::shared_ptr<L1TMuonOverlapParams> L1TMuonOverlapParamsOnlineProd::newObject(const std::string& objectKey, const L1TMuonOverlapParamsO2ORcd& record) {
+    edm::LogError( "L1-O2O" ) << "L1TMuonOverlapParams object with key " << objectKey << " not in ORCON!" ;
+    return boost::shared_ptr< L1TMuonOverlapParams >( new L1TMuonOverlapParams() );
 }
 
 //define this as a plug-in

@@ -24,30 +24,10 @@ void L1TMuonEndcapObjectKeysOnlineProd::fillObjectKeys( ReturnType pL1TriggerKey
     std::string stage2Schema = "CMS_TRG_L1_CONF" ;
 
     if( !EMTFKey.empty() ) {
-        std::vector< std::string > queryStrings ;
-        queryStrings.push_back( "ALGO" ) ;
-
-        std::string algo_key;
-
-        // select MP7_PP_CONF_KEY from CMS_S1CALOL2.S1CALOL2_CONF where S1CALOL2_CONF_KEY = objectKey ;
-        l1t::OMDSReader::QueryResults queryResult =
-            m_omdsReader.basicQuery( queryStrings,
-                                     stage2Schema,
-                                     "EMTF_KEYS",
-                                     "EMTF_KEYS.ID",
-                                     m_omdsReader.singleAttribute(EMTFKey)
-                                   ) ;
-
-        if( queryResult.queryFailed() || queryResult.numberRows() != 1 ){
-            edm::LogError( "L1-O2O" ) << "Cannot get EMTF_KEYS.ALGO" ;
-            return ;
-        }
-
-        if( !queryResult.fillVariable( "ALGO", algo_key) ) algo_key = "";
-        
-        pL1TriggerKey->add( "L1TMuonEndcapParamsRcd",
+        // simply assign the top level key to the record
+        pL1TriggerKey->add( "L1TMuonEndcapParamsO2ORcd",
                             "L1TMuonEndcapParams",
-			    algo_key) ;
+			    EMTFKey) ;
     }
 }
 

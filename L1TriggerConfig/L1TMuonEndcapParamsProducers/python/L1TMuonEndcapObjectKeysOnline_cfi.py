@@ -5,4 +5,3 @@ L1TMuonEndcapObjectKeysOnline = cms.ESProducer("L1TMuonEndcapObjectKeysOnlinePro
     subsystemLabel = cms.string('EMTF'),
     onlineDB = cms.string('oracle://CMS_OMDS_LB/CMS_TRG_R')
 )
-

@@ -1,6 +1,6 @@
 import FWCore.ParameterSet.Config as cms
 
-from L1TriggerConfig.L1TMuonOverlapParamsProducers.L1TMuonOverlapObjectKeysOnline_cfi import *
+from L1Trigger.L1TMuonOverlap.fakeOmtfParams_cff import *
 
 L1TMuonOverlapParamsOnlineProd = cms.ESProducer("L1TMuonOverlapParamsOnlineProd",
     onlineAuthentication = cms.string('.'),

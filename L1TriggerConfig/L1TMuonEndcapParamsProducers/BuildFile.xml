@@ -5,4 +5,6 @@
 <use   name="CondFormats/DataRecord"/>
 <use   name="CondTools/L1TriggerExt"/>
 <use   name="L1Trigger/L1TMuonEndCap"/>
+<use   name="L1Trigger/L1TCommon"/>
+<use   name="xerces-c"/>
 <flags   EDM_PLUGIN="1"/>
