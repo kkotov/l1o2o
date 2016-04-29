@@ -175,6 +175,20 @@ boost::shared_ptr<L1TMuonBarrelParams> L1TMuonBarrelParamsOnlineProd::newObject(
         // remember AMC13 RS configuration
         payloads[kRS][rs_mp7_key] = xmlPayload;
 
+// A quick hack
+std::ifstream input( "UGMT_HW.xml" );
+if( !input ){
+    std::cout << "Cannot open UGMT_HW.xm file" << std::endl;
+    return boost::shared_ptr< L1TMuonBarrelParams >( new L1TMuonBarrelParams( *(baseSettings.product()) ) ) ;
+}
+std::string xmlHWpayload;
+while( !input.eof() ){
+    std::string tmp;
+    std::getline( input, tmp, '\n' );
+    xmlHWpayload.append( tmp );
+}
+payloads[kHW][hw_key] = xmlHWpayload;
+
         // finally, push all payloads to the XML parser and construct the trigSystem objects with each of those
         l1t::XmlConfigReader xmlRdr;
         l1t::trigSystem parsedXMLs;
