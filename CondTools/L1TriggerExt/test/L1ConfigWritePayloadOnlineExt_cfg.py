@@ -5,6 +5,7 @@ process.load("FWCore.MessageLogger.MessageLogger_cfi")
 process.MessageLogger.cout.placeholder = cms.untracked.bool(False)
 process.MessageLogger.cout.threshold = cms.untracked.string('DEBUG')
 process.MessageLogger.debugModules = cms.untracked.vstring('*')
+process.MessageLogger.suppressInfo = cms.untracked.vstring('L1TMuonBarrelParamsOnlineProd') # suppressDebug, suppressWarning
 
 process.load("CondCore.DBCommon.CondDBCommon_cfi")
 

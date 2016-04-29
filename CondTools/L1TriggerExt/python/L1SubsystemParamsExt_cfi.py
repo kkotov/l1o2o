@@ -29,12 +29,12 @@ def initL1SubsystemsExt( tagBaseVec = [],
 #            type = cms.string('L1TMuonEndcapParams'),
 #            key = cms.string(objectKey)
 #        ),
-#        cms.PSet(
-#            record = cms.string('L1TMuonOverlapParamsO2ORcd'),
-#            tag = cms.string('L1TMuonOverlapParams_' + tagBaseVec[ L1CondEnumExt.L1TMuonOverlapParams ]),
-#            type = cms.string('L1TMuonOverlapParams'),
-#            key = cms.string(objectKey)
-#        ),
+        cms.PSet(
+            record = cms.string('L1TMuonOverlapParamsO2ORcd'),
+            tag = cms.string('L1TMuonOverlapParams_' + tagBaseVec[ L1CondEnumExt.L1TMuonOverlapParams ]),
+            type = cms.string('L1TMuonOverlapParams'),
+            key = cms.string(objectKey)
+        ),
         cms.PSet(
             record = cms.string('L1TMuonBarrelParamsO2ORcd'),
             tag = cms.string('L1TMuonBarrelParams_' + tagBaseVec[ L1CondEnumExt.L1TMuonBarrelParams ]),

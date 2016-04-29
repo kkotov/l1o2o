@@ -16,12 +16,12 @@ options.register('objectKey',
                  VarParsing.VarParsing.varType.string,
                  "object key")
 options.register('objectType',
-                 'L1RCTParameters', #default value
+                 'L1TMuonOverlapParams', #default value
                  VarParsing.VarParsing.multiplicity.singleton,
                  VarParsing.VarParsing.varType.string,
                  "object C++ type")
 options.register('recordName',
-                 'L1RCTParametersRcd', #default value
+                 'L1TMuonOverlapParamsO2ORcd', #default value
                  VarParsing.VarParsing.multiplicity.singleton,
                  VarParsing.VarParsing.varType.string,
                  "Name of EventSetup record")
@@ -98,8 +98,7 @@ process.outputDB.DBParameters.authenticationPath = cms.untracked.string(options.
 
 if options.genFromOMDS == 0:
     # Generate dummy configuration data
-    process.load('L1Trigger.L1TMuonEndCap.fakeMuonEndCapParams_cfi')
-    process.load('L1Trigger.L1TMuonOverlap.fakeOmtfParams_cff')
+    process.load('L1TriggerConfig.L1TMuonOverlapParamsProducers.L1TMuonOverlapParamsOnlineProxy_cfi')
 #    if options.startup == 0:
 #        process.load("L1Trigger.Configuration.L1DummyConfig_cff")
 #        process.load("L1TriggerConfig.L1GtConfigProducers.Luminosity.lumi1031.L1Menu_MC2009_v2_L1T_Scales_20090624_Imp0_Unprescaled_cff")
