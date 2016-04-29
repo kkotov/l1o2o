@@ -176,26 +176,24 @@ boost::shared_ptr<L1TMuonBarrelParams> L1TMuonBarrelParamsOnlineProd::newObject(
         payloads[kRS][rs_mp7_key] = xmlPayload;
 
         // finally, push all payloads to the XML parser and construct the trigSystem objects with each of those
-        XmlConfigReader xmlRdr;
-        std::map<std::string,l1t::trigSystem> parsedALGO, parsedRS, parsedHW; // associates key -> triggerSystem
-
+        string mergedXMLs;
         for(size_t type=0; type<NUM_TYPES; type++)
-
-            for(auto &conf : payloads[type]){
-
-                l1t::trigSystem &ts = ( type == kALGO ? parsedALGO[conf.first] : (type == kRS ? parsedRS[conf.first] : parsedHW[conf.first]) )
-
-                xmlRdr.readDOMFromString(conf.second);
-                xmlRdr.readRootElement("bmtf", ts);
-                ts.setConfigured();
+            for(auto &conf : payloads[ sequence[type] ]){
+                mergedXMLs.append( conf.second );
                 // for debugging also dump the configs to local files
                 std::ofstream output(std::string("/tmp/").append(conf.first.substr(0,conf.first.find("/"))).append(".xml"));
                 output<<conf.second;
                 output.close();
             }
 
+        XmlConfigReader xmlRdr;
+        l1t::trigSystem parsedXMLs;
+        xmlRdr.readDOMFromString( mergedXMLs );
+        xmlRdr.readRootElement( parsedXMLs );
+        parsedXML.setConfigured();
+
 //        L1TMuonBarrelParamsHelper m_params_helper( *(baseSettings.product()) );
-//        m_params_helper.loadFromOnline(parsedALGO, parsedRS, parsedHW);
+//        m_params_helper.loadFromOnline(parsedXMLs);
 
 //        boost::shared_ptr< L1TMuonBarrelParams > retval( new L1TMuonBarrelParams(m_params_helper) ) ;
         boost::shared_ptr< L1TMuonBarrelParams > retval = new L1TMuonBarrelParams( *(baseSettings.product()) ); 
