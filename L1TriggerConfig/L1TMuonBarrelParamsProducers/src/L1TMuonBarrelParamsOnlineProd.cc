@@ -173,7 +173,7 @@ boost::shared_ptr<L1TMuonBarrelParams> L1TMuonBarrelParamsOnlineProd::newObject(
 
         if( !queryResult.fillVariable( "CONF", xmlPayload ) ) xmlPayload = "";
         // remember AMC13 RS configuration
-        payloads[kRS][rs_mp7_key] = xmlPayload;
+        payloads[kRS][rs_amc13_key] = xmlPayload;
 
 // A quick hack
 std::ifstream input( "UGMT_HW.xml" );

@@ -21,36 +21,12 @@ void L1TMuonGlobalObjectKeysOnlineProd::fillObjectKeys( ReturnType pL1TriggerKey
 
     std::string uGMTKey = pL1TriggerKey->subsystemKey( L1TriggerKeyExt::kuGMT ) ;
 
-    uGMTKey = uGMTKey.substr( 0, uGMTKey.find(":") );
-
-    std::string stage2Schema = "CMS_TRG_L1_CONF" ;
-
-    if( !uGMTKey.empty() ) {
-        std::vector< std::string > queryStrings ;
-        queryStrings.push_back( "ALGO" ) ;
-
-        std::string algo_key;
-
-        // select ALGO from CMS_TRG_L1_CONF.UGMT_KEYS where ID = objectKey ;
-        l1t::OMDSReader::QueryResults queryResult =
-            m_omdsReader.basicQuery( queryStrings,
-                                     stage2Schema,
-                                     "UGMT_KEYS",
-                                     "UGMT_KEYS.ID",
-                                     m_omdsReader.singleAttribute(uGMTKey)
-                                   ) ;
-
-        if( queryResult.queryFailed() || queryResult.numberRows() != 1 ){
-            edm::LogError( "L1-O2O" ) << "Cannot get UGMT_KEYS.ALGO" ;
-            return ;
-        }
-
-        if( !queryResult.fillVariable( "ALGO", algo_key) ) algo_key = "";
-        
+//    if( !uGMTKey.empty() ) {
+        // simply assign the top level key to the record
         pL1TriggerKey->add( "L1TMuonGlobalParamsO2ORcd",
                             "L1TMuonGlobalParams",
-			    algo_key) ;
-    }
+			    uGMTKey) ;
+//    }
 }
 
 

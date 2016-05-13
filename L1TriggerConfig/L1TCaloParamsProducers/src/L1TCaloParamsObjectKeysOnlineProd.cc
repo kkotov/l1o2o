@@ -21,15 +21,13 @@ void L1TCaloParamsObjectKeysOnlineProd::fillObjectKeys( ReturnType pL1TriggerKey
 
     std::string CALOKey = pL1TriggerKey->subsystemKey( L1TriggerKeyExt::kCALO ) ;
 
-    std::string stage2Schema = "CMS_TRG_L1_CONF" ;
-
-    if( !CALOKey.empty() ) {
+///    if( !CALOKey.empty() ) {
         // simply assign the top level key to the record
         pL1TriggerKey->add( "L1TCaloParamsO2ORcd",
                             "CaloParams",
                             CALOKey ) ;
 
-    }
+///    }
 
 }
 

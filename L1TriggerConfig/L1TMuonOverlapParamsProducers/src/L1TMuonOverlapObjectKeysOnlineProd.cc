@@ -23,12 +23,39 @@ void L1TMuonOverlapObjectKeysOnlineProd::fillObjectKeys( ReturnType pL1TriggerKe
 
     std::string stage2Schema = "CMS_TRG_L1_CONF" ;
 
-    if( !OMTFKey.empty() ) {
-        // simply assign the top level key to the record
-        pL1TriggerKey->add( "L1TMuonOverlapParamsO2ORcd",
-                            "L1TMuonOverlapParams",
-			    OMTFKey) ;
+    if( OMTFKey.empty() ){
+        edm::LogError( "L1-O2O: L1TMuonOverlapObjectKeysOnlineProd" ) << "Key is empty ... do nothing, but that'll probably crash things later on";
+        return;
     }
+
+    std::string tscKey = OMTFKey.substr(0, OMTFKey.find(":") );
+    std::string  rsKey = OMTFKey.substr(   OMTFKey.find(":")+1, std::string::npos );
+
+    std::vector< std::string > queryStrings ;
+    queryStrings.push_back( "ALGO" ) ;
+
+    std::string algo_key;
+
+    // select ALGO from CMS_TRG_L1_CONF.OMTF_KEYS where ID = tscKey ;
+    l1t::OMDSReader::QueryResults queryResult =
+            m_omdsReader.basicQuery( queryStrings,
+                                     stage2Schema,
+                                     "OMTF_KEYS",
+                                     "OMTF_KEYS.ID",
+                                     m_omdsReader.singleAttribute(tscKey)
+                                   ) ;
+
+    if( queryResult.queryFailed() || queryResult.numberRows() != 1 ){
+        edm::LogError( "L1-O2O" ) << "Cannot get OMTF_KEYS.ALGO "<<" do nothing, but that'll probably crash things later on";
+        return; 
+    }
+
+    if( !queryResult.fillVariable( "ALGO", algo_key) ) algo_key = "";
+
+    // simply assign the algo key to the record
+    pL1TriggerKey->add( "L1TMuonOverlapParamsO2ORcd",
+                        "L1TMuonOverlapParams",
+			algo_key) ;
 }
 
 

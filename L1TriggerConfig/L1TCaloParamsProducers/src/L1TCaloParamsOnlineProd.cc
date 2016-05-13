@@ -6,7 +6,8 @@
 #include "CondFormats/DataRecord/interface/L1TCaloParamsRcd.h"
 #include "CondFormats/DataRecord/interface/L1TCaloParamsO2ORcd.h"
 #include "L1Trigger/L1TCommon/interface/trigSystem.h"
-//#include "L1Trigger/L1TCalorimeter/interface/L1TMuonGlobalParamsHelper.h"
+#include "L1Trigger/L1TCommon/interface/XmlConfigReader.h"
+#include "L1Trigger/L1TCalorimeter/interface/CaloParamsHelper.h"
 
 #include "xercesc/util/PlatformUtils.hpp"
 using namespace XERCES_CPP_NAMESPACE;
@@ -19,6 +20,33 @@ public:
     L1TCaloParamsOnlineProd(const edm::ParameterSet&);
     ~L1TCaloParamsOnlineProd(void){}
 };
+
+bool
+readCaloLayer1OnlineSettings(l1t::CaloParamsHelper& paramsHelper, std::map<std::string, l1t::setting>& conf, std::map<std::string, l1t::mask>& ) {
+  const char * expectedParams[] = {
+    "layer1ECalScaleFactors",
+    "layer1HCalScaleFactors",
+    "layer1HFScaleFactors",
+    "layer1ECalScaleETBins",
+    "layer1HCalScaleETBins",
+    "layer1HFScaleETBins"
+  };
+  for (const auto param : expectedParams) {
+    if ( conf.find(param) == conf.end() ) {
+      std::cerr << "Unable to locate expected CaloLayer1 parameter: " << param << " in L1 settings payload!";
+      return false;
+    }
+  }
+  // Layer 1 LUT specification
+  paramsHelper.setLayer1ECalScaleFactors((conf["layer1ECalScaleFactors"].getVector<double>()));
+  paramsHelper.setLayer1HCalScaleFactors((conf["layer1HCalScaleFactors"].getVector<double>()));
+  paramsHelper.setLayer1HFScaleFactors  ((conf["layer1HFScaleFactors"]  .getVector<double>()));
+  paramsHelper.setLayer1ECalScaleETBins(conf["layer1ECalScaleETBins"].getVector<int>());
+  paramsHelper.setLayer1HCalScaleETBins(conf["layer1HCalScaleETBins"].getVector<int>());
+  paramsHelper.setLayer1HFScaleETBins  (conf["layer1HFScaleETBins"]  .getVector<int>());
+
+  return true;
+}
 
 L1TCaloParamsOnlineProd::L1TCaloParamsOnlineProd(const edm::ParameterSet& iConfig) : L1ConfigOnlineProdBaseExt<L1TCaloParamsO2ORcd,l1t::CaloParams>(iConfig) {}
 
@@ -184,24 +212,40 @@ for(auto &conf : payloads[kCONF]){
     output<<conf.second;
     output.close();
 }
-/*
-        // now use standard tool for XML parsing and context merging
 
-        l1t::trigSystem ts;
+    l1t::XmlConfigReader xmlReader;
+    xmlReader.readDOMFromString( xmlPayload );
 
-        ts.configureSystem(configs,"BMTF");
+    l1t::trigSystem calol1;
+    calol1.addProcRole("processors", "processors");
+    xmlReader.readRootElement( calol1, "calol1" );
+    calol1.setConfigured();
 
-        std::map<std::string, l1t::setting> settings = ts.getSettings("processors");
-        std::map<std::string, l1t::mask>    rs       = ts.getMasks   ("processors");
+    try {
+        std::map<std::string, l1t::setting> calol1_conf = calol1.getSettings("processors");
+        std::map<std::string, l1t::mask>    calol1_rs   ;//= calol1.getMasks   ("processors");
 
-        L1TMuonBarrelParamsHelper m_params_helper(settings,rs);
+//    l1t::trigSystem calol2;
+//    calol2.addProcRole("processors", "processors");
+//    xmlReader.readRootElement( calol2, "calol2" );
+//    calol2.setConfigured();
+//    // Perhaps layer 2 has to look at settings for demux and mp separately?
+//    std::map<string, l1t::setting> calol2_conf = calol2.getSettings("processors");
+//    std::map<string, l1t::mask>    calol2_rs   = calol2.getMasks   ("processors");
 
-        boost::shared_ptr< L1TMuonBarrelParams > retval( new L1TMuonBarrelParams(m_params_helper) ) ;
+        l1t::CaloParamsHelper m_params_helper(*(baseSettings.product()));
 
-        return retval;
-*/
-    return boost::shared_ptr< l1t::CaloParams >( new l1t::CaloParams ( *(baseSettings.product()) ) ) ;
+        readCaloLayer1OnlineSettings(m_params_helper, calol1_conf, calol1_rs);
 
+        return boost::shared_ptr< l1t::CaloParams >( new l1t::CaloParams ( m_params_helper ) ) ;
+
+//    } catch (std::runtime_error e){
+    } catch (...){
+//        edm::LogError( "L1-O2O: L1TCaloParamsOnlineProd" ) << "Exception thrown ... resorting to the default payload ("<<e.what()<<")";
+        edm::LogError( "L1-O2O: L1TCaloParamsOnlineProd" ) << "Exception thrown ... resorting to the default payload";
+    }
+
+    return boost::shared_ptr< l1t::CaloParams >( new l1t::CaloParams( *(baseSettings.product()) ) ) ;
 }
 
 //define this as a plug-in

@@ -8,6 +8,7 @@
 #include "CondFormats/DataRecord/interface/L1TMuonGlobalParamsO2ORcd.h"
 #include "L1Trigger/L1TCommon/interface/trigSystem.h"
 #include "L1Trigger/L1TMuon/interface/L1TMuonGlobalParamsHelper.h"
+#include "L1Trigger/L1TMuon/interface/L1TMuonGlobalParams_PUBLIC.h"
 
 #include "xercesc/util/PlatformUtils.hpp"
 using namespace XERCES_CPP_NAMESPACE;
@@ -30,161 +31,199 @@ boost::shared_ptr<L1TMuonGlobalParams> L1TMuonGlobalParamsOnlineProd::newObject(
     edm::ESHandle< L1TMuonGlobalParams > baseSettings ;
     baseRcd.get( baseSettings ) ;
 
-
-    std::string stage2Schema = "CMS_TRG_L1_CONF" ;
-    edm::LogInfo( "L1-O2O: L1TMuonGlobalParamsOnlineProd" ) << "Producing L1TMuonGlobalParams with key =" << objectKey ;
-
     if (objectKey.empty()) {
         edm::LogInfo( "L1-O2O: L1TMuonGlobalParamsOnlineProd" ) << "Key is empty, returning empty L1TMuonGlobalParams";
         return boost::shared_ptr< L1TMuonGlobalParams > ( new L1TMuonGlobalParams( *(baseSettings.product()) ) );
     }
 
-    std::vector< std::string > queryColumns;
-    queryColumns.push_back( "CONF" ) ;
+    std::string tscKey = objectKey.substr(0, objectKey.find(":") );
+    std::string  rsKey = objectKey.substr(   objectKey.find(":")+1, std::string::npos );
 
-    l1t::OMDSReader::QueryResults queryResult =
-            m_omdsReader.basicQuery( queryColumns,
+    std::string stage2Schema = "CMS_TRG_L1_CONF" ;
+    edm::LogInfo( "L1-O2O: L1TMuonGlobalParamsOnlineProd" ) << "Producing L1TMuonGlobalParams with TSC key =" << tscKey << " and RS key = " << rsKey ;
+
+        // first, find keys for the algo, HW, and RS tables
+
+        // ALGO and HW
+        std::vector< std::string > queryStrings ;
+        queryStrings.push_back( "ALGO" ) ;
+        queryStrings.push_back( "HW"   ) ;
+
+        std::string algo_key, hw_key;
+
+        // select ALGO,HW from CMS_TRG_L1_CONF.UGMT_KEYS where ID = tscKey ;
+        l1t::OMDSReader::QueryResults queryResult =
+            m_omdsReader.basicQuery( queryStrings,
+                                     stage2Schema,
+                                     "UGMT_KEYS",
+                                     "UGMT_KEYS.ID",
+                                     m_omdsReader.singleAttribute(tscKey)
+                                   ) ;
+
+        if( queryResult.queryFailed() || queryResult.numberRows() != 1 ){
+            edm::LogError( "L1-O2O: L1TMuonGlobalParamsOnlineProd" ) << "Cannot get UGMT_KEYS.{ALGO,HW}" ;
+            return boost::shared_ptr< L1TMuonGlobalParams >( new L1TMuonGlobalParams( *(baseSettings.product()) ) ) ;
+        }
+
+        if( !queryResult.fillVariable( "ALGO", algo_key) ) algo_key = "";
+        if( !queryResult.fillVariable( "HW",   hw_key  ) ) hw_key   = "";
+
+        // RS
+        queryStrings.clear();
+        queryStrings.push_back( "MP7"       );
+        queryStrings.push_back( "MP7_MONI"  );
+        queryStrings.push_back( "AMC13_MONI");
+
+        std::string rs_mp7_key, rs_mp7moni_key, rs_amc13moni_key;
+
+        // select RS from CMS_TRG_L1_CONF.BMTF_RS_KEYS where ID = rsKey ;
+        queryResult =
+            m_omdsReader.basicQuery( queryStrings,
+                                     stage2Schema,
+                                     "UGMT_RS_KEYS",
+                                     "UGMT_RS_KEYS.ID",
+                                     m_omdsReader.singleAttribute(rsKey)
+                                   ) ;
+
+        if( queryResult.queryFailed() || queryResult.numberRows() != 1 ){
+            edm::LogError( "L1-O2O: L1TMuonGlobalParamsOnlineProd" ) << "Cannot get UGMT_RS_KEYS.{MP7,MP7_MONI,AMC13_MONI}" ;
+            return boost::shared_ptr< L1TMuonGlobalParams > ( new L1TMuonGlobalParams( *(baseSettings.product()) ) );
+        }
+
+        if( !queryResult.fillVariable( "MP7",        rs_mp7_key      ) ) rs_mp7_key       = "";
+        if( !queryResult.fillVariable( "MP7_MONI",   rs_mp7moni_key  ) ) rs_mp7moni_key   = "";
+        if( !queryResult.fillVariable( "AMC13_MONI", rs_amc13moni_key) ) rs_amc13moni_key = "";
+
+
+        // At this point we have four keys: one ALGO key, one HW key, and two RS keys; now query the payloads for these keys
+        // Now querry the actual payloads
+        enum {kALGO=0, kRS, kHW, NUM_TYPES};
+        std::map<std::string,std::string> payloads[NUM_TYPES];  // associates key -> XML payload for a given type of payloads
+        std::string xmlPayload;
+
+        queryStrings.clear();
+        queryStrings.push_back( "CONF" );
+
+        // query ALGO configuration
+        queryResult =
+            m_omdsReader.basicQuery( queryStrings,
                                      stage2Schema,
                                      "UGMT_ALGO",
                                      "UGMT_ALGO.ID",
-                                     m_omdsReader.singleAttribute(objectKey)
+                                     m_omdsReader.singleAttribute(algo_key)
                                    ) ;
 
-    if( queryResult.queryFailed() || queryResult.numberRows() != 1 ){
-        edm::LogError( "L1-O2O: L1TMuonGlobalParamsOnlineProd" ) << "Cannot get BMTF_ALGO.CONF for ID="<<objectKey ;
-        return boost::shared_ptr< L1TMuonGlobalParams >( new L1TMuonGlobalParams( *(baseSettings.product()) ) ) ;
-    }
-
-    std::string xmlConfig;
-    queryResult.fillVariable( "CONF", xmlConfig );
-
-/* Ideally, the code should look like this:
-
-    std::map<std::string,std::string> contexts; // associates key -> XML config string
-    contexts[objectKey] = xmlConfig;            // just one XML config here
-
-    l1t::trigSystem ts;
-
-    ts.configureSystem(contexts,"UGMT");
-
-    std::map<std::string, l1t::setting> settings = ts.getSettings("processors");
-    std::map<std::string, l1t::mask>    rs       = ts.getMasks   ("processors");
-
-    L1TMuonGlobalParamsHelper m_params_helper(settings,rs);
-
-    boost::shared_ptr< L1TMuonGlobalParams > retval( new L1TMuonGlobalParams(m_params_helper) ) ;
-
-    return retval;
-
-*/ 
-
-/// But in reality we have something like this:
-//
-/// this chunk of code should go away with a proper interface to the XML parser
-
-/*
-    std::ofstream output("/tmp/ugmt_cur_conf.xml");
-    output<<xmlConfig;
-    output.close();
-
-    XMLPlatformUtils::Initialize();
-    xercesc::XercesDOMParser *parser_ = new XercesDOMParser();
-    parser_->setValidationScheme(XercesDOMParser::Val_Auto);
-    parser_->setDoNamespaces(false);
-    parser_->parse("/tmp/ugmt_cur_conf.xml");
-    xercesc::DOMDocument *doc_ = parser_->getDocument();
-    DOMElement* rootElement = doc_->getDocumentElement();
-///
-
-
-
-    l1t::trigSystem ts;
-
-/// temporary solution that will be replaced with just one ts.readContexts call
-    if( xercesc::XMLString::transcode(rootElement->getTagName()) != ts._xmlRdr.kModuleNameAlgo && xercesc::XMLString::transcode(rootElement->getTagName()) != ts._xmlRdr.kModuleNameRunSettings){
-        std::cout<<"Unknown tag: "<<xercesc::XMLString::transcode(rootElement->getTagName())<<std::endl;
-        return boost::shared_ptr< L1TMuonGlobalParams >( new L1TMuonGlobalParams() ) ;
-    }
-
-    ts.addProcRole("processors", "processors");
-    ts._sysId = "ugmt";
-    ts._xmlRdr.readContext(rootElement, ts._sysId, ts);
-    ts._isConfigured = true;
-///
-
-
-
-/// this code should belong to the helper class
-    std::map<std::string, l1t::setting> settings = ts.getSettings("processors");
-//    std::map<std::string, l1t::mask>    rs     = ts.getMasks("processors"); // this call throws an exception if there is nothing for masks
-
-// following example code is similar to https://github.com/cms-l1t-offline/cmssw/blob/cms_o2o_devel-CMSSW_8_0_2/L1Trigger/L1TMuon/plugins/L1TMuonGlobalParamsESProducer.cc
-    L1TMuonGlobalParamsHelper m_params_helper;
-
-    std::string bmtfInputsToDisableStr = settings["bmtfInputsToDisable"].getValueAsStr();
-    std::string omtfInputsToDisableStr = settings["omtfInputsToDisable"].getValueAsStr();
-    std::string emtfInputsToDisableStr = settings["emtfInputsToDisable"].getValueAsStr();
-
-    std::stringstream ss;
-
-    std::bitset<12> bmtfDisables;
-    std::bitset<6>  omtfpDisables, omtfnDisables;
-    std::bitset<6>  emtfpDisables, emtfnDisables;
-    for(size_t i=0; i<12; i++){
-
-        ss.str("");
-        ss<<"BMTF"<<i+1;
-        if( bmtfInputsToDisableStr.find(ss.str()) != std::string::npos )
-            bmtfDisables.set(i, 1);
-        else
-            bmtfDisables.set(i, 0);
-
-        ss.str("");
-        ss<<"OMTF";
-        if( i < 6 ){
-           ss << "p" << i+1;
-           if( omtfInputsToDisableStr.find(ss.str()) != std::string::npos )
-               omtfpDisables.set(i, 1);
-           else
-               omtfpDisables.set(i, 0);
-        } else {
-           ss << "n" << i-5;
-           if( omtfInputsToDisableStr.find(ss.str()) != std::string::npos )
-               omtfnDisables.set(i-6, 1);
-           else
-               omtfnDisables.set(i-6, 0);
+        if( queryResult.queryFailed() || queryResult.numberRows() != 1 ){
+            edm::LogError( "L1-O2O: L1TMuonGlobalParamsOnlineProd" ) << "Cannot get BMTF_ALGO.CONF for ID="<<algo_key;
+            return boost::shared_ptr< L1TMuonGlobalParams >( new L1TMuonGlobalParams( *(baseSettings.product()) ) ) ;
         }
 
-        ss.str("");
-        ss<<"EMTF";
-        if( i < 6 ){
-           ss << "p" << i+1;
-           if( emtfInputsToDisableStr.find(ss.str()) != std::string::npos )
-               emtfpDisables.set(i, 1);
-           else
-               emtfpDisables.set(i, 0);
-        } else {
-           ss << "n" << i-5;
-           if( emtfInputsToDisableStr.find(ss.str()) != std::string::npos )
-               emtfnDisables.set(i-6, 1);
-           else
-               emtfnDisables.set(i-6, 0);
+        if( !queryResult.fillVariable( "CONF", xmlPayload ) ) xmlPayload = "";
+        // remember ALGO configuration
+        payloads[kALGO][algo_key] = xmlPayload;
+
+        // query HW configuration
+        queryResult =
+            m_omdsReader.basicQuery( queryStrings,
+                                     stage2Schema,
+                                     "UGMT_HW",
+                                     "UGMT_HW.ID",
+                                     m_omdsReader.singleAttribute(hw_key)
+                                   ) ;
+
+        if( queryResult.queryFailed() || queryResult.numberRows() != 1 ){
+            edm::LogError( "L1-O2O: L1TMuonGlobalParamsOnlineProd" ) << "Cannot get BMTF_HW.CONF for ID="<<hw_key;
+            return boost::shared_ptr< L1TMuonGlobalParams >( new L1TMuonGlobalParams( *(baseSettings.product()) ) ) ;
         }
 
-   }
+        if( !queryResult.fillVariable( "CONF", xmlPayload ) ) xmlPayload = "";
+        // remember HW configuration
+        payloads[kHW][hw_key] = xmlPayload;
 
-   m_params_helper.setBmtfInputsToDisable(bmtfDisables);
-   m_params_helper.setEmtfpInputsToDisable(emtfpDisables);
-   m_params_helper.setEmtfnInputsToDisable(emtfnDisables);
-   m_params_helper.setOmtfpInputsToDisable(omtfpDisables);
-   m_params_helper.setOmtfnInputsToDisable(omtfnDisables);
-///
+        // query MP7 and AMC13 RS configuration
+        queryResult =
+            m_omdsReader.basicQuery( queryStrings,
+                                     stage2Schema,
+                                     "UGMT_RS",
+                                     "UGMT_RS.ID",
+                                     m_omdsReader.singleAttribute(rs_mp7_key)
+                                   ) ;
+
+        if( queryResult.queryFailed() || queryResult.numberRows() != 1 ){
+            edm::LogError( "L1-O2O: L1TMuonGlobalParamsOnlineProd" ) << "Cannot get UGMT_RS.CONF for ID="<<rs_mp7_key;
+            return boost::shared_ptr< L1TMuonGlobalParams >( new L1TMuonGlobalParams( *(baseSettings.product()) ) ) ;
+        }
+
+        if( !queryResult.fillVariable( "CONF", xmlPayload ) ) xmlPayload = "";
+        // remember MP7 RS configuration
+        payloads[kRS][rs_mp7_key] = xmlPayload;
+
+        queryResult =
+            m_omdsReader.basicQuery( queryStrings,
+                                     stage2Schema,
+                                     "UGMT_RS",
+                                     "UGMT_RS.ID",
+                                     m_omdsReader.singleAttribute(rs_mp7moni_key)
+                                   ) ;
+
+        if( queryResult.queryFailed() || queryResult.numberRows() != 1 ){
+            edm::LogError( "L1-O2O: L1TMuonGlobalParamsOnlineProd" ) << "Cannot get UGMT_RS.CONF for ID="<<rs_mp7moni_key;
+            return boost::shared_ptr< L1TMuonGlobalParams >( new L1TMuonGlobalParams( *(baseSettings.product()) ) ) ;
+        }
+
+        if( !queryResult.fillVariable( "CONF", xmlPayload ) ) xmlPayload = "";
+        // remember MP7 RS configuration
+        payloads[kRS][rs_mp7moni_key] = xmlPayload;
+
+        // query AMC13 RS configuration
+        queryResult =
+            m_omdsReader.basicQuery( queryStrings,
+                                     stage2Schema,
+                                     "UGMT_RS",
+                                     "UGMT_RS.ID",
+                                     m_omdsReader.singleAttribute(rs_amc13moni_key)
+                                   ) ;
+
+        if( queryResult.queryFailed() || queryResult.numberRows() != 1 ){
+            edm::LogError( "L1-O2O: L1TMuonBarrelParamsOnlineProd" ) << "Cannot get UGMT_RS.CONF for ID="<<rs_amc13moni_key;
+            return boost::shared_ptr< L1TMuonGlobalParams >( new L1TMuonGlobalParams( *(baseSettings.product()) ) ) ;
+        }
+
+        if( !queryResult.fillVariable( "CONF", xmlPayload ) ) xmlPayload = "";
+        // remember AMC13 RS configuration
+        payloads[kRS][rs_amc13moni_key] = xmlPayload;
 
 
+    // finally, push all payloads to the XML parser and construct the trigSystem objects with each of those
+    l1t::XmlConfigReader xmlRdr;
+    l1t::trigSystem trgSys;
+    // HW settings should always go first
+    for(auto &conf : payloads[ kHW ]){
+        xmlRdr.readDOMFromString( conf.second );
+        xmlRdr.readRootElement  ( trgSys      );
+    }
+    // now let's parse ALGO and then RS settings 
+    for(auto &conf : payloads[ kALGO ]){
+        xmlRdr.readDOMFromString( conf.second );
+        xmlRdr.readRootElement  ( trgSys      );
+    }
+    for(auto &conf : payloads[ kRS ]){
+        xmlRdr.readDOMFromString( conf.second );
+        xmlRdr.readRootElement  ( trgSys      );
+    }
+    trgSys.setConfigured();
 
-   return boost::shared_ptr< L1TMuonGlobalParams >( new L1TMuonGlobalParams( m_params_helper ) ) ;
-*/
-   return boost::shared_ptr< L1TMuonGlobalParams >( new L1TMuonGlobalParams( *(baseSettings.product()) ) ) ;
+    L1TMuonGlobalParamsHelper m_params_helper( *(baseSettings.product()) );
+    try {
+        m_params_helper.loadFromOnline(trgSys, "ugmt_processor");
+        return boost::shared_ptr< L1TMuonGlobalParams >( new L1TMuonGlobalParams( cast_to_L1TMuonGlobalParams(m_params_helper) ) ) ;
+///    } catch (std::runtime_error e){
+    } catch (...){
+///        edm::LogError( "L1-O2O: L1TMuonGlobalParamsOnlineProd" ) << "Exception thrown ... resorting to the default payload ("<<e.what()<<")";
+        edm::LogError( "L1-O2O: L1TMuonGlobalParamsOnlineProd" ) << "Exception thrown ... resorting to the default payload";
+    }
+
+    return boost::shared_ptr< L1TMuonGlobalParams >( new L1TMuonGlobalParams( *(baseSettings.product()) ) ) ;
 }
 
 //define this as a plug-in

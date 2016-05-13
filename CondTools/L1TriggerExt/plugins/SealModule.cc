@@ -44,10 +44,10 @@ REGISTER_L1_WRITER(L1TUtmTriggerMenuO2ORcd, L1TUtmTriggerMenu);
 
 REGISTER_L1_WRITER(L1TMuonBarrelParamsO2ORcd, L1TMuonBarrelParams);
 
-#include "CondFormats/L1TObjects/interface/L1TMuonEndcapParams.h"
-#include "CondFormats/DataRecord/interface/L1TMuonEndcapParamsO2ORcd.h"
+///#include "CondFormats/L1TObjects/interface/L1TMuonEndcapParams.h"
+///#include "CondFormats/DataRecord/interface/L1TMuonEndcapParamsO2ORcd.h"
 
-REGISTER_L1_WRITER(L1TMuonEndcapParamsO2ORcd, L1TMuonEndcapParams);
+///REGISTER_L1_WRITER(L1TMuonEndcapParamsO2ORcd, L1TMuonEndcapParams);
 
 #include "CondFormats/L1TObjects/interface/L1TMuonOverlapParams.h"
 #include "CondFormats/DataRecord/interface/L1TMuonOverlapParamsO2ORcd.h"
