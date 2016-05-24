@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>L1T O2O status</title>
+  <meta charset="utf-8">
+  <meta name="description" content="L1T O2O status">
+  <meta name="author" content="Khristian Kotov">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../../../../monohiggs/plots/libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../../../monohiggs/plots/libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../../../../monohiggs/plots/libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../../../monohiggs/plots/libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="../../../../monohiggs/plots/libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="../../../../monohiggs/plots/libraries/frameworks/io2012/js/slides" 
+    src="../../../../monohiggs/plots/libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>L1T O2O status</h1>
+    <h2></h2>
+    <p>Khristian Kotov<br/></p>
+  </hgroup>
+    <a href="https://github.com/kkotov/talks/zipball/gh-pages" class="example">
+     Download
+    </a>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Readiness</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>The L1T O2O runs in the development mode for last couple of weeks:</p>
+
+<table><thead>
+<tr>
+<th>System</th>
+<th>Payload</th>
+<th>L1T O2O Status</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>uGT</td>
+<td><span style="font-weight:bold;font-size:smaller;color:green">L1TUtmTriggerMenu</span></td>
+<td>runs with OMDS</td>
+</tr>
+<tr>
+<td>uGT RS</td>
+<td><span style="font-weight:bold;font-size:smaller;color:brown">L1TGlobalPrescalesVetos</span></td>
+<td>runs with OMDS (needs better helper)</td>
+</tr>
+<tr>
+<td>uGMT</td>
+<td><span style="font-weight:bold;font-size:smaller;color:brown">L1TMuonGlobalParams</span></td>
+<td>runs with OMDS</td>
+</tr>
+<tr>
+<td>BMTF</td>
+<td><span style="font-weight:bold;font-size:smaller;color:brown">L1TMuonBarrelParams</span></td>
+<td>runs with release defaults (needs helper)</td>
+</tr>
+<tr>
+<td>OMTF</td>
+<td><span style="font-weight:bold;font-size:smaller;color:brown">L1TMuonOverlapParams</span></td>
+<td>runs with release defaults</td>
+</tr>
+<tr>
+<td>EMTF</td>
+<td><span style="font-weight:bold;font-size:smaller;color:gray">L1TMuonEndcapParams</span></td>
+<td>not yet included</td>
+</tr>
+<tr>
+<td>CALOL1</td>
+<td><span style="font-weight:bold;font-size:smaller;color:brown">L1TCaloParams</span></td>
+<td>runs with OMDS</td>
+</tr>
+<tr>
+<td>CALOL2</td>
+<td><span style="font-weight:bold;font-size:smaller;color:gray">L1TCaloParams</span></td>
+<td>not yet included</td>
+</tr>
+</tbody></table>
+
+<p><br></p>
+
+<p>All but the trigger menu (first) payloads need bitwise emulator comparisons</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Problems and plans</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Parsing libraries differ between online and offline</p>
+
+<p>Due to the flexibility of XML, offline parsing often stumbles upon new configurations
+(e.g. due to missing delimiter specificator, extra whitespaces, ...) </p>
+
+<p>Potential solution is a validation suite (based on offline parsing) attached to the L1CE</p>
+
+<p>In addition we also need to develop a set of error codes returning to the Function Manager
+so as to quickly track potential problems down to the specific systems and configurations</p>
+
+<p>It also helps if you let us know in advance if your new configuration needs a change to the O2O</p>
+
+<p><br></p>
+
+<p>Special thanks to Thomas and Vangelis for the constant help with the parsing tool!</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='Readiness'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Problems and plans'>
+         2
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script> -->
+  <script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../../../monohiggs/plots/libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="../../../../monohiggs/plots/libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>

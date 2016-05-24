@@ -1,0 +1,57 @@
+---
+title       : "L1T O2O status"
+subtitle    : 
+author      : Khristian Kotov
+job         : 
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow      # 
+github:
+  user: kkotov 
+  repo: talks
+url:
+  lib:    ../../../../monohiggs/plots/libraries
+  assets: ../../../../monohiggs/plots/assets
+widgets     : [mathjax]     # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+---
+
+## Readiness
+
+The L1T O2O runs in the development mode for last couple of weeks:
+
+System   |    Payload     |  L1T O2O Status 
+---------|----------------|----------------------
+uGT      | <span style="font-weight:bold;font-size:smaller;color:green">L1TUtmTriggerMenu</span> | runs with OMDS
+uGT RS   | <span style="font-weight:bold;font-size:smaller;color:brown">L1TGlobalPrescalesVetos</span> | runs with OMDS (needs better helper)
+uGMT     | <span style="font-weight:bold;font-size:smaller;color:brown">L1TMuonGlobalParams</span>  | runs with OMDS
+BMTF     | <span style="font-weight:bold;font-size:smaller;color:brown">L1TMuonBarrelParams</span>  | runs with release defaults (needs helper)
+OMTF     | <span style="font-weight:bold;font-size:smaller;color:brown">L1TMuonOverlapParams</span> | runs with release defaults
+EMTF     | <span style="font-weight:bold;font-size:smaller;color:gray">L1TMuonEndcapParams</span> | not yet included 
+CALOL1   | <span style="font-weight:bold;font-size:smaller;color:brown">L1TCaloParams</span> | runs with OMDS
+CALOL2   | <span style="font-weight:bold;font-size:smaller;color:gray">L1TCaloParams</span> | not yet included 
+
+<br>
+
+All but the trigger menu (first) payloads need bitwise emulator comparisons
+
+--- .class #id
+
+## Problems and plans
+
+Parsing libraries differ between online and offline
+
+Due to the flexibility of XML, offline parsing often stumbles upon new configurations
+(e.g. due to missing delimiter specificator, extra whitespaces, ...) 
+
+Potential solution is a validation suite (based on offline parsing) attached to the L1CE
+
+In addition we also need to develop a set of error codes returning to the Function Manager
+so as to quickly track potential problems down to the specific systems and configurations
+
+It also helps if you let us know in advance if your new configuration needs a change to the O2O
+
+<br>
+
+Special thanks to Thomas and Vangelis for the constant help with the parsing tool!
+
