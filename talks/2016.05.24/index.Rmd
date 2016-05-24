@@ -41,7 +41,7 @@ All but the trigger menu (first) payloads need bitwise emulator comparisons
 
 Parsing libraries differ between online and offline
 
-Due to the flexibility of XML, offline parsing often stumbles upon new configurations
+Due to the flexibility of XML, offline parsing sometimes stumbles upon new configurations
 (e.g. due to missing delimiter specificator, extra whitespaces, ...) 
 
 Potential solution is a validation suite (based on offline parsing) attached to the L1CE
