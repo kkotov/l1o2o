@@ -10,9 +10,6 @@
 #include "L1Trigger/L1TMuon/interface/L1TMuonGlobalParamsHelper.h"
 #include "L1Trigger/L1TMuon/interface/L1TMuonGlobalParams_PUBLIC.h"
 
-#include "xercesc/util/PlatformUtils.hpp"
-using namespace XERCES_CPP_NAMESPACE;
-
 class L1TMuonGlobalParamsOnlineProd : public L1ConfigOnlineProdBaseExt<L1TMuonGlobalParamsO2ORcd,L1TMuonGlobalParams> {
 private:
 public:

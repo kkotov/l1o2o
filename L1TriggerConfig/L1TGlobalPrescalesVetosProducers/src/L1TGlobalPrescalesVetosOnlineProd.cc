@@ -6,11 +6,14 @@
 #include "CondFormats/DataRecord/interface/L1TGlobalPrescalesVetosRcd.h"
 #include "CondFormats/DataRecord/interface/L1TGlobalPrescalesVetosO2ORcd.h"
 #include "L1Trigger/L1TGlobal/interface/PrescalesVetosHelper.h"
+#include "L1Trigger/L1TCommon/interface/trigSystem.h"
+
+
 
 class L1TGlobalPrescalesVetosOnlineProd : public L1ConfigOnlineProdBaseExt<L1TGlobalPrescalesVetosO2ORcd,L1TGlobalPrescalesVetos> {
 private:
 public:
-    virtual boost::shared_ptr<L1TUtmTriggerMenu> newObject(const std::string& objectKey, const L1TGlobalPrescalesVetosO2ORcd& record) override ;
+    virtual boost::shared_ptr<L1TGlobalPrescalesVetos> newObject(const std::string& objectKey, const L1TGlobalPrescalesVetosO2ORcd& record) override ;
 
     L1TGlobalPrescalesVetosOnlineProd(const edm::ParameterSet&);
     ~L1TGlobalPrescalesVetosOnlineProd(void){}
@@ -21,14 +24,12 @@ L1TGlobalPrescalesVetosOnlineProd::L1TGlobalPrescalesVetosOnlineProd(const edm::
 boost::shared_ptr<L1TGlobalPrescalesVetos> L1TGlobalPrescalesVetosOnlineProd::newObject(const std::string& objectKey, const L1TGlobalPrescalesVetosO2ORcd& record) {
     using namespace edm::es;
 
-    std::string stage2Schema = "CMS_TRG_L1_CONF" ;
     edm::LogInfo( "L1-O2O: L1TGlobalPrescalesVetosOnlineProd" ) << "Producing L1TGlobalPrescalesVetos with RS key =" << objectKey ;
 
     if (objectKey.empty()) {
         edm::LogInfo( "L1-O2O: L1TGlobalPrescalesVetosOnlineProd" ) << "Key is empty, returning empty L1TGlobalPrescalesVetos";
         return boost::shared_ptr< L1TGlobalPrescalesVetos > ( new L1TGlobalPrescalesVetos() );
     }
-
 
     std::string stage2Schema = "CMS_TRG_L1_CONF" ;
 
@@ -49,20 +50,20 @@ boost::shared_ptr<L1TGlobalPrescalesVetos> L1TGlobalPrescalesVetosOnlineProd::ne
                                      stage2Schema,
                                      "UGT_RS_KEYS",
                                      "UGT_RS_KEYS.ID",
-                                     m_omdsReader.singleAttribute(uGTrsKey)
+                                     m_omdsReader.singleAttribute(objectKey)
                                    ) ;
 
     if( queryResult.queryFailed() || queryResult.numberRows() != 1 ){
         edm::LogError( "L1-O2O" ) <<"Cannot get UGT_RS_KEYS.{MP7,AMC502_EXTCOND,AMC502_FINOR,ALGOBX_MASK,ALGO_FINOR_MASK,ALGO_FINOR_VETO,ALGO_PRESCALE}";
-        return ;
+        return boost::shared_ptr< L1TGlobalPrescalesVetos > ( new L1TGlobalPrescalesVetos() );
     }
 
     if( !queryResult.fillVariable( "ALGO_PRESCALE",   prescale_key) ) prescale_key = "";
-    if( !queryResult.fillVariable( "ALGOBX_MASK",     bxmask_key  ) ) bxmask_key   = "";
-    if( !queryResult.fillVariable( "ALGO_FINOR_MASK",   mask_key  ) )   mask_key   = "";
+    if( !queryResult.fillVariable( "ALGOBX_MASK",       bxmask_key) )   bxmask_key = "";
+    if( !queryResult.fillVariable( "ALGO_FINOR_MASK",     mask_key) )     mask_key = "";
     if( !queryResult.fillVariable( "ALGO_FINOR_VETO", vetomask_key) ) vetomask_key = "";
 
-    queryStrings.clear()
+    queryStrings.clear();
     queryStrings.push_back( "CONF" ) ;
 
 
@@ -132,11 +133,30 @@ boost::shared_ptr<L1TGlobalPrescalesVetos> L1TGlobalPrescalesVetosOnlineProd::ne
     if( !queryResult.fillVariable( "CONF", xmlPayload_mask_veto ) ) xmlPayload_mask_veto = "";
 
 
+// a hack around the shortcomming of the parsing library:
+//    size_t beginPos = xmlPayload_mask_finor.find("algo,mask"); 
+//    size_t endPos   = xmlPayload_mask_finor.substr(0,beginPos).rfind("\n");
+//    xmlPayload_mask_finor.erase(beginPos,endPos-beginPos);
+// hack ends
+
+
+    std::ofstream output1(std::string("/tmp/").append(prescale_key.substr(0,prescale_key.find("/"))).append(".xml"));
+    output1<<xmlPayload_prescale;
+    output1.close();
+    std::ofstream output2(std::string("/tmp/").append(mask_key.substr(0,mask_key.find("/"))).append(".xml"));
+    output2<<xmlPayload_mask_finor;
+    output2.close();
+    std::ofstream output3(std::string("/tmp/").append(bxmask_key.substr(0,bxmask_key.find("/"))).append(".xml"));
+    output3<<xmlPayload_mask_algobx;
+    output3.close();
+    std::ofstream output4(std::string("/tmp/").append(vetomask_key.substr(0,vetomask_key.find("/"))).append(".xml"));
+    output4<<xmlPayload_mask_veto;
+    output4.close();
 
 /// the code below is adopted from https://github.com/cms-l1t-offline/cmssw/blob/thomreis_o2o-dev_CMSSW_8_0_7/L1Trigger/L1TGlobal/plugins/L1TGlobalPrescalesVetosESProducer.cc#L124-L365
 
-  int m_numberPhysTriggers = 512;
-  int m_bx_mask_default = 1;
+  unsigned int m_numberPhysTriggers = 512;
+  unsigned int m_bx_mask_default = 1;
 
 
   std::vector<std::vector<int> > prescales;
@@ -145,7 +165,7 @@ boost::shared_ptr<L1TGlobalPrescalesVetos> L1TGlobalPrescalesVetosOnlineProd::ne
   std::map<int, std::vector<int> > triggerAlgoBxMaskAlgoTrig;
 
   // Prescales
-    XmlConfigReader xmlReader_prescale;
+    l1t::XmlConfigReader xmlReader_prescale;
     l1t::trigSystem ts_prescale;
     ts_prescale.addProcRole("uGtProcessor", "uGtProcessor");
 
@@ -154,7 +174,7 @@ boost::shared_ptr<L1TGlobalPrescalesVetos> L1TGlobalPrescalesVetosOnlineProd::ne
     xmlReader_prescale.readRootElement( ts_prescale, "uGT" ); // extract all of the relevant context
     ts_prescale.setConfigured();
 
-    std::map<string, l1t::setting> settings_prescale = ts_prescale.getSettings("uGtProcessor");
+    std::map<std::string, l1t::setting> settings_prescale = ts_prescale.getSettings("uGtProcessor");
     std::vector<l1t::tableRow> tRow_prescale = settings_prescale["prescales"].getTableRows();
 
     unsigned int numColumns_prescale = 0;
@@ -186,7 +206,6 @@ boost::shared_ptr<L1TGlobalPrescalesVetos> L1TGlobalPrescalesVetosOnlineProd::ne
     }
 
 
-
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   // finor mask
@@ -194,8 +213,7 @@ boost::shared_ptr<L1TGlobalPrescalesVetos> L1TGlobalPrescalesVetosOnlineProd::ne
   for( unsigned int iAlg=0; iAlg < m_numberPhysTriggers; iAlg++ )
     triggerMasks.push_back(1);
 
-  
-    XmlConfigReader xmlReader_mask_finor;
+    l1t::XmlConfigReader xmlReader_mask_finor;
     l1t::trigSystem ts_mask_finor;
     ts_mask_finor.addProcRole("uGtProcessor", "uGtProcessor");
 
@@ -204,8 +222,7 @@ boost::shared_ptr<L1TGlobalPrescalesVetos> L1TGlobalPrescalesVetosOnlineProd::ne
     xmlReader_mask_finor.readRootElement( ts_mask_finor, "uGT" ); // extract all of the relevant context
     ts_mask_finor.setConfigured();
 
-    std::map<string, l1t::setting> settings_mask_finor = ts_mask_finor.getSettings("uGtProcessor");
-
+    std::map<std::string, l1t::setting> settings_mask_finor = ts_mask_finor.getSettings("uGtProcessor");
     std::vector<l1t::tableRow> tRow_mask_finor = settings_mask_finor["finorMask"].getTableRows();
 
     for( auto it=tRow_mask_finor.begin(); it!=tRow_mask_finor.end(); it++ ){
@@ -214,7 +231,6 @@ boost::shared_ptr<L1TGlobalPrescalesVetos> L1TGlobalPrescalesVetosOnlineProd::ne
       if( algoBit < m_numberPhysTriggers ) triggerMasks[algoBit] = mask;
     }
 
-  
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   // veto mask
@@ -222,7 +238,7 @@ boost::shared_ptr<L1TGlobalPrescalesVetos> L1TGlobalPrescalesVetosOnlineProd::ne
   for( unsigned int iAlg=0; iAlg < m_numberPhysTriggers; iAlg++ )
     triggerVetoMasks.push_back(0);
   
-    XmlConfigReader xmlReader_mask_veto;
+    l1t::XmlConfigReader xmlReader_mask_veto;
     l1t::trigSystem ts_mask_veto;
     ts_mask_veto.addProcRole("uGtProcessor", "uGtProcessor");
 
@@ -231,7 +247,7 @@ boost::shared_ptr<L1TGlobalPrescalesVetos> L1TGlobalPrescalesVetosOnlineProd::ne
     xmlReader_mask_veto.readRootElement( ts_mask_veto, "uGT" ); // extract all of the relevant context
     ts_mask_veto.setConfigured();
 
-    std::map<string, l1t::setting> settings_mask_veto = ts_mask_veto.getSettings("uGtProcessor");
+    std::map<std::string, l1t::setting> settings_mask_veto = ts_mask_veto.getSettings("uGtProcessor");
     std::vector<l1t::tableRow> tRow_mask_veto = settings_mask_veto["vetoMask"].getTableRows();
 
     for( auto it=tRow_mask_veto.begin(); it!=tRow_mask_veto.end(); it++ ){
@@ -243,7 +259,7 @@ boost::shared_ptr<L1TGlobalPrescalesVetos> L1TGlobalPrescalesVetosOnlineProd::ne
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   // Algo bx mask
-    XmlConfigReader xmlReader_mask_algobx;
+    l1t::XmlConfigReader xmlReader_mask_algobx;
     l1t::trigSystem ts_mask_algobx;
     ts_mask_algobx.addProcRole("uGtProcessor", "uGtProcessor");
 
@@ -252,7 +268,7 @@ boost::shared_ptr<L1TGlobalPrescalesVetos> L1TGlobalPrescalesVetosOnlineProd::ne
     xmlReader_mask_algobx.readRootElement( ts_mask_algobx, "uGT" ); // extract all of the relevant context
     ts_mask_algobx.setConfigured();
 
-    std::map<string, l1t::setting> settings_mask_algobx = ts_mask_algobx.getSettings("uGtProcessor");
+    std::map<std::string, l1t::setting> settings_mask_algobx = ts_mask_algobx.getSettings("uGtProcessor");
     std::vector<l1t::tableRow> tRow_mask_algobx = settings_mask_algobx["algorithmBxMask"].getTableRows();
 
     unsigned int numCol_mask_algobx = 0;
@@ -268,7 +284,7 @@ boost::shared_ptr<L1TGlobalPrescalesVetos> L1TGlobalPrescalesVetosOnlineProd::ne
 	std::vector<int> maskedBits;
 	for( int iBit=0; iBit<NumAlgoBitsInMask; iBit++ ){
 	  unsigned int maskBit = it->getRowValue<unsigned int>(std::to_string(iBit));
-	  if( int(maskBit)!=m_bx_mask_default ) maskedBits.push_back(iBit);
+	  if( maskBit!=m_bx_mask_default ) maskedBits.push_back(iBit);
 	}
 	if( maskedBits.size()>0 ) triggerAlgoBxMaskAlgoTrig[bx] = maskedBits;
       }
@@ -293,7 +309,7 @@ boost::shared_ptr<L1TGlobalPrescalesVetos> L1TGlobalPrescalesVetosOnlineProd::ne
 
 //////////////////
 
-  PrescalesVetosHelper data_( new L1TGlobalPrescalesVetos() );
+  l1t::PrescalesVetosHelper data_( new L1TGlobalPrescalesVetos() );
 
   data_.setBxMaskDefault       ( m_bx_mask_default         );
   data_.setPrescaleFactorTable ( prescales                 );
