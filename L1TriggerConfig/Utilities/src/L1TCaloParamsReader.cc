@@ -8,7 +8,7 @@
 
 #include "CondFormats/DataRecord/interface/L1TCaloParamsRcd.h"
 #include "CondFormats/L1TObjects/interface/CaloParams.h"
-#include "L1TriggerConfig/L1TCaloParamsStage1Producers/src/CaloParamsHelper.h"
+#include "L1Trigger/L1TCalorimeter/interface/CaloParamsHelper.h"
 
 class L1TCaloParamsReader: public edm::EDAnalyzer {
 private:

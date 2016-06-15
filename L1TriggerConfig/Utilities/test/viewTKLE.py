@@ -6,7 +6,7 @@ process.MessageLogger.cout.placeholder = cms.untracked.bool(False)
 process.MessageLogger.cout.threshold = cms.untracked.string('DEBUG')
 process.MessageLogger.debugModules = cms.untracked.vstring('*')
 
-process.source = cms.Source("EmptySource", firstRun = cms.untracked.uint32(1))
+process.source = cms.Source("EmptySource", firstRun = cms.untracked.uint32(3))
 process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(1) )
 
 from CondCore.DBCommon.CondDBSetup_cfi import CondDBSetup

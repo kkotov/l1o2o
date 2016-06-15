@@ -29,11 +29,10 @@ void L1TriggerKeyExtReader::analyze(const edm::Event& iEvent, const edm::EventSe
 
     cout<<" uGT     key:"<<ptr1->subsystemKey( L1TriggerKeyExt::kuGT    )<<endl;
     cout<<" uGMT    key:"<<ptr1->subsystemKey( L1TriggerKeyExt::kuGMT   )<<endl;
-    cout<<" CALOL1  key:"<<ptr1->subsystemKey( L1TriggerKeyExt::kCALOL1 )<<endl;
-    cout<<" CALOL2  key:"<<ptr1->subsystemKey( L1TriggerKeyExt::kCALOL2 )<<endl;
-    cout<<" EMTF    key:"<<ptr1->subsystemKey( L1TriggerKeyExt::kEMTF   )<<endl;
-    cout<<" OMTF    key:"<<ptr1->subsystemKey( L1TriggerKeyExt::kOMTF   )<<endl;
+    cout<<" CALO    key:"<<ptr1->subsystemKey( L1TriggerKeyExt::kCALO   )<<endl;
     cout<<" BMTF    key:"<<ptr1->subsystemKey( L1TriggerKeyExt::kBMTF   )<<endl;
+    cout<<" OMTF    key:"<<ptr1->subsystemKey( L1TriggerKeyExt::kOMTF   )<<endl;
+    cout<<" EMTF    key:"<<ptr1->subsystemKey( L1TriggerKeyExt::kEMTF   )<<endl;
     cout<<" TWINMUX key:"<<ptr1->subsystemKey( L1TriggerKeyExt::kTWINMUX)<<endl;
 
     cout<<"Records: "<<endl;

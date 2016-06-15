@@ -8,29 +8,29 @@
 #include "FWCore/Framework/interface/EventSetup.h"
 #include "FWCore/Framework/interface/ESHandle.h"
 
-#include "CondFormats/DataRecord/interface/L1TCaloParamsO2ORcd.h"
-#include "CondFormats/L1TObjects/interface/CaloParams.h"
+#include "CondFormats/DataRecord/interface/L1TMuonGlobalParamsO2ORcd.h"
+#include "CondFormats/L1TObjects/interface/L1TMuonGlobalParams.h"
 
 #include "FWCore/ServiceRegistry/interface/Service.h"
 #include "CondCore/DBOutputService/interface/PoolDBOutputService.h"
 
-class L1TCaloParamsWriter_ : public edm::EDAnalyzer {
+class L1TMuonGlobalParamsWriter : public edm::EDAnalyzer {
 public:
     virtual void analyze(const edm::Event&, const edm::EventSetup&);
 
-    explicit L1TCaloParamsWriter_(const edm::ParameterSet&) : edm::EDAnalyzer(){}
-    virtual ~L1TCaloParamsWriter_(void){}
+    explicit L1TMuonGlobalParamsWriter(const edm::ParameterSet&) : edm::EDAnalyzer(){}
+    virtual ~L1TMuonGlobalParamsWriter(void){}
 };
 
-void L1TCaloParamsWriter_::analyze(const edm::Event& iEvent, const edm::EventSetup& evSetup){
-    edm::ESHandle<l1t::CaloParams> handle1;
-    evSetup.get<L1TCaloParamsO2ORcd>().get( handle1 ) ;
-    boost::shared_ptr<l1t::CaloParams> ptr1(new l1t::CaloParams(*(handle1.product ())));
+void L1TMuonGlobalParamsWriter::analyze(const edm::Event& iEvent, const edm::EventSetup& evSetup){
+    edm::ESHandle<L1TMuonGlobalParams> handle1;
+    evSetup.get<L1TMuonGlobalParamsO2ORcd>().get( handle1 ) ;
+    boost::shared_ptr<L1TMuonGlobalParams> ptr1(new L1TMuonGlobalParams(*(handle1.product ())));
 
     edm::Service<cond::service::PoolDBOutputService> poolDb;
     if( poolDb.isAvailable() ){
         cond::Time_t firstSinceTime = poolDb->beginOfTime();
-        poolDb->writeOne(ptr1.get(),firstSinceTime,"L1TCaloParamsO2ORcd");
+        poolDb->writeOne(ptr1.get(),firstSinceTime,"L1TMuonGlobalParamsO2ORcd");
     }
 
 }
@@ -39,5 +39,5 @@ void L1TCaloParamsWriter_::analyze(const edm::Event& iEvent, const edm::EventSet
 #include "FWCore/Framework/interface/MakerMacros.h"
 #include "FWCore/Framework/interface/ModuleFactory.h"
 
-DEFINE_FWK_MODULE(L1TCaloParamsWriter_);
+DEFINE_FWK_MODULE(L1TMuonGlobalParamsWriter);
 
