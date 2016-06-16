@@ -63,7 +63,7 @@ outputDB = cms.Service("PoolDBOutputService",
     toPut   = cms.VPSet(
         cms.PSet(
             record = cms.string('L1TGlobalPrescalesVetosO2ORcd'),
-            tag = cms.string(options.objectKey)
+            tag = cms.string('L1TGlobalPrescalesVetos_Stage2v0_hlt')
         ),
         cms.PSet(
             record = cms.string("L1TriggerKeyListExtRcd"),
