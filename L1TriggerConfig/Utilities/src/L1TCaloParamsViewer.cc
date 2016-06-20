@@ -289,18 +289,30 @@ void L1TCaloParamsViewer::analyze(const edm::Event& iEvent, const edm::EventSetu
 
     cout<<endl<<" Layer1: "<<endl;
     std::vector<double> ecalSF = ptr1->layer1ECalScaleFactors();
-    cout<<"  layer1ECalScaleFactors= ["; for(unsigned int i=0; i<ecalSF.size(); i++) cout<<ecalSF[i]; cout<<"]"<<endl;
+    cout<<"  layer1ECalScaleFactors= ["<< ecalSF.size()<<"] "<<flush;
+    double _ecalSF[ ecalSF.size() ];
+    for(unsigned int i=0; i<ecalSF.size(); i++) _ecalSF[i] =  ecalSF[i];
+    cout << hash( _ecalSF , sizeof(double)*ecalSF.size() ) << endl;
+    //for(unsigned int i=0; i<ecalSF.size(); i++) cout<<(i==0?"":",")<<ecalSF[i]; cout<<"]"<<endl;
     std::vector<double> hcalSF = ptr1->layer1HCalScaleFactors();
-    cout<<"  layer1HCalScaleFactors= ["; for(unsigned int i=0; i<hcalSF.size(); i++) cout<<hcalSF[i]; cout<<"]"<<endl;
+    cout<<"  layer1HCalScaleFactors= ["<< hcalSF.size()<<"] "<<flush;
+    double _hcalSF[ hcalSF.size() ];
+    for(unsigned int i=0; i<hcalSF.size(); i++) _hcalSF[i] =  hcalSF[i];
+    cout << hash( _hcalSF, sizeof(double)*hcalSF.size() ) << endl;
+    //for(unsigned int i=0; i<hcalSF.size(); i++) cout<<(i==0?"":",")<<hcalSF[i]; cout<<"]"<<endl;
     std::vector<double> hfSF   = ptr1->layer1HFScaleFactors();
-    cout<<"  layer1HFScaleFactors=   ["; for(unsigned int i=0; i<hfSF.size(); i++) cout<<hfSF[i]; cout<<"]"<<endl;
+    cout<<"  layer1HFScaleFactors=   ["<< hfSF.size()<<"] "<<flush;
+    double _hfSF[ hfSF.size() ];
+    for(unsigned int i=0; i<hfSF.size(); i++) _hfSF[i] =  hfSF[i];
+    cout << hash(  _hfSF, sizeof(double)*hfSF.size() ) << endl;
+    //for(unsigned int i=0; i<hfSF.size(); i++) cout<<(i==0?"":",")<<hfSF[i]; cout<<"]"<<endl;
 
     std::vector<int>    ecalScaleET = ptr1->layer1ECalScaleETBins();
-    cout<<"  layer1ECalScaleETBins=  ["; for(unsigned int i=0; i<ecalScaleET.size(); i++) cout<<ecalScaleET[i]; cout<<"]"<<endl;
+    cout<<"  layer1ECalScaleETBins=  ["; for(unsigned int i=0; i<ecalScaleET.size(); i++) cout<<(i==0?"":",")<<ecalScaleET[i]; cout<<"]"<<endl;
     std::vector<int>    hcalScaleET = ptr1->layer1HCalScaleETBins();
-    cout<<"  layer1HCalScaleETBins=  ["; for(unsigned int i=0; i<hcalScaleET.size(); i++) cout<<hcalScaleET[i]; cout<<"]"<<endl;
+    cout<<"  layer1HCalScaleETBins=  ["; for(unsigned int i=0; i<hcalScaleET.size(); i++) cout<<(i==0?"":",")<<hcalScaleET[i]; cout<<"]"<<endl;
     std::vector<int>    hfScaleET   = ptr1->layer1HFScaleETBins();
-    cout<<"  layer1HFScaleETBins=    ["; for(unsigned int i=0; i<hfScaleET.size(); i++) cout<<hfScaleET[i]; cout<<"]"<<endl;
+    cout<<"  layer1HFScaleETBins=    ["; for(unsigned int i=0; i<hfScaleET.size(); i++) cout<<(i==0?"":",")<<hfScaleET[i]; cout<<"]"<<endl;
 }
 
 #include "FWCore/PluginManager/interface/ModuleDef.h"
