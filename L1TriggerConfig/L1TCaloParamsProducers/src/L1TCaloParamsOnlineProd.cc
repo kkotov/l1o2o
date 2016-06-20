@@ -187,22 +187,22 @@ boost::shared_ptr<l1t::CaloParams> L1TCaloParamsOnlineProd::newObject(const std:
 
 
         // query CALOL2 ALGO configuration
-        queryResult =
-            m_omdsReader.basicQuery( queryStrings,
-                                     stage2Schema,
-                                     "CALOL2_ALGO",
-                                     "CALOL2_ALGO.ID",
-                                     m_omdsReader.singleAttribute(calol2_algo_key)
-                                   ) ;
-
-        if( queryResult.queryFailed() || queryResult.numberRows() != 1 ){
-            edm::LogError( "L1-O2O: L1TCaloParamsOnlineProd" ) << "Cannot get CALOL2_ALGO.CONF for ID="<<calol2_algo_key;
-            return boost::shared_ptr< l1t::CaloParams >( new l1t::CaloParams( *(baseSettings.product()) ) ) ;
-        }
-
-        if( !queryResult.fillVariable( "CONF", xmlPayload ) ) xmlPayload = "";
-        // remember ALGO configuration
-        payloads[kCONF][calol2_algo_key.append("_L2")] = xmlPayload;
+///        queryResult =
+///            m_omdsReader.basicQuery( queryStrings,
+///                                     stage2Schema,
+///                                     "CALOL2_ALGO",
+///                                     "CALOL2_ALGO.ID",
+///                                     m_omdsReader.singleAttribute(calol2_algo_key)
+///                                   ) ;
+///
+///        if( queryResult.queryFailed() || queryResult.numberRows() != 1 ){
+///            edm::LogError( "L1-O2O: L1TCaloParamsOnlineProd" ) << "Cannot get CALOL2_ALGO.CONF for ID="<<calol2_algo_key;
+///            return boost::shared_ptr< l1t::CaloParams >( new l1t::CaloParams( *(baseSettings.product()) ) ) ;
+///        }
+///
+///        if( !queryResult.fillVariable( "CONF", xmlPayload ) ) xmlPayload = "";
+///        // remember ALGO configuration
+///        payloads[kCONF][calol2_algo_key.append("_L2")] = xmlPayload;
 
 
 
@@ -221,7 +221,7 @@ for(auto &conf : payloads[kCONF]){
     xmlReader.readRootElement( calol1, "calol1" );
     calol1.setConfigured();
 
-    try {
+///    try {
         std::map<std::string, l1t::setting> calol1_conf = calol1.getSettings("processors");
         std::map<std::string, l1t::mask>    calol1_rs   ;//= calol1.getMasks   ("processors");
 
@@ -240,10 +240,10 @@ for(auto &conf : payloads[kCONF]){
         return boost::shared_ptr< l1t::CaloParams >( new l1t::CaloParams ( m_params_helper ) ) ;
 
 //    } catch (std::runtime_error e){
-    } catch (...){
+///    } catch (...){
 //        edm::LogError( "L1-O2O: L1TCaloParamsOnlineProd" ) << "Exception thrown ... resorting to the default payload ("<<e.what()<<")";
-        edm::LogError( "L1-O2O: L1TCaloParamsOnlineProd" ) << "Exception thrown ... resorting to the default payload";
-    }
+///        edm::LogError( "L1-O2O: L1TCaloParamsOnlineProd" ) << "Exception thrown ... resorting to the default payload";
+///    }
 
     return boost::shared_ptr< l1t::CaloParams >( new l1t::CaloParams( *(baseSettings.product()) ) ) ;
 }
