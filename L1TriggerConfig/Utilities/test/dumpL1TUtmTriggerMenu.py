@@ -28,22 +28,24 @@ options.parseArguments()
 
 # Generate dummy L1TriggerKeyList
 process.load("CondTools.L1TriggerExt.L1TriggerKeyListDummyExt_cff")
-process.load("L1TriggerConfig.L1TUtmTriggerMenuProducers.L1TUtmTriggerMenuOnline_cfi")
 
-# Generate dummy L1TriggerKeyList
+# Generate the parent L1TriggerKey 
 process.load("CondTools.L1TriggerExt.L1TriggerKeyDummyExt_cff")
 process.L1TriggerKeyDummyExt.tscKey = cms.string('dummyL1TUtmTriggerMenu')
-process.L1TriggerKeyDummyExt.objectKeys = cms.VPSet(
-    cms.PSet(
-        record = cms.string('L1TUtmTriggerMenuO2ORcd'),
-        type = cms.string('L1TUtmTriggerMenu'),
-        key = cms.string(options.objectKey)
-    )
-)
+process.L1TriggerKeyDummyExt.label  = cms.string('SubsystemKeysOnly')
+process.L1TriggerKeyDummyExt.uGTKey = cms.string(options.objectKey)
+# Using the parent L1TriggerKey trigger generation of system specific (labeled) L1TriggerKeys and pack them the main (unlabeled) L1TriggerKey (just one subsystem here)
+process.load("CondTools.L1TriggerExt.L1TriggerKeyOnlineExt_cfi")
+process.L1TriggerKeyOnlineExt.subsystemLabels = cms.vstring('uGT')
+# Include the uGT specific key ESProducer (generates uGT labeled L1TriggerKey) and the corresponding payload ESProduced
+process.load("L1TriggerConfig.L1TUtmTriggerMenuProducers.L1TUtmTriggerMenuObjectKeysOnline_cfi")
+process.load("L1TriggerConfig.L1TUtmTriggerMenuProducers.L1TUtmTriggerMenuOnline_cfi")
 
 process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(1) )
 process.source = cms.Source("EmptySource")
 
+process.l1cr = cms.EDAnalyzer( "L1TriggerKeyExtReader", label = cms.string("uGT") )
+# label = cms.string("SubsystemKeysOnly") )
 
 process.getter = cms.EDAnalyzer("EventSetupRecordDataGetter",
    toGet = cms.VPSet(cms.PSet(
@@ -74,5 +76,6 @@ outputDB = cms.Service("PoolDBOutputService",
 outputDB.DBParameters.authenticationPath = options.outputDBAuth # cms.untracked.string("./o2o/")
 process.add_(outputDB)
 
+#process.p = cms.Path(process.l1cr)
 process.p = cms.Path(process.getter + process.l1mw)
 

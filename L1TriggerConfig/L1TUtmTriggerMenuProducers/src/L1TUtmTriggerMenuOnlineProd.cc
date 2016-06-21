@@ -33,7 +33,7 @@ boost::shared_ptr<L1TUtmTriggerMenu> L1TUtmTriggerMenuOnlineProd::newObject(cons
     edm::LogInfo( "L1-O2O: L1TUtmTriggerMenuOnlineProd" ) << "Producing L1TUtmTriggerMenu with key =" << objectKey ;
 
     if (objectKey.empty()) {
-        edm::LogInfo( "L1-O2O: L1TUtmTriggerMenuOnlineProd" ) << "Key is empty, returning empty CaloParams";
+        edm::LogInfo( "L1-O2O: L1TUtmTriggerMenuOnlineProd" ) << "Key is empty, returning empty L1TUtmTriggerMenu object";
         return boost::shared_ptr< L1TUtmTriggerMenu > ( new L1TUtmTriggerMenu() );
     }
 
