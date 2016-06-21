@@ -15,7 +15,7 @@ options.register('objectKey',
                  VarParsing.VarParsing.varType.string,
                  "object key")
 options.register('outputDBConnect',
-                 'sqlite_file:./o2o/l1config.db', #default value
+                 'sqlite_file:./l1config.db', #default value
                  VarParsing.VarParsing.multiplicity.singleton,
                  VarParsing.VarParsing.varType.string,
                  "Connection string for output DB")
@@ -38,7 +38,7 @@ process.L1TriggerKeyDummyExt.objectKeys = cms.VPSet(
     cms.PSet(
         record = cms.string('L1TGlobalPrescalesVetosO2ORcd'),
         type = cms.string('L1TGlobalPrescalesVetos'),
-        key = cms.string(options.objectKey)
+        key = cms.string(options.objectKey.split(':')[1])
     )
 )
 
