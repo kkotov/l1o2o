@@ -21,7 +21,7 @@ process.l1conddb = cms.ESSource("PoolDBESSource",
        )
 )
 
-process.l1cr = cms.EDAnalyzer("L1TriggerKeyExtReader")
+process.l1cr = cms.EDAnalyzer("L1TriggerKeyExtReader", label = cms.string("") )
 
 process.p = cms.Path(process.l1cr)
 
