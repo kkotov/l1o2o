@@ -44,4 +44,6 @@ if [ $bmtfcode    -ne 0 ] ; then exitcode=`expr $exitcode + 1000`; fi
 if [ $ugmtcode    -ne 0 ] ; then exitcode=`expr $exitcode + 10000`; fi
 if [ $ugtrscode   -ne 0 ] ; then exitcode=`expr $exitcode + 100000`; fi
 
+echo "Status codes: uGT: $ugtcode,  CALO: $caloparcode,  BMTF: $bmtfcode,  uGMT: $ugmtcode,  uGTrs: $ugtrscode,  Total: $exitcode"
+
 exit $exitcode
