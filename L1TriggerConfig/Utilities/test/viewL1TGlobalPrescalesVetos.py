@@ -9,10 +9,16 @@ process.MessageLogger.debugModules = cms.untracked.vstring('*')
 process.source = cms.Source("EmptySource", firstRun = cms.untracked.uint32(3))
 process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(1) )
 
+#process.load('L1Trigger.L1TGlobal.PrescalesVetos_cff')
+#process.L1TGlobalPrescalesVetos.PrescaleXMLFile   = cms.string('UGT_BASE_RS_PRESCALES.xml')
+#process.L1TGlobalPrescalesVetos.AlgoBxMaskXMLFile = cms.string('UGT_BASE_RS_ALGOBX_MASK.xml')
+#process.L1TGlobalPrescalesVetos.FinOrMaskXMLFile  = cms.string('UGT_BASE_RS_FINOR_MASK.xml')
+#process.L1TGlobalPrescalesVetos.VetoMaskXMLFile   = cms.string('UGT_BASE_RS_VETO_MASK.xml')
+
 from CondCore.DBCommon.CondDBSetup_cfi import CondDBSetup
 process.l1conddb = cms.ESSource("PoolDBESSource",
        CondDBSetup,
-       connect = cms.string('sqlite:o2o/l1config.db'),
+       connect = cms.string('sqlite:./o2o/l1config.db'),
        toGet   = cms.VPSet(
             cms.PSet(
                  record = cms.string('L1TGlobalPrescalesVetosRcd'),

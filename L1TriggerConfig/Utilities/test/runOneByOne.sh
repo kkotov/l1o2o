@@ -21,19 +21,19 @@ EMTF_key=$(echo $keys | sed -n -e's|.*EMTF *key: \([^ ]*\).*|\1|gp')
 
 echo "uGT_key=$uGT_key uGMT_key=$uGMT_key CALO_key=$CALO_key BMTF_key=$BMTF_key OMTF_key=$OMTF_key EMTF_key=$EMTF_key"
 
-cmsRun ../CMSSW_8_0_10_patch1/src/L1TriggerConfig/Utilities/test/dumpL1TUtmTriggerMenu.py objectKey=$uGT_key
+cmsRun ../CMSSW_8_0_10_patch1/src/L1TriggerConfig/Utilities/test/dumpL1TUtmTriggerMenu.py systemKey=$uGT_key
 ugtcode=$?
 
-cmsRun ../CMSSW_8_0_10_patch1/src/L1TriggerConfig/Utilities/test/dumpL1TCaloParams.py objectKey=$CALO_key
+cmsRun ../CMSSW_8_0_10_patch1/src/L1TriggerConfig/Utilities/test/dumpL1TCaloParams.py systemKey=$CALO_key
 caloparcode=$?
 
-cmsRun ../CMSSW_8_0_10_patch1/src/L1TriggerConfig/Utilities/test/dumpL1TMuonBarrelParams.py objectKey=$BMTF_key
+cmsRun ../CMSSW_8_0_10_patch1/src/L1TriggerConfig/Utilities/test/dumpL1TMuonBarrelParams.py systemKey=$BMTF_key
 bmtfcode=$?
 
-cmsRun ../CMSSW_8_0_10_patch1/src/L1TriggerConfig/Utilities/test/dumpL1TMuonGlobalParams.py objectKey=$uGMT_key
+cmsRun ../CMSSW_8_0_10_patch1/src/L1TriggerConfig/Utilities/test/dumpL1TMuonGlobalParams.py systemKey=$uGMT_key
 ugmtcode=$?
 
-cmsRun ../CMSSW_8_0_10_patch1/src/L1TriggerConfig/Utilities/test/dumpL1TGlobalPrescalesVetos.py objectKey=$uGT_key
+cmsRun ../CMSSW_8_0_10_patch1/src/L1TriggerConfig/Utilities/test/dumpL1TGlobalPrescalesVetos.py systemKey=$uGT_key
 ugtrscode=$?
 
 exitcode=0
