@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <string>
+#include <map>
 
 #include "CondFormats/L1TObjects/interface/LUT.h"
 #include <FWCore/MessageLogger/interface/MessageLogger.h>
@@ -23,8 +24,12 @@ class tableRow
 		tableRow() {};
 		tableRow(const std::vector<std::string>& row) { row_ = row;} ;
 		void setTableId(const std::string& id) { tableId_ = id; };
-		void setRowTypes(const std::vector<std::string>& types) { types_ = types; };
-		void setRowColumns(const std::vector<std::string>& columns) { columns_ = columns; };
+		void setRowTypes(const std::vector<std::string>& types) { } ///types_ = types; };
+		void setRowColumns(const std::vector<std::string>& columns) {
+///                     columns_ = columns;
+                     colDict_.clear();
+                     for(unsigned int i=0; i<columns.size(); i++) colDict_[ columns[i] ] = i;
+                };
 		~tableRow() {};
 		std::vector<std::string> getRow () { return row_; };
 		std::string getRowAsStr();
@@ -32,9 +37,9 @@ class tableRow
 	private:
 		std::string tableId_;
 		std::vector<std::string> row_;
-		std::vector<std::string> types_;
-		std::vector<std::string> columns_;
-
+///		std::vector<std::string> types_;
+///		std::vector<std::string> columns_;
+                std::map<std::string,int> colDict_;
 };
 
 
@@ -51,10 +56,10 @@ class setting
 		void resetTableRows() { tableRows_.clear();};
 		void setTableTypes(const std::string& types);
 		void setTableColumns(const std::string& cols);
-		std::string getProcRole() { return procRole_; };
-		std::string getValueAsStr() { return value_; };
-		std::string getType() { return type_; };
-		std::string getId() { return id_; } ;
+		std::string getProcRole() const { return procRole_; };
+		std::string getValueAsStr() const { return value_; };
+		std::string getType() const { return type_; };
+		std::string getId() const { return id_; } ;
 		template <class varType> varType getValue();
 		template <class varType> std::vector<varType> getVector();
 		std::vector<tableRow>  getTableRows() { return tableRows_; };
@@ -99,7 +104,7 @@ template <class varType> varType setting::getValue()
 
 template <class varType> varType tableRow::getRowValue(const std::string& col)
 {
-	
+/*	
 	bool found(false);
 	int ct;
 	for (unsigned int i = 0; i < columns_.size(); i++)
@@ -115,6 +120,12 @@ template <class varType> varType tableRow::getRowValue(const std::string& col)
 
 	//edm::LogInfo ("l1t::setting::getRowValue") << "Returning value " << convertVariable<varType>(row_.at(ct)) <<  " from table " << tableId_ << " and row " << this->getRowAsStr();
 	return convertVariable<varType>(row_.at(ct));
+*/
+        std::map<std::string,int>::const_iterator it = colDict_.find(col);
+        if( it == colDict_.end() )
+		throw std::runtime_error ("Column " + col + "not found.");
+
+	return convertVariable<varType>(row_.at(it->second));
 }
 
 }
