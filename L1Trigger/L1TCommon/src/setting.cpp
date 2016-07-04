@@ -30,23 +30,40 @@ delim_(delim)
 
 	str2VecStr_(types, delim_, tableTypes_);
 
-	for (auto it=rows.begin(); it!=rows.end(); it++)
+	for (auto it=rows.begin(); it!=rows.end(); ++it)
 	{
 		std::vector<std::string> aRow;
 		str2VecStr_(*it, delim_, aRow);
 
-		tableRow temp(aRow);
-		temp.setTableId(id);
-		temp.setRowTypes(tableTypes_);
-		temp.setRowColumns(tableColumns_);
-		tableRows_.push_back(temp);
-
+		//tableRow temp(aRow);
+		//temp.setTableId(id);
+		//temp.setRowTypes(tableTypes_);
+		//temp.setRowColumns(tableColumns_);
+		tableRows_.push_back(tableRow(aRow));
+		tableRows_.back().setTableId(id);
+		tableRows_.back().setRowTypes(tableTypes_);
+		tableRows_.back().setRowColumns(tableColumns_);
 	}
 }
 
 setting::~setting()
 {
 	;
+}
+
+void tableRow::setRowColumns(const std::vector<std::string>& columns){
+        if( columns_.get() == 0 )
+            columns_ = boost::shared_ptr< std::vector<std::string> >(new std::vector<std::string>(columns));
+        else
+            *columns_ = columns;
+
+        if( colDict_.get() == 0 )
+            colDict_ = boost::shared_ptr< std::map<std::string,int> >(new std::map<std::string,int>());
+
+	colDict_->clear();
+
+	for(unsigned int i=0; i<columns.size(); i++) 
+		(*colDict_)[ columns[i] ] = i;
 }
 
 void setting::setValue(const std::string& value)
@@ -63,7 +80,7 @@ void setting::setValue(const std::string& value)
 			std::vector<std::string> vals;
 			str2VecStr_(value_,delim_, vals);
 			
-			for(std::vector<std::string>::iterator it=vals.begin(); it!=vals.end(); it++)
+			for(std::vector<std::string>::iterator it=vals.begin(); it!=vals.end(); ++it)
 			{
 				if ( it->find("true") != std::string::npos )
 					convString << "1, ";
@@ -139,10 +156,13 @@ void setting::addTableRow(const std::string& row)
 	std::vector<std::string> vals;
 	str2VecStr_(row, delim_, vals);
 
-	tableRow tempRow(vals);
-	tempRow.setRowTypes(tableTypes_);
-	tempRow.setRowColumns(tableColumns_);
-	tableRows_.push_back(tempRow);
+	// tableRow tempRow(vals);
+	// tempRow.setRowTypes(tableTypes_);
+	// tempRow.setRowColumns(tableColumns_);
+	tableRows_.push_back(tableRow(vals));
+	tableRows_.back().setRowTypes(tableTypes_);
+	tableRows_.back().setRowColumns(tableColumns_);
+
 }
 
 void setting::setTableTypes(const std::string& types)
@@ -169,7 +189,7 @@ void setting::setTableColumns(const std::string& cols)
 std::string tableRow::getRowAsStr()
 {
 	std::ostringstream str;
-	for (auto it=row_.begin(); it!=row_.end(); it++)
+	for (auto it=row_->begin(); it!=row_->end(); ++it)
 		str << *it << " ";
 
 	return str.str();
