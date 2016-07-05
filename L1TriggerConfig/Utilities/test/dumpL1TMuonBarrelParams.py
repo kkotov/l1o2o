@@ -82,10 +82,11 @@ process.getter = cms.EDAnalyzer("EventSetupRecordDataGetter",
 
 process.l1mbw = cms.EDAnalyzer("L1TMuonBarrelParamsWriter")
 
-from CondCore.DBCommon.CondDBSetup_cfi import CondDBSetup
+from CondCore.CondDB.CondDB_cfi import CondDB
+CondDB.connect = cms.string(options.outputDBConnect)
+
 outputDB = cms.Service("PoolDBOutputService",
-    CondDBSetup,
-    connect = cms.string(options.outputDBConnect),
+    CondDB,
     toPut   = cms.VPSet(
         cms.PSet(
             record = cms.string('L1TMuonBarrelParamsO2ORcd'),
