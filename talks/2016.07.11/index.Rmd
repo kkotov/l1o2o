@@ -1,0 +1,38 @@
+---
+title       : "L1T O2O status"
+subtitle    : 
+author      : Khristian Kotov
+job         : 
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow      # 
+github:
+  user: kkotov 
+  repo: talks
+url:
+  lib:    ../../../../monohiggs/plots/libraries
+  assets: ../../../../monohiggs/plots/assets
+widgets     : [mathjax]     # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+---
+
+## Readiness
+
+The L1T O2O runs in the development mode:
+
+System   |    Payload     |  L1T O2O Status 
+---------|----------------|----------------------
+uGT      | <span style="font-weight:bold;font-size:smaller;color:green">L1TUtmTriggerMenu</span> | runs with OMDS
+uGT RS   | <span style="font-weight:bold;font-size:smaller;color:green">L1TGlobalPrescalesVetos</span> | runs with OMDS
+uGMT     | <span style="font-weight:bold;font-size:smaller;color:green">L1TMuonGlobalParams</span>  | runs with OMDS
+BMTF     | <span style="font-weight:bold;font-size:smaller;color:green">L1TMuonBarrelParams</span>  | runs with OMDS
+OMTF     | <span style="font-weight:bold;font-size:smaller;color:green">L1TMuonOverlapParams</span> | runs with OMDS
+EMTF     | <span style="font-weight:bold;font-size:smaller;color:green">L1TMuonEndCapParams</span> | runs with OMDS
+CALOL1   | <span style="font-weight:bold;font-size:smaller;color:green">L1TCaloParams</span> | runs with OMDS
+CALOL2   | <span style="font-weight:bold;font-size:smaller;color:brown">L1TCaloParams</span> | work in progress
+
+<br>
+
+Most of payloads but the trigger menu (first) payload need bitwise emulator comparisons
+
+Once we have the CALOL2 in we consider making another PR
