@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <stdexcept>
+#include <sstream>
 
 #include "CondTools/L1TriggerExt/interface/L1ConfigOnlineProdBaseExt.h"
 #include "CondFormats/L1TObjects/interface/CaloParams.h"
@@ -40,6 +41,155 @@ readCaloLayer1OnlineSettings(l1t::CaloParamsHelper& paramsHelper, std::map<std::
   }
   // Layer 1 LUT specification
   paramsHelper.setLayer1ECalScaleFactors((conf["layer1ECalScaleFactors"].getVector<double>()));
+  paramsHelper.setLayer1HCalScaleFactors((conf["layer1HCalScaleFactors"].getVector<double>()));
+  paramsHelper.setLayer1HFScaleFactors  ((conf["layer1HFScaleFactors"]  .getVector<double>()));
+  paramsHelper.setLayer1ECalScaleETBins(conf["layer1ECalScaleETBins"].getVector<int>());
+  paramsHelper.setLayer1HCalScaleETBins(conf["layer1HCalScaleETBins"].getVector<int>());
+  paramsHelper.setLayer1HFScaleETBins  (conf["layer1HFScaleETBins"]  .getVector<int>());
+
+  return true;
+}
+
+bool
+readCaloLayer2OnlineSettings(l1t::CaloParamsHelper& paramsHelper, std::map<std::string, l1t::setting>& conf, std::map<std::string, l1t::mask>& ) {
+  const char * expectedParams[] = {
+    "leptonSeedThreshold",
+    "leptonTowerThreshold",
+    "pileUpTowerThreshold",
+    "jetSeedThreshold",
+    "jetMaxEta",
+    "HTMHT_maxJetEta",
+    "HT_jetThreshold",
+    "MHT_jetThreshold",
+    "jetEnergyCalibLUT",
+    "ETMET_maxTowerEta",
+    "ET_energyCalibLUT",
+    "ecalET_energyCalibLUT",
+    "METX_energyCalibLUT",
+    "METY_energyCalibLUT",
+    "egammaRelaxationThreshold",
+    "egammaMaxEta",
+    "egammaEnergyCalibLUT",
+    "egammaIsoLUT",
+    "tauMaxEta",
+    "tauEnergyCalibLUT",
+    "tauIsoLUT1",
+    "tauIsoLUT2"
+  };
+  for (const auto param : expectedParams) {
+    if ( conf.find(param) == conf.end() ) {
+      std::cerr << "Unable to locate expected CaloLayer2 parameter: " << param << " in L1 settings payload!";
+      return false;
+    }
+  }
+  // Layer 2 params specification
+  paramsHelper.setEgSeedThreshold((conf["leptonSeedThreshold"].getValue<int>()));
+  paramsHelper.setTauSeedThreshold((conf["leptonSeedThreshold"].getValue<int>()));
+  paramsHelper.setEgNeighbourThreshold((conf["leptonTowerThreshold"].getValue<int>()));
+  paramsHelper.setTauNeighbourThreshold((conf["leptonTowerThreshold"].getValue<int>()));
+  paramsHelper.setJetSeedThreshold((conf["jetSeedThreshold"].getValue<int>()));
+
+  // Currently not used // paramsHelper.setEgPileupTowerThresh((conf["pileUpTowerThreshold"].getValue<int>())); 
+  // Currently not used // paramsHelper.setTauPileupTowerThresh((conf["pileUpTowerThreshold"].getValue<int>())); 
+  // Currently not used // paramsHelper.setJetMaxEta((conf["jetMaxEta"].getValue<int>()));
+  
+  std::vector<int> etSumEtaMax;
+  std::vector<int> etSumEtThresh;
+  
+  etSumEtaMax.push_back(conf["ETMET_maxTowerEta"].getValue<int>());
+  etSumEtaMax.push_back(conf["HTMHT_maxJetEta"].getValue<int>());
+  etSumEtaMax.push_back(conf["ETMET_maxTowerEta"].getValue<int>());
+  etSumEtaMax.push_back(conf["HTMHT_maxJetEta"].getValue<int>());
+  
+  etSumEtThresh.push_back(0); // ETT tower threshold
+  etSumEtThresh.push_back(conf["HT_jetThreshold"].getValue<int>());
+  etSumEtThresh.push_back(0); // ETM tower threshold
+  etSumEtThresh.push_back(conf["MHT_jetThreshold"].getValue<int>());
+
+  for (uint i=0; i<4; ++i) {
+    paramsHelper.setEtSumEtaMax(i, etSumEtaMax.at(i));
+    paramsHelper.setEtSumEtThreshold(i, etSumEtThresh.at(i));
+  }
+
+  std::stringstream oss;
+
+  std::vector<int> jetEnergyCalibLUT = conf["jetEnergyCalibLUT"].getVector<int>();
+  oss <<"#<header> V1 "<< ( 32 - __builtin_clz( uint32_t(jetEnergyCalibLUT.size()-1) ) ) <<" 32 </header> "<<std::endl; // hardcode max bits for data
+  for(unsigned int i=0; i<jetEnergyCalibLUT.size(); i++) oss << i << " " << jetEnergyCalibLUT[i] << std::endl;
+
+  std::istringstream iss1( oss.str() );
+  paramsHelper.setJetCalibrationLUT( l1t::LUT( (std::istream&)iss1 ) );
+  oss.str("");
+
+  std::vector<int> etSumEttPUSLUT = conf["ET_energyCalibLUT"].getVector<int>();
+  oss <<"#<header> V1 "<< ( 32 - __builtin_clz( uint32_t(etSumEttPUSLUT.size()-1) ) ) <<" 32 </header> "<<std::endl; // hardcode max bits for data
+  for(unsigned int i=0; i<etSumEttPUSLUT.size(); i++) oss << i << " " << etSumEttPUSLUT[i] << std::endl;
+
+  std::istringstream iss2( oss.str() );
+  paramsHelper.setEtSumEttPUSLUT( l1t::LUT( (std::istream&)iss2 ) );
+  oss.str("");
+
+  std::vector<int> etSumEcalSumPUTLUT = conf["ecalET_energyCalibLut"].getVector<int>();
+  oss <<"#<header> V1 "<< ( 32 - __builtin_clz( uint32_t(etSumEcalSumPUTLUT.size()-1) ) ) <<" 32 </header> "<<std::endl; // hardcode max bits for data
+  for(unsigned int i=0; i<etSumEcalSumPUTLUT.size(); i++) oss << i << " " << etSumEcalSumPUTLUT[i] << std::endl;
+
+  std::istringstream iss3( oss.str() );
+  paramsHelper.setEtSumEcalSumPUSLUT( l1t::LUT( (std::istream&)iss3 ) );
+  oss.str("");
+
+  std::vector<int> etSumXPUSLUT = conf["METX_energyCalibLUT"].getVector<int>();
+  oss <<"#<header> V1 "<< ( 32 - __builtin_clz( uint32_t(etSumXPUSLUT.size()-1) ) ) <<" 32 </header> "<<std::endl; // hardcode max bits for data
+  for(unsigned int i=0; i<etSumXPUSLUT.size(); i++) oss << i << " " << etSumXPUSLUT[i] << std::endl;
+
+  std::istringstream iss4( oss.str() );
+  paramsHelper.setEtSumXPUSLUT( l1t::LUT( (std::istream&)iss4 ) );
+  oss.str("");
+
+  paramsHelper.setEgMaxPtHOverE((conf["egammaRelaxationThreshold"].getValue<int>()));
+  paramsHelper.setEgEtaCut((conf["egammaMaxEta"].getValue<int>()));
+
+  std::vector<int> egCalibrationLUT = conf["egammaEnergyCalibLUT"].getVector<int>();
+  oss <<"#<header> V1 "<< ( 32 - __builtin_clz( uint32_t(egCalibrationLUT.size()-1) ) ) <<" 32 </header> "<<std::endl; // hardcode max bits for data
+  for(unsigned int i=0; i<egCalibrationLUT.size(); i++) oss << i << " " << egCalibrationLUT[i] << std::endl;
+
+  std::istringstream iss5( oss.str() );
+  paramsHelper.setEgCalibrationLUT( l1t::LUT( (std::istream&)iss5 ) );
+  oss.str("");
+
+  std::vector<int> egIsolationLUT = conf["egammaIsoLUT"].getVector<int>();
+  oss <<"#<header> V1 "<< ( 32 - __builtin_clz( uint32_t(egIsolationLUT.size()-1) ) ) <<" 32 </header> "<<std::endl; // hardcode max bits for data
+  for(unsigned int i=0; i<egIsolationLUT.size(); i++) oss << i << " " << egIsolationLUT[i] << std::endl;
+
+  std::istringstream iss6( oss.str() );
+  paramsHelper.setEgIsolationLUT( l1t::LUT( (std::istream&)iss6 ) );
+  oss.str("");
+
+  paramsHelper.setIsoTauEtaMax((conf["tauMaxEta"].getValue<int>()));
+
+  std::vector<int> tauCalibrationLUT = conf["tauEnergyCalibLUT"].getVector<int>();
+  oss <<"#<header> V1 "<< ( 32 - __builtin_clz( uint32_t(tauCalibrationLUT.size()-1) ) ) <<" 32 </header> "<<std::endl; // hardcode max bits for data
+  for(unsigned int i=0; i<tauCalibrationLUT.size(); i++) oss << i << " " << tauCalibrationLUT[i] << std::endl;
+
+  std::istringstream iss7( oss.str() );
+  paramsHelper.setTauCalibrationLUT(l1t::LUT( (std::istream&)iss7 ));
+  oss.str("");
+
+  std::vector<int> tauIsolationLUT = conf["tauIsoLUT1"].getVector<int>();
+  oss <<"#<header> V1 "<< ( 32 - __builtin_clz( uint32_t(tauIsolationLUT.size()-1) ) ) <<" 32 </header> "<<std::endl; // hardcode max bits for data
+  for(unsigned int i=0; i<tauIsolationLUT.size(); i++) oss << i << " " << tauIsolationLUT[i] << std::endl;
+
+  std::istringstream iss8( oss.str() );
+  paramsHelper.setTauIsolationLUT( l1t::LUT((std::istream&)iss8 ) );
+  oss.str("");
+
+  std::vector<int> tauIsolationLUT2 = conf["tauIsoLUT2"].getVector<int>();
+  oss <<"#<header> V1 "<< ( 32 - __builtin_clz( uint32_t(tauIsolationLUT2.size()-1) ) ) <<" 32 </header> "<<std::endl; // hardcode max bits for data
+  for(unsigned int i=0; i<tauIsolationLUT2.size(); i++) oss << i << " " << tauIsolationLUT2[i] << std::endl;
+
+  std::istringstream iss9( oss.str() );
+  paramsHelper.setTauIsolationLUT2( l1t::LUT( (std::istream&)iss9 ) );
+  oss.str("");
+
   paramsHelper.setLayer1HCalScaleFactors((conf["layer1HCalScaleFactors"].getVector<double>()));
   paramsHelper.setLayer1HFScaleFactors  ((conf["layer1HFScaleFactors"]  .getVector<double>()));
   paramsHelper.setLayer1ECalScaleETBins(conf["layer1ECalScaleETBins"].getVector<int>());
@@ -334,21 +484,23 @@ boost::shared_ptr<l1t::CaloParams> L1TCaloParamsOnlineProd::newObject(const std:
     std::map<std::string, l1t::setting> calol1_conf = calol1.getSettings("processors");
     std::map<std::string, l1t::mask>    calol1_rs   ;//= calol1.getMasks   ("processors");
 
-//    Do nothing for the Calo Layer2
-//    l1t::trigSystem calol2;
-//    calol2.addProcRole("processors", "processors");
-//    xmlReader.readRootElement( calol2, "calol2" );
-//    calol2.setConfigured();
-//    // Perhaps layer 2 has to look at settings for demux and mp separately?
-//    std::map<string, l1t::setting> calol2_conf = calol2.getSettings("processors");
-//    std::map<string, l1t::mask>    calol2_rs   = calol2.getMasks   ("processors");
 
+    l1t::trigSystem calol2;
+    calol2.addProcRole("processors", "processors");
+    xmlReader.readRootElement( calol2, "calol2" );
+    calol2.setConfigured();
+    // Perhaps layer 2 has to look at settings for demux and mp separately? // => No demux settings required
+    std::map<std::string, l1t::setting> calol2_conf = calol2.getSettings("processors");
+    std::map<std::string, l1t::mask>    calol2_rs   = calol2.getMasks   ("processors");
+    
     l1t::CaloParamsHelper m_params_helper(*(baseSettings.product()));
 
     readCaloLayer1OnlineSettings(m_params_helper, calol1_conf, calol1_rs);
+    readCaloLayer2OnlineSettings(m_params_helper, calol2_conf, calol2_rs);
 
     return boost::shared_ptr< l1t::CaloParams >( new l1t::CaloParams ( m_params_helper ) ) ;
 }
 
 //define this as a plug-in
 DEFINE_FWK_EVENTSETUP_MODULE(L1TCaloParamsOnlineProd);
+
