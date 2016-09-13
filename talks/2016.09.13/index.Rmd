@@ -1,0 +1,58 @@
+---
+title       : "L1T O2O status"
+subtitle    : 
+author      : Khristian Kotov
+job         : 
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow      # 
+github:
+  user: kkotov 
+  repo: talks
+url:
+  lib:    ../../../../monohiggs/plots/libraries
+  assets: ../../../../monohiggs/plots/assets
+widgets     : [mathjax]     # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+---
+
+## Readiness
+
+The L1T O2O is now fully functional, two PRs are pending for [80X](https://github.com/cms-sw/cmssw/pull/15814) and [81X](https://github.com/cms-sw/cmssw/pull/15625)
+
+Until they are signed off and merged we have to keep writing to the development DB (only L1T menu goes to
+the production DB as HLT at p5 cannot run without it)
+
+DQM should already try starting using these payloads from the development DB:
+
+System   |    Payload     |  L1T O2O Status 
+---------|----------------|----------------------
+uGT      | <span style="font-weight:bold;font-size:smaller;color:green">L1TUtmTriggerMenu</span> | O2Oed from OMDS
+uGT RS   | <span style="font-weight:bold;font-size:smaller;color:green">L1TGlobalPrescalesVetos</span> | O2Oed from OMDS
+uGMT     | <span style="font-weight:bold;font-size:smaller;color:green">L1TMuonGlobalParams</span>  | O2Oed from OMDS
+BMTF     | <span style="font-weight:bold;font-size:smaller;color:green">L1TMuonBarrelParams</span>  | O2Oed from OMDS
+OMTF     | <span style="font-weight:bold;font-size:smaller;color:green">L1TMuonOverlapParams</span> | O2Oed from OMDS
+EMTF     | <span style="font-weight:bold;font-size:smaller;color:green">L1TMuonEndCapParams</span> | O2Oed from OMDS
+CALOL1   | <span style="font-weight:bold;font-size:smaller;color:green">L1TCaloParams</span> | O2Oed from OMDS
+CALOL2   | <span style="font-weight:bold;font-size:smaller;color:green">L1TCaloParams</span> | O2Oed from OMDS
+
+--- .class #id
+
+## Thoughts and plans
+
+* L1T O2O for validating online XML
+  * we've identified TSC/RS keys where config XML had missing values (unintentionally)
+  * this could be easily caught if preparing a new key would include "pilot-O2O-running"
+  * solution is available and we would like to add it to L1 DOC instructions
+
+* Reconstructing the history
+  * we want to replay the current version of the L1T O2O on the whole 2016
+  * the resulting masks and prescales is a "must have" information for many analyses
+
+* Configurable non-configurables
+  * in some cases/systems rarely changed LUTs are not kept track of in the OMDS
+  * a new L1T O2O functionality is needed for system experts to be able to update these LUTs manually in the CondDB
+
+
+
+
