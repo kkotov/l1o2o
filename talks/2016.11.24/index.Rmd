@@ -1,0 +1,57 @@
+---
+title       : "L1T O2O status"
+subtitle    : 
+author      : Khristian Kotov
+job         : 
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow      # 
+github:
+  user: kkotov 
+  repo: talks
+url:
+  lib:    ../../../../monohiggs/plots/libraries
+  assets: ../../../../monohiggs/plots/assets
+widgets     : [mathjax]     # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+---
+
+## Readiness
+
+L1T O2O is integrated in 8_0_21 and ready to be deployed at p5 during MD5
+
+Following set of payloads/tags are/will_be available in the production DB:
+
+System     |   Payload[Tag]  |  Consumer  |  Comments
+-----------|-----------------|------------|---------
+L1T O2O    | <span style="font-weight:bold;font-size:smaller;color:green">L1TriggerKey(List)[_Stage2v1_hlt]</span>      | <span style="color:green">L1T O2O</span>   | consumed
+uGT        | <span style="font-weight:bold;font-size:smaller;color:green">L1TUtmTriggerMenu[_Stage2v0_hlt]</span>       | <span style="color:green">HLT at p5</span> | consumed
+uGT RS     | <span style="font-weight:bold;font-size:smaller;color:green">L1TGlobalPrescalesVetos[_Stage2v0_hlt]</span> | <span style="color:red">physics</span>     | in demand
+uGMT       | <span style="font-weight:bold;font-size:smaller;color:green">L1TMuonGlobalParams[_Stage2v0_hlt]</span>     | <span style="color:grey">DQM</span>        | validated
+BMTF       | <span style="font-weight:bold;font-size:smaller;color:green">L1TMuonBarrelParams[_Stage2v0_hlt]</span>     | <span style="color:grey">DQM</span>        | validated
+OMTF       | <span style="font-weight:bold;font-size:smaller;color:green">L1TMuonOverlapParams[_Stage2v1_hlt]</span>    | <span style="color:grey">DQM</span>        | "frozen"
+EMTF       | <span style="font-weight:bold;font-size:smaller;color:green">L1TMuonEndCapParams[_Stage2v0_hlt]</span>     | <span style="color:grey">DQM</span>        | version only
+EMTF PtLUT | <span style="font-weight:bold;font-size:smaller;color:grey" >L1TMuonEndCapForests[_Stage2v0_hlt]</span>    | <span style="color:grey">DQM</span>        | not in O2O yet
+CALOL{1,2} | <span style="font-weight:bold;font-size:smaller;color:green">L1TCaloParams[_Stage2v0_hlt]</span>           | <span style="color:red">DQM</span>         | waiting on O2O
+
+
+--- .class #id
+
+## Miscellaneous
+
+* Payload consumers
+  * none but uGT payload (L1 trigger menu) are used by default in MC productions
+  * DQM will need to use the CondDB (only) to run the emulators
+
+* Reconstructing the history
+  * want to replay the L1T O2O on the whole RunII for uGT_RS, EMTF, and CaloL1
+
+* Configurable non-configurables
+  * in some cases/systems rarely changed LUTs are not kept track of in the OMDS
+  * need a new O2O workflow for systems to update these LUTs manually in CondDB
+
+* Some links:
+  * [Triggering L1T O2O](https://twiki.cern.ch/twiki/bin/viewauth/CMS/TriggerFieldManagerGuide#Breaking_News_27_September_2016) 
+  * [Talk](http://kkotov.github.io/l1o2o/talks/2016.04.19) on the L1T O2O guts
+
+
