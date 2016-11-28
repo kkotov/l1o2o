@@ -1,0 +1,47 @@
+---
+title       : "L1T O2O status"
+subtitle    : 
+author      : Khristian Kotov
+job         : 
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow      # 
+github:
+  user: kkotov 
+  repo: talks
+url:
+  lib:    ../../../../monohiggs/plots/libraries
+  assets: ../../../../monohiggs/plots/assets
+widgets     : [mathjax]     # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+---
+
+## Readiness
+
+Following set of tags are now available in the production DB:
+
+System     |   Payload[Tag]  |   Comments
+-----------|-----------------|------------
+uGT        | <span style="font-weight:bold;font-size:smaller;color:green">L1TUtmTriggerMenu[_Stage2v0_hlt]</span>       | consumed
+uGT RS     | <span style="font-weight:bold;font-size:smaller;color:green">L1TGlobalPrescalesVetos[_Stage2v0_hlt]</span> | validated on Run II
+CALOL{1,2} | <span style="font-weight:bold;font-size:smaller;color:magenta">L1TCaloParams[_Stage2v0_hlt]</span>         | waiting on DQM at p5 to validate it
+uGMT       | <span style="font-weight:bold;font-size:smaller;color:green">L1TMuonGlobalParams[_Stage2v0_hlt]</span>     | validated on few runs
+BMTF       | <span style="font-weight:bold;font-size:smaller;color:green">L1TMuonBarrelParams[_Stage2v0_hlt]</span>     | validated on few runs
+OMTF       | <span style="font-weight:bold;font-size:smaller;color:green">L1TMuonOverlapParams[_Stage2v0_hlt]</span>    | validated and frozen
+EMTF       | <span style="font-weight:bold;font-size:smaller;color:green">L1TMuonEndCapParams[_Stage2v0_hlt]</span>     | not yet in use and not updated
+EMTF PtLUT | <span style="font-weight:bold;font-size:smaller;color:grey" >L1TMuonEndCapForests[_Stage2v0_hlt]</span>    | not yet in O2O
+L1T O2O    | <span style="font-weight:bold;font-size:smaller;color:blue" >L1TriggerKey(List)[_Stage2v0_hlt]</span>      | O2O internal
+
+
+--- .class #id
+
+## Miscellanea 
+
+Prescales: validated against monitoring tables used for WBM
+
+EMTF: potentially need a new CondFormats and integration with the new emulator
+
+CaloParams: no history is available, expect feedback from DQM
+
+Other payloads: validation via emulator vs. hardware comparison is not 100% accurate
+
