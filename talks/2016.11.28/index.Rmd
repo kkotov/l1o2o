@@ -24,7 +24,7 @@ System     |   Payload[Tag]  |   Comments
 -----------|-----------------|------------
 uGT        | <span style="font-weight:bold;font-size:smaller;color:green">L1TUtmTriggerMenu[_Stage2v0_hlt]</span>       | consumed
 uGT RS     | <span style="font-weight:bold;font-size:smaller;color:green">L1TGlobalPrescalesVetos[_Stage2v0_hlt]</span> | validated on Run II
-CALOL{1,2} | <span style="font-weight:bold;font-size:smaller;color:magenta">L1TCaloParams[_Stage2v0_hlt]</span>         | waiting on DQM at p5 to validate it
+CALOL{1,2} | <span style="font-weight:bold;font-size:smaller;color:magenta">L1TCaloParams[_Stage2v0_hlt]</span>         | waiting on DQM at p5 to try it out
 uGMT       | <span style="font-weight:bold;font-size:smaller;color:green">L1TMuonGlobalParams[_Stage2v0_hlt]</span>     | validated on few runs
 BMTF       | <span style="font-weight:bold;font-size:smaller;color:green">L1TMuonBarrelParams[_Stage2v0_hlt]</span>     | validated on few runs
 OMTF       | <span style="font-weight:bold;font-size:smaller;color:green">L1TMuonOverlapParams[_Stage2v0_hlt]</span>    | validated and frozen
@@ -37,11 +37,302 @@ L1T O2O    | <span style="font-weight:bold;font-size:smaller;color:blue" >L1Trig
 
 ## Miscellanea 
 
-Prescales: validated against monitoring tables used for WBM
+Prescales: validated against [monitoring tables](https://twiki.cern.ch/twiki/bin/viewauth/CMS/GlobalTriggerMonitoringDatabase) used for WBM:
+
+* compared outputs from [Takashi's script](https://github.com/cms-l1-dpg/L1Menu/blob/master/scripts/getL1PrescalesRun2.py)
+and my [DB viewer](https://github.com/cms-sw/cmssw/blob/CMSSW_8_0_X/L1TriggerConfig/Utilities/test/viewL1TGlobalPrescalesVetos.py) on ~6.5K runs of 2016
 
 EMTF: potentially need a new CondFormats and integration with the new emulator
 
-CaloParams: no history is available, expect feedback from DQM
+CaloParams: no history is available, validated on run #285832 (slides below)
 
 Other payloads: validation via emulator vs. hardware comparison is not 100% accurate
+
+
+--- &twocol
+
+## Validating O2Oed CaloParams: MPSums
+
+*** =left
+
+<img class=center src=compHwEmu_MPSums_HFSumP0.svg height=270>
+
+<img class=center src=compHwEmu_MPSums_HFSumM0.svg height=270>
+
+*** =right
+
+<img class=center src=compHwEmu_MPSums_HFSumP1.svg height=270>
+
+<img class=center src=compHwEmu_MPSums_HFSumM1.svg height=270>
+
+*** =fullwidth
+
+--- &twocol
+
+## Validating O2Oed CaloParams: DemuxSums
+
+*** =left
+
+<img class=center src=compHwEmu_DemuxSums_HFSumP0.svg height=270>
+
+<img class=center src=compHwEmu_DemuxSums_HFSumM0.svg height=270>
+
+*** =right
+
+<img class=center src=compHwEmu_DemuxSums_HFSumP1.svg height=270>
+
+<img class=center src=compHwEmu_DemuxSums_HFSumM1.svg height=270>
+
+*** =fullwidth
+
+--- &twocol
+
+## Validating O2Oed CaloParams: Jets
+
+*** =left
+
+<img class=center src=compHwEmu_Jets_JetEt.svg height=270>
+
+<img class=center src=compHwEmu_Jets_JetEtSat.svg height=270>
+
+*** =right
+
+<img class=center src=compHwEmu_Jets_JetEta.svg height=270>
+
+<img class=center src=compHwEmu_Jets_JetPhi.svg height=270>
+
+*** =fullwidth
+
+--- &twocol
+
+## Validating O2Oed CaloParams: DemuxJets
+
+*** =left
+
+<img class=center src=compHwEmu_DemuxJets_JetEt.svg height=270>
+
+<img class=center src=compHwEmu_DemuxJets_JetEta.svg height=270>
+
+*** =right
+
+<img class=center src=compHwEmu_DemuxJets_JetPhi.svg height=270>
+
+*** =fullwidth
+
+--- &twocol
+
+## Validating O2Oed CaloParams: MPSumEt
+
+*** =left
+
+<img class=center src=compHwEmu_MPSums_MPSumEt.svg height=270>
+
+*** =right
+
+<img class=center src=compHwEmu_MPSums_MPSumEtHF.svg height=270>
+
+*** =fullwidth
+
+--- &twocol
+
+## Validating O2Oed CaloParams: MPSumsEt{x,y}
+
+*** =left
+
+<img class=center src=compHwEmu_MPSums_MPSumEtx.svg height=270>
+
+<img class=center src=compHwEmu_MPSums_MPSumEty.svg height=270>
+
+*** =right
+
+<img class=center src=compHwEmu_MPSums_MPSumEtxHF.svg height=270>
+
+<img class=center src=compHwEmu_MPSums_MPSumEtyHF.svg height=270>
+
+*** =fullwidth
+
+--- &twocol
+
+## Validating O2Oed CaloParams: MPSumsHt 
+
+*** =left
+
+<img class=center src=compHwEmu_MPSums_MPSumHt.svg height=270>
+
+*** =right
+
+<img class=center src=compHwEmu_MPSums_MPSumHtHF.svg height=270>
+
+*** =fullwidth
+
+--- &twocol
+
+## Validating O2Oed CaloParams: MPSumsHt{x,y}
+
+*** =left
+
+<img class=center src=compHwEmu_MPSums_MPSumHtx.svg height=270>
+
+<img class=center src=compHwEmu_MPSums_MPSumHty.svg height=270>
+
+*** =right
+
+<img class=center src=compHwEmu_MPSums_MPSumHtxHF.svg height=270>
+
+<img class=center src=compHwEmu_MPSums_MPSumHtyHF.svg height=270>
+
+*** =fullwidth
+
+--- .class #id
+
+## Validating O2Oed CaloParams: MPSumHITowerCount 
+
+<img class=center src=compHwEmu_MPSums_MPSumHITowerCount.svg height=470>
+
+--- &twocol
+
+## Validating O2Oed CaloParams: DemSum
+
+*** =left
+
+<img class=center src=compHwEmu_DemuxSums_DemSumEt.svg height=270>
+
+<img class=center src=compHwEmu_DemuxSums_DemSumEtEM.svg height=270>
+
+*** =right
+
+<img class=center src=compHwEmu_DemuxSums_DemSumMet.svg height=270>
+
+<img class=center src=compHwEmu_DemuxSums_DemSumMetHF.svg height=270>
+
+*** =fullwidth
+
+--- &twocol
+
+## Validating O2Oed CaloParams: DemMet
+
+*** =left
+
+<img class=center src=compHwEmu_DemuxSums_DemMetPhi.svg height=270>
+
+*** =right
+
+<img class=center src=compHwEmu_DemuxSums_DemMetHFPhi.svg height=270>
+
+*** =fullwidth
+
+--- &twocol
+
+## Validating O2Oed CaloParams: DemSumHt and DemHITowCount
+
+*** =left
+
+<img class=center src=compHwEmu_DemuxSums_DemSumHt.svg height=270>
+
+*** =right
+
+<img class=center src=compHwEmu_DemuxSums_DemHITowCount.svg height=270>
+
+*** =fullwidth
+
+--- &twocol
+
+## Validating O2Oed CaloParams: Dem*Mht
+
+*** =left
+
+<img class=center src=compHwEmu_DemuxSums_DemSumMht.svg height=270>
+
+<img class=center src=compHwEmu_DemuxSums_DemSumMhtHF.svg height=270>
+
+*** =right
+
+<img class=center src=compHwEmu_DemuxSums_DemMhtPhi.svg height=270>
+
+<img class=center src=compHwEmu_DemuxSums_DemMhtHFPhi.svg height=270>
+
+*** =fullwidth
+
+--- &twocol
+
+## Validating O2Oed CaloParams: Dem*Mht
+
+*** =left
+
+<img class=center src=compHwEmu_DemuxSums_DemSumMht.svg height=270>
+
+<img class=center src=compHwEmu_DemuxSums_DemSumMhtHF.svg height=270>
+
+*** =right
+
+<img class=center src=compHwEmu_DemuxSums_DemMhtPhi.svg height=270>
+
+<img class=center src=compHwEmu_DemuxSums_DemMhtHFPhi.svg height=270>
+
+*** =fullwidth
+
+--- &twocol
+
+## Validating O2Oed CaloParams: Egs
+
+*** =left
+
+<img class=center src=compHwEmu_Egs_EgEt.svg height=270>
+
+*** =right
+
+<img class=center src=compHwEmu_Egs_EgEta.svg height=270>
+
+<img class=center src=compHwEmu_Egs_EgPhi.svg height=270>
+
+*** =fullwidth
+
+--- &twocol
+
+## Validating O2Oed CaloParams: DemuxEgs
+
+*** =left
+
+<img class=center src=compHwEmu_DemuxEgs_EgEt.svg height=270>
+
+*** =right
+
+<img class=center src=compHwEmu_DemuxEgs_EgEta.svg height=270>
+
+<img class=center src=compHwEmu_DemuxEgs_EgPhi.svg height=270>
+
+*** =fullwidth
+
+--- &twocol
+
+## Validating O2Oed CaloParams: DemuxEgs
+
+*** =left
+
+<img class=center src=compHwEmu_Taus_TauEt.svg height=270>
+
+*** =right
+
+<img class=center src=compHwEmu_Taus_TauEta.svg height=270>
+
+<img class=center src=compHwEmu_Taus_TauPhi.svg height=270>
+
+*** =fullwidth
+
+--- &twocol
+
+## Validating O2Oed CaloParams: DemuxTaus
+
+*** =left
+
+<img class=center src=compHwEmu_DemuxTaus_TauEt.svg height=270>
+
+*** =right
+
+<img class=center src=compHwEmu_DemuxTaus_TauEta.svg height=270>
+
+<img class=center src=compHwEmu_DemuxTaus_TauPhi.svg height=270>
+
+*** =fullwidth
+
 
