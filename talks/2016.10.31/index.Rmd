@@ -1,0 +1,72 @@
+---
+title       : "Report on the L1T O2O incident from October 27"
+subtitle    : 
+author      : Khristian Kotov
+job         : 
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow      # 
+github:
+  user: kkotov 
+  repo: talks
+url:
+  lib:    ../../../../monohiggs/plots/libraries
+  assets: ../../../../monohiggs/plots/assets
+widgets     : [mathjax]     # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+---
+
+## Story
+
+* Tuesday evening I have got a heads-up about the need of new UTM in O2O
+  before the running ends at MD5/TS3
+
+* Wednesday afternoon the trigger team at p5 set a plan to perform the
+  tests with the new menu in the next interfill $\rightarrow$ I deployed
+  the new O2O and started waiting for the new run
+
+* In the late evening close to the end of running I gave up waiting for
+  the end of this long run and left the current version in the production
+
+* Around midnight p5 shift crew finished the run and decided to take some
+  cosmics. The O2O appeared broken and they could not start a new run
+
+
+<span style="font-weight:bold;color:green">We did not loose any collision data</span>
+
+<span style="font-weight:bold;color:green">The L1T DOC and the Run Field Manager were in the loop of the original email thread</span>
+
+
+--- .class #id
+
+
+## Cause (technical view)
+
+<img class=center src=layout.gif height=400> 
+
+Environment in <span style="font-weight:bold;color:blue">menu.sh</span> was not set properly leaving $CMSSW_[RELEASE]_BASE vars empty 
+
+Validation test was ran at the level of <span style="font-weight:bold;color:blue">runL1-O2O-iov.sh</span> with another environment
+
+--- .class #id
+
+## Proposal
+
+* We support the original AlCaDB proposal to avoid local compilations
+(e.g. for UTM updates always use new release with appropriate defaults).
+New version of CMSSW would automatically mean updating the L1T O2O
+
+* We need an automated procedure set up by AlCaDB experts such the
+operations crew at p5 can update and, if needed, rolled back the
+production version of the CMSSW for L1T O2O. The final testing 
+should always be performed by the operations crew.
+
+* We need to have a separate environment for developing the O2O,
+possibly on lxplus. For that we need AlCa team assistance on how to
+access OMDS database from such environments
+
+* The development version should be deployable alongside the production
+version, but should not affect it
+
+
+

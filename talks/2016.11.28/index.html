@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>L1T O2O status</title>
+  <meta charset="utf-8">
+  <meta name="description" content="L1T O2O status">
+  <meta name="author" content="Khristian Kotov">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../../../../monohiggs/plots/libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../../../monohiggs/plots/libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../../../../monohiggs/plots/libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../../../monohiggs/plots/libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="../../../../monohiggs/plots/libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="../../../../monohiggs/plots/libraries/frameworks/io2012/js/slides" 
+    src="../../../../monohiggs/plots/libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>L1T O2O status</h1>
+    <h2></h2>
+    <p>Khristian Kotov<br/></p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Readiness</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Following set of tags are now available in the production DB:</p>
+
+<table><thead>
+<tr>
+<th>System</th>
+<th>Payload[Tag]</th>
+<th>Comments</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>uGT</td>
+<td><span style="font-weight:bold;font-size:smaller;color:green">L1TUtmTriggerMenu[_Stage2v0_hlt]</span></td>
+<td>consumed</td>
+</tr>
+<tr>
+<td>uGT RS</td>
+<td><span style="font-weight:bold;font-size:smaller;color:green">L1TGlobalPrescalesVetos[_Stage2v0_hlt]</span></td>
+<td>validated on Run II</td>
+</tr>
+<tr>
+<td>CALOL{1,2}</td>
+<td><span style="font-weight:bold;font-size:smaller;color:magenta">L1TCaloParams[_Stage2v0_hlt]</span></td>
+<td>waiting on DQM at p5 to try it out</td>
+</tr>
+<tr>
+<td>uGMT</td>
+<td><span style="font-weight:bold;font-size:smaller;color:green">L1TMuonGlobalParams[_Stage2v0_hlt]</span></td>
+<td>validated on few runs</td>
+</tr>
+<tr>
+<td>BMTF</td>
+<td><span style="font-weight:bold;font-size:smaller;color:green">L1TMuonBarrelParams[_Stage2v0_hlt]</span></td>
+<td>validated on few runs</td>
+</tr>
+<tr>
+<td>OMTF</td>
+<td><span style="font-weight:bold;font-size:smaller;color:green">L1TMuonOverlapParams[_Stage2v0_hlt]</span></td>
+<td>validated and frozen</td>
+</tr>
+<tr>
+<td>EMTF</td>
+<td><span style="font-weight:bold;font-size:smaller;color:green">L1TMuonEndCapParams[_Stage2v0_hlt]</span></td>
+<td>not yet in use and not updated</td>
+</tr>
+<tr>
+<td>EMTF PtLUT</td>
+<td><span style="font-weight:bold;font-size:smaller;color:grey" >L1TMuonEndCapForests[_Stage2v0_hlt]</span></td>
+<td>not yet in O2O</td>
+</tr>
+<tr>
+<td>L1T O2O</td>
+<td><span style="font-weight:bold;font-size:smaller;color:blue" >L1TriggerKey(List)[_Stage2v0_hlt]</span></td>
+<td>O2O internal</td>
+</tr>
+</tbody></table>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Miscellanea</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Prescales: validated against <a href="https://twiki.cern.ch/twiki/bin/viewauth/CMS/GlobalTriggerMonitoringDatabase">monitoring tables</a> used for WBM:</p>
+
+<ul>
+<li>compared outputs from <a href="https://github.com/cms-l1-dpg/L1Menu/blob/master/scripts/getL1PrescalesRun2.py">Takashi&#39;s script</a>
+and my <a href="https://github.com/cms-sw/cmssw/blob/CMSSW_8_0_X/L1TriggerConfig/Utilities/test/viewL1TGlobalPrescalesVetos.py">DB viewer</a> on ~6.5K runs of 2016</li>
+</ul>
+
+<p>EMTF: potentially need a new CondFormats and integration with the new emulator</p>
+
+<p>CaloParams: no history is available, validated on run #285832 (slides below)</p>
+
+<p>Other payloads: validation via emulator vs. hardware comparison is not 100% accurate</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Validating O2Oed CaloParams: MPSums</h2>
+  </hgroup>
+  <article data-timings="">
+    
+<div style='float:left;width:48%;' class='centered'>
+  <p><img class=center src=compHwEmu_MPSums_HFSumP0.svg height=270></p>
+
+<p><img class=center src=compHwEmu_MPSums_HFSumM0.svg height=270></p>
+
+</div>
+<div style='float:right;width:48%;'>
+  <p><img class=center src=compHwEmu_MPSums_HFSumP1.svg height=270></p>
+
+<p><img class=center src=compHwEmu_MPSums_HFSumM1.svg height=270></p>
+
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Validating O2Oed CaloParams: DemuxSums</h2>
+  </hgroup>
+  <article data-timings="">
+    
+<div style='float:left;width:48%;' class='centered'>
+  <p><img class=center src=compHwEmu_DemuxSums_HFSumP0.svg height=270></p>
+
+<p><img class=center src=compHwEmu_DemuxSums_HFSumM0.svg height=270></p>
+
+</div>
+<div style='float:right;width:48%;'>
+  <p><img class=center src=compHwEmu_DemuxSums_HFSumP1.svg height=270></p>
+
+<p><img class=center src=compHwEmu_DemuxSums_HFSumM1.svg height=270></p>
+
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>Validating O2Oed CaloParams: Jets</h2>
+  </hgroup>
+  <article data-timings="">
+    
+<div style='float:left;width:48%;' class='centered'>
+  <p><img class=center src=compHwEmu_Jets_JetEt.svg height=270></p>
+
+<p><img class=center src=compHwEmu_Jets_JetEtSat.svg height=270></p>
+
+</div>
+<div style='float:right;width:48%;'>
+  <p><img class=center src=compHwEmu_Jets_JetEta.svg height=270></p>
+
+<p><img class=center src=compHwEmu_Jets_JetPhi.svg height=270></p>
+
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>Validating O2Oed CaloParams: DemuxJets</h2>
+  </hgroup>
+  <article data-timings="">
+    
+<div style='float:left;width:48%;' class='centered'>
+  <p><img class=center src=compHwEmu_DemuxJets_JetEt.svg height=270></p>
+
+<p><img class=center src=compHwEmu_DemuxJets_JetEta.svg height=270></p>
+
+</div>
+<div style='float:right;width:48%;'>
+  <p><img class=center src=compHwEmu_DemuxJets_JetPhi.svg height=270></p>
+
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>Validating O2Oed CaloParams: MPSumEt</h2>
+  </hgroup>
+  <article data-timings="">
+    
+<div style='float:left;width:48%;' class='centered'>
+  <p><img class=center src=compHwEmu_MPSums_MPSumEt.svg height=270></p>
+
+</div>
+<div style='float:right;width:48%;'>
+  <p><img class=center src=compHwEmu_MPSums_MPSumEtHF.svg height=270></p>
+
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>Validating O2Oed CaloParams: MPSumsEt{x,y}</h2>
+  </hgroup>
+  <article data-timings="">
+    
+<div style='float:left;width:48%;' class='centered'>
+  <p><img class=center src=compHwEmu_MPSums_MPSumEtx.svg height=270></p>
+
+<p><img class=center src=compHwEmu_MPSums_MPSumEty.svg height=270></p>
+
+</div>
+<div style='float:right;width:48%;'>
+  <p><img class=center src=compHwEmu_MPSums_MPSumEtxHF.svg height=270></p>
+
+<p><img class=center src=compHwEmu_MPSums_MPSumEtyHF.svg height=270></p>
+
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>Validating O2Oed CaloParams: MPSumsHt</h2>
+  </hgroup>
+  <article data-timings="">
+    
+<div style='float:left;width:48%;' class='centered'>
+  <p><img class=center src=compHwEmu_MPSums_MPSumHt.svg height=270></p>
+
+</div>
+<div style='float:right;width:48%;'>
+  <p><img class=center src=compHwEmu_MPSums_MPSumHtHF.svg height=270></p>
+
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-10" style="background:;">
+  <hgroup>
+    <h2>Validating O2Oed CaloParams: MPSumsHt{x,y}</h2>
+  </hgroup>
+  <article data-timings="">
+    
+<div style='float:left;width:48%;' class='centered'>
+  <p><img class=center src=compHwEmu_MPSums_MPSumHtx.svg height=270></p>
+
+<p><img class=center src=compHwEmu_MPSums_MPSumHty.svg height=270></p>
+
+</div>
+<div style='float:right;width:48%;'>
+  <p><img class=center src=compHwEmu_MPSums_MPSumHtxHF.svg height=270></p>
+
+<p><img class=center src=compHwEmu_MPSums_MPSumHtyHF.svg height=270></p>
+
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Validating O2Oed CaloParams: MPSumHITowerCount</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img class=center src=compHwEmu_MPSums_MPSumHITowerCount.svg height=470></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-12" style="background:;">
+  <hgroup>
+    <h2>Validating O2Oed CaloParams: DemSum</h2>
+  </hgroup>
+  <article data-timings="">
+    
+<div style='float:left;width:48%;' class='centered'>
+  <p><img class=center src=compHwEmu_DemuxSums_DemSumEt.svg height=270></p>
+
+<p><img class=center src=compHwEmu_DemuxSums_DemSumEtEM.svg height=270></p>
+
+</div>
+<div style='float:right;width:48%;'>
+  <p><img class=center src=compHwEmu_DemuxSums_DemSumMet.svg height=270></p>
+
+<p><img class=center src=compHwEmu_DemuxSums_DemSumMetHF.svg height=270></p>
+
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-13" style="background:;">
+  <hgroup>
+    <h2>Validating O2Oed CaloParams: DemMet</h2>
+  </hgroup>
+  <article data-timings="">
+    
+<div style='float:left;width:48%;' class='centered'>
+  <p><img class=center src=compHwEmu_DemuxSums_DemMetPhi.svg height=270></p>
+
+</div>
+<div style='float:right;width:48%;'>
+  <p><img class=center src=compHwEmu_DemuxSums_DemMetHFPhi.svg height=270></p>
+
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-14" style="background:;">
+  <hgroup>
+    <h2>Validating O2Oed CaloParams: DemSumHt and DemHITowCount</h2>
+  </hgroup>
+  <article data-timings="">
+    
+<div style='float:left;width:48%;' class='centered'>
+  <p><img class=center src=compHwEmu_DemuxSums_DemSumHt.svg height=270></p>
+
+</div>
+<div style='float:right;width:48%;'>
+  <p><img class=center src=compHwEmu_DemuxSums_DemHITowCount.svg height=270></p>
+
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-15" style="background:;">
+  <hgroup>
+    <h2>Validating O2Oed CaloParams: Dem*Mht</h2>
+  </hgroup>
+  <article data-timings="">
+    
+<div style='float:left;width:48%;' class='centered'>
+  <p><img class=center src=compHwEmu_DemuxSums_DemSumMht.svg height=270></p>
+
+<p><img class=center src=compHwEmu_DemuxSums_DemSumMhtHF.svg height=270></p>
+
+</div>
+<div style='float:right;width:48%;'>
+  <p><img class=center src=compHwEmu_DemuxSums_DemMhtPhi.svg height=270></p>
+
+<p><img class=center src=compHwEmu_DemuxSums_DemMhtHFPhi.svg height=270></p>
+
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-16" style="background:;">
+  <hgroup>
+    <h2>Validating O2Oed CaloParams: Dem*Mht</h2>
+  </hgroup>
+  <article data-timings="">
+    
+<div style='float:left;width:48%;' class='centered'>
+  <p><img class=center src=compHwEmu_DemuxSums_DemSumMht.svg height=270></p>
+
+<p><img class=center src=compHwEmu_DemuxSums_DemSumMhtHF.svg height=270></p>
+
+</div>
+<div style='float:right;width:48%;'>
+  <p><img class=center src=compHwEmu_DemuxSums_DemMhtPhi.svg height=270></p>
+
+<p><img class=center src=compHwEmu_DemuxSums_DemMhtHFPhi.svg height=270></p>
+
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-17" style="background:;">
+  <hgroup>
+    <h2>Validating O2Oed CaloParams: Egs</h2>
+  </hgroup>
+  <article data-timings="">
+    
+<div style='float:left;width:48%;' class='centered'>
+  <p><img class=center src=compHwEmu_Egs_EgEt.svg height=270></p>
+
+</div>
+<div style='float:right;width:48%;'>
+  <p><img class=center src=compHwEmu_Egs_EgEta.svg height=270></p>
+
+<p><img class=center src=compHwEmu_Egs_EgPhi.svg height=270></p>
+
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-18" style="background:;">
+  <hgroup>
+    <h2>Validating O2Oed CaloParams: DemuxEgs</h2>
+  </hgroup>
+  <article data-timings="">
+    
+<div style='float:left;width:48%;' class='centered'>
+  <p><img class=center src=compHwEmu_DemuxEgs_EgEt.svg height=270></p>
+
+</div>
+<div style='float:right;width:48%;'>
+  <p><img class=center src=compHwEmu_DemuxEgs_EgEta.svg height=270></p>
+
+<p><img class=center src=compHwEmu_DemuxEgs_EgPhi.svg height=270></p>
+
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-19" style="background:;">
+  <hgroup>
+    <h2>Validating O2Oed CaloParams: Taus</h2>
+  </hgroup>
+  <article data-timings="">
+    
+<div style='float:left;width:48%;' class='centered'>
+  <p><img class=center src=compHwEmu_Taus_TauEt.svg height=270></p>
+
+</div>
+<div style='float:right;width:48%;'>
+  <p><img class=center src=compHwEmu_Taus_TauEta.svg height=270></p>
+
+<p><img class=center src=compHwEmu_Taus_TauPhi.svg height=270></p>
+
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-20" style="background:;">
+  <hgroup>
+    <h2>Validating O2Oed CaloParams: DemuxTaus</h2>
+  </hgroup>
+  <article data-timings="">
+    
+<div style='float:left;width:48%;' class='centered'>
+  <p><img class=center src=compHwEmu_DemuxTaus_TauEt.svg height=270></p>
+
+</div>
+<div style='float:right;width:48%;'>
+  <p><img class=center src=compHwEmu_DemuxTaus_TauEta.svg height=270></p>
+
+<p><img class=center src=compHwEmu_DemuxTaus_TauPhi.svg height=270></p>
+
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='Readiness'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Miscellanea'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Validating O2Oed CaloParams: MPSums'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Validating O2Oed CaloParams: DemuxSums'>
+         4
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=5 title='Validating O2Oed CaloParams: Jets'>
+         5
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=6 title='Validating O2Oed CaloParams: DemuxJets'>
+         6
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=7 title='Validating O2Oed CaloParams: MPSumEt'>
+         7
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=8 title='Validating O2Oed CaloParams: MPSumsEt{x,y}'>
+         8
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=9 title='Validating O2Oed CaloParams: MPSumsHt'>
+         9
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=10 title='Validating O2Oed CaloParams: MPSumsHt{x,y}'>
+         10
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=11 title='Validating O2Oed CaloParams: MPSumHITowerCount'>
+         11
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=12 title='Validating O2Oed CaloParams: DemSum'>
+         12
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=13 title='Validating O2Oed CaloParams: DemMet'>
+         13
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=14 title='Validating O2Oed CaloParams: DemSumHt and DemHITowCount'>
+         14
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=15 title='Validating O2Oed CaloParams: Dem*Mht'>
+         15
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=16 title='Validating O2Oed CaloParams: Dem*Mht'>
+         16
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=17 title='Validating O2Oed CaloParams: Egs'>
+         17
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=18 title='Validating O2Oed CaloParams: DemuxEgs'>
+         18
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=19 title='Validating O2Oed CaloParams: Taus'>
+         19
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=20 title='Validating O2Oed CaloParams: DemuxTaus'>
+         20
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script> -->
+  <script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../../../monohiggs/plots/libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="../../../../monohiggs/plots/libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>
