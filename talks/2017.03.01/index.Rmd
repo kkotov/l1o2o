@@ -18,16 +18,30 @@ mode        : selfcontained # {standalone, draft}
 
 ## Recap of L1T O2O in 2016
 
-L1T upgrade rendered obsolete all of the system-specific O2O code
+L1T upgrade of 2015 rendered obsolete all of the system-specific O2O code
 
-New online software was finalizing configuration DB schema until [May](http://cactus.web.cern.ch/cactus/release/swatch/0.12/doc/html/releaseNotes/v0_9_0.html)
+New online software was finalizing configuration DB schema in [May 2016](http://cactus.web.cern.ch/cactus/release/swatch/0.12/doc/html/releaseNotes/v0_9_0.html)
 
-Trigger subsystems were developing their new XML configs through
+Subsystems were actively developing their new XML configs through the same time
 
-  required XML parser that was developing while  
+An xerces-based XML parser for the O2O has been completed through early summer
+
+Most of subsystem provided their new system-specific O2O code through summer-fall
+* uGT was first with their independent UTM xml-parsing library developed in 2015!
+
+In the end of 2016 all (but CaloParams) payloads were moved from Dev DB to Prod DB
+
+L1T upgrade related O2O PRs:
+[15204](https://github.com/cms-sw/cmssw/pull/15204),
+[15846](https://github.com/cms-sw/cmssw/pull/15846),
+[16693](https://github.com/cms-sw/cmssw/pull/16693),
+[16664](https://github.com/cms-sw/cmssw/pull/16664),
+[17059](https://github.com/cms-sw/cmssw/pull/17059),
+[17295](https://github.com/cms-sw/cmssw/pull/17295),
+[17461](https://github.com/cms-sw/cmssw/pull/17461),
+[17641](https://github.com/cms-sw/cmssw/pull/17641)
 
 --- .class #id
-
 
 ## L1T O2O Infrastructure 
 
