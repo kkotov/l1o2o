@@ -1,0 +1,34 @@
+---
+title       : "L1T O2O status"
+subtitle    : 
+author      : Khristian Kotov
+job         : 
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow      # 
+github:
+  user: kkotov 
+  repo: talks
+url:
+  lib:    ../../../../monohiggs/plots/libraries
+  assets: ../../../../monohiggs/plots/assets
+widgets     : [mathjax]     # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+---
+
+## Status
+
+In preparation for 2017 data following PRs were made:
+
+* [17059](https://github.com/cms-sw/cmssw/pull/17059) - some redesigning of the XML parsing to speed it up
+* [17295](https://github.com/cms-sw/cmssw/pull/17295) - integrating the CaloParams prototype DB payload
+* [17461](https://github.com/cms-sw/cmssw/pull/17461) - new online DB schema (yet to be merged)
+
+Positive experience from MWGR I:
+* The new online DB schema didn't change for L1 Menu -> old L1T O2O was stripped to work with the menu only and did the job
+
+Once fresh CMSSW with all the above PRs is available the full blown L1T O2O should be ready for the new data
+
+
+--- .class #id
+
