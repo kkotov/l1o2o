@@ -18,12 +18,12 @@ mode        : selfcontained # {standalone, draft}
 
 ## Recap of L1T O2O in 2016
 
-L1T upgrade of 2015 rendered obsolete all of the system-specific O2O code
+L1 trigger upgrade of 2015 rendered obsolete all of the system-specific O2O code
 
 New code was gradually put in place through summer while running in the development mode
 (the run-critical uGT/L1Menu was prepared already in 2015 and always ran in production)
 
-In the end of 2016 all (but CaloParams) payloads/tags were moved from Dev DB to Prod DB
+In the end of 2016 all (but CaloParams) payloads/tags were moved from Dev DB to Prod DB:
 
 *** =left
 
@@ -53,12 +53,40 @@ payload was prepared for EMTF but never used as the pT LUT neven changed in 2016
 
 ## L1T O2O infrastructure 
 
-The online DB offers 3 tables per subsystem as follows: top-level $\rightarrow$ keys $\rightarrow$ XMLs
-([slide 5](https://indico.cern.ch/event/591003/contributions/2384788/attachments/1378957/2095301/L1TriggerDatabase_v2.pdf))
+Job is envoked by SWATCH central cell in the end of configuration cycle and does the following:
+* with the given TSC key it navigates through subsystem tables and fetches the XMLs
+  (online DB offers 3 tables per subsystem as explained in [slide 5](https://indico.cern.ch/event/591003/contributions/2384788/attachments/1378957/2095301/L1TriggerDatabase_v2.pdf))
+* it parses the XMLs and packs offline-relevant parameters in payloads
+* it pushes the payloads to offline DB and stamps them with run-based IOV ([slide 4](http://kkotov.github.io/l1o2o/talks/2016.04.19/#4))
 
-plus a top-level tables
+One of the requirement is to start with pre-initialized payloads (CMSSW static configs or prototype payloads)
+and override a subset of parameters with values extracted from online DB 
 
-O2O is run by SWATCH central cell in the end of L1T configuration cycle
+So, in a nutshell the L1T O2O is a CMSSW job wrapped in series of scripts ([slide 5](http://kkotov.github.io/l1o2o/talks/2015.04.20/#5))
+
+--- .class #id
+
+## Subsystem-specific workflows and comments
+
+<span style="font-weight:bold;color:brown">uGT:</span>
+[UTM XML-parsing library](https://gitlab.cern.ch/cms-l1t-utm/utm) changes when new triggers are introduced in L1Menu
+* as agreed with AlCa, the library update comes only with a new central CMSSW installation
+
+<span style="font-weight:bold;color:brown">uGTrs:</span>
+manually composed XML with errors crashed L1T O2O few times
+* with the new L1CE service and new FM ploicy this is not expected to recure
+
+<span style="font-weight:bold;color:brown">CALO:</span> a rather compex 
+* the eta-compress LUT is not in online DB, the prototype payload  
+
+
+--- .class #id
+
+## Experimental ...
+
+
+--- .class #id
+
 
 New online software was finalizing configuration DB schema in [May 2016](http://cactus.web.cern.ch/cactus/release/swatch/0.12/doc/html/releaseNotes/v0_9_0.html)
 
