@@ -14,11 +14,51 @@ url:
   assets: ../../../../monohiggs/plots/assets
 widgets     : [mathjax]     # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft}
----
+--- &twocol
 
 ## Recap of L1T O2O in 2016
 
 L1T upgrade of 2015 rendered obsolete all of the system-specific O2O code
+
+New code was gradually put in place through summer while running in the development mode
+(the run-critical uGT/L1Menu was prepared already in 2015 and always ran in production)
+
+In the end of 2016 all (but CaloParams) payloads/tags were moved from Dev DB to Prod DB
+
+*** =left
+
+System     |   Payload[Tag]
+-----------|-----------------
+uGT        | <span style="font-weight:bold;font-size:smaller;color:green">L1TUtmTriggerMenu[_Stage2v0_hlt]</span>
+uGT RS     | <span style="font-weight:bold;font-size:smaller;color:green">L1TGlobalPrescalesVetos[_Stage2v0_hlt]</span>
+CALOL{1,2} | <span style="font-weight:bold;font-size:smaller;color:green">L1TCaloParams[_Stage2v0_hlt]</span>
+uGMT       | <span style="font-weight:bold;font-size:smaller;color:green">L1TMuonGlobalParams[_Stage2v0_hlt]</span>
+
+*** =right
+
+System     |   Payload[Tag]
+-----------|-----------------
+BMTF       | <span style="font-weight:bold;font-size:smaller;color:green">L1TMuonBarrelParams[_Stage2v0_hlt]</span>
+OMTF       | <span style="font-weight:bold;font-size:smaller;color:green">L1TMuonOverlapParams[_Stage2v0_hlt]</span>
+EMTF       | <span style="font-weight:bold;font-size:smaller;color:green">L1TMuonEndCapParams[_Stage2v0_hlt]</span>
+O2O        | <span style="font-weight:bold;font-size:smaller;color:green">L1TriggerKey(List)[_Stage2v0_hlt]</span>
+
+*** =fullwidth
+<br>
+
+Additional <span style="font-weight:bold;font-size:smaller;color:green">L1TMuonEndCapForests[_Stage2v0_hlt]</span>
+payload was prepared for EMTF but never used as the pT LUT neven changed in 2016
+
+--- .class #id
+
+## L1T O2O infrastructure 
+
+The online DB offers 3 tables per subsystem as follows: top-level $\rightarrow$ keys $\rightarrow$ XMLs
+([slide 5](https://indico.cern.ch/event/591003/contributions/2384788/attachments/1378957/2095301/L1TriggerDatabase_v2.pdf))
+
+plus a top-level tables
+
+O2O is run by SWATCH central cell in the end of L1T configuration cycle
 
 New online software was finalizing configuration DB schema in [May 2016](http://cactus.web.cern.ch/cactus/release/swatch/0.12/doc/html/releaseNotes/v0_9_0.html)
 
@@ -29,7 +69,6 @@ An xerces-based XML parser for the O2O has been completed through early summer
 Most of subsystem provided their new system-specific O2O code through summer-fall
 * uGT was first with their independent UTM xml-parsing library developed in 2015!
 
-In the end of 2016 all (but CaloParams) payloads were moved from Dev DB to Prod DB
 
 L1T upgrade related O2O PRs:
 [15204](https://github.com/cms-sw/cmssw/pull/15204),
@@ -41,9 +80,8 @@ L1T upgrade related O2O PRs:
 [17461](https://github.com/cms-sw/cmssw/pull/17461),
 [17641](https://github.com/cms-sw/cmssw/pull/17641)
 
---- .class #id
 
-## L1T O2O Infrastructure 
+cmssw job 
 
 Online:
 * 
@@ -55,18 +93,6 @@ Offile:
 --- .class #id
 
 ## L1Trigger payloads and tags
-
-System     |   Payload[Tag]  |   Comments
------------|-----------------|------------
-uGT        | <span style="font-weight:bold;font-size:smaller;color:green">L1TUtmTriggerMenu[_Stage2v0_hlt]</span>       | consumed
-uGT RS     | <span style="font-weight:bold;font-size:smaller;color:green">L1TGlobalPrescalesVetos[_Stage2v0_hlt]</span> | validated on Run II
-CALOL{1,2} | <span style="font-weight:bold;font-size:smaller;color:green">L1TCaloParams[_Stage2v0_hlt]</span>         | waiting on DQM at p5 to try it out
-uGMT       | <span style="font-weight:bold;font-size:smaller;color:green">L1TMuonGlobalParams[_Stage2v0_hlt]</span>     | validated on few runs
-BMTF       | <span style="font-weight:bold;font-size:smaller;color:green">L1TMuonBarrelParams[_Stage2v0_hlt]</span>     | validated on few runs
-OMTF       | <span style="font-weight:bold;font-size:smaller;color:green">L1TMuonOverlapParams[_Stage2v0_hlt]</span>    | validated and frozen
-EMTF       | <span style="font-weight:bold;font-size:smaller;color:green">L1TMuonEndCapParams[_Stage2v0_hlt]</span>     | not yet in use and not updated
-EMTF PtLUT | <span style="font-weight:bold;font-size:smaller;color:grey" >L1TMuonEndCapForests[_Stage2v0_hlt]</span>    | not yet in O2O
-L1T O2O    | <span style="font-weight:bold;font-size:smaller;color:blue" >L1TriggerKey(List)[_Stage2v0_hlt]</span>      | O2O internal
 
 
 
