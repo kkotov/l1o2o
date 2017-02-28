@@ -31,7 +31,7 @@ System     |   Payload[Tag]
 -----------|-----------------
 uGT        | <span style="font-weight:bold;font-size:smaller;color:green">L1TUtmTriggerMenu[_Stage2v0_hlt]</span>
 uGT RS     | <span style="font-weight:bold;font-size:smaller;color:green">L1TGlobalPrescalesVetos[_Stage2v0_hlt]</span>
-CALOL{1,2} | <span style="font-weight:bold;font-size:smaller;color:green">L1TCaloParams[_Stage2v0_hlt]</span>
+CALOL{1,2} | <span style="font-weight:bold;font-size:smaller;color:red">L1TCaloParams[_Stage2v0_hlt]</span>
 uGMT       | <span style="font-weight:bold;font-size:smaller;color:green">L1TMuonGlobalParams[_Stage2v0_hlt]</span>
 
 *** =right
@@ -41,13 +41,13 @@ System     |   Payload[Tag]
 BMTF       | <span style="font-weight:bold;font-size:smaller;color:green">L1TMuonBarrelParams[_Stage2v0_hlt]</span>
 OMTF       | <span style="font-weight:bold;font-size:smaller;color:green">L1TMuonOverlapParams[_Stage2v0_hlt]</span>
 EMTF       | <span style="font-weight:bold;font-size:smaller;color:green">L1TMuonEndCapParams[_Stage2v0_hlt]</span>
-O2O        | <span style="font-weight:bold;font-size:smaller;color:green">L1TriggerKey(List)[_Stage2v0_hlt]</span>
+O2O        | <span style="font-weight:bold;font-size:smaller;color:blue">L1TriggerKey(List)[_Stage2v0_hlt]</span>
 
 *** =fullwidth
 <br>
 
 Additional <span style="font-weight:bold;font-size:smaller;color:green">L1TMuonEndCapForests[_Stage2v0_hlt]</span>
-payload was prepared for EMTF but never used as the pT LUT neven changed in 2016
+payload was prepared for EMTF but never used as the pT LUT neven changed in 2016 (expected to change in 2017)
 
 --- .class #id
 
@@ -62,7 +62,23 @@ Job is envoked by SWATCH central cell in the end of configuration cycle and does
 One of the requirement is to start with pre-initialized payloads (CMSSW static configs or prototype payloads)
 and override a subset of parameters with values extracted from online DB 
 
-So, in a nutshell the L1T O2O is a CMSSW job wrapped in series of scripts ([slide 5](http://kkotov.github.io/l1o2o/talks/2015.04.20/#5))
+In a nutshell the L1T O2O is a CMSSW job wrapped in series of scripts ([slide 5](http://kkotov.github.io/l1o2o/talks/2015.04.20/#5))
+
+--- .class #id
+
+## New L1T O2O features
+
+O2O can be ran on lxplus provided you have the DB access token (great for testing!):
+* <span style="font-family:monospace">./runL1-O2O-iov.sh 285832 collisions2016_TSC/v206 collisions2016_RS/v291</span>
+
+Splitting a monolitic job in a [sequence per-payload jobs](https://github.com/cms-sw/cmssw/blob/CMSSW_9_0_X/L1TriggerConfig/Utilities/test/runOneByOne.sh) doubles running time (13s $\rightarrow$ 25s)
+* for per-payload monitoring I'd prefer mimicing multiple jobs by splitting logs of one job
+
+Tag name for any payloads can be changed with an argument (PR #[17641](https://github.com/cms-sw/cmssw/pull/17641) to be merged)
+* example: <span style="font-family:monospace;font-size:smaller;color:green">-t L1TCaloParams:Stage2v1_hlt,L1TMuonEndCap:TestTag</span> instructs O2O to
+override the [standard suffixes](https://github.com/cms-sw/cmssw/blob/CMSSW_9_0_X/CondTools/L1TriggerExt/python/L1O2OTagsExt_cfi.py)
+and produce <span style="font-family:monospace;font-size:smaller;color:green">L1TCaloParams_Stage2v1_hlt</span>
+and <span style="font-family:monospace;font-size:smaller;color:green">L1TMuonEndCap_TestTag</span> tags
 
 --- .class #id
 
@@ -73,54 +89,42 @@ So, in a nutshell the L1T O2O is a CMSSW job wrapped in series of scripts ([slid
 * as agreed with AlCa, the library update comes only with a new central CMSSW installation
 
 <span style="font-weight:bold;color:brown">uGTrs:</span>
-manually composed XML with errors crashed L1T O2O few times
-* with the new L1CE service and new FM ploicy this is not expected to recure
+manually composed XML with errors crashed L1T O2O few times before
+* with the new L1CE service and new FM ploicy this problem is not expected to reoccur
 
-<span style="font-weight:bold;color:brown">CALO:</span> a rather compex 
-* the eta-compress LUT is not in online DB, the prototype payload  
+<span style="font-weight:bold;color:brown">CALO:</span>
+eta-compress LUT is not in online DB $\rightarrow$ prototype has to be [kept-in-synch](https://github.com/cms-sw/cmssw/blob/CMSSW_9_0_X/L1TriggerConfig/Utilities/test/uploadCaloParams.py) by experts 
 
+<span style="font-weight:bold;color:brown">OMTF:</span> no online configuration, new firmware on any change needed, but no changes in 2016
+* OMTF online software doesn't check FW version wrt. online DB $\rightarrow$ O2O does nothing
 
---- .class #id
-
-## Experimental ...
-
-
---- .class #id
-
-
-New online software was finalizing configuration DB schema in [May 2016](http://cactus.web.cern.ch/cactus/release/swatch/0.12/doc/html/releaseNotes/v0_9_0.html)
-
-Subsystems were actively developing their new XML configs through the same time
-
-An xerces-based XML parser for the O2O has been completed through early summer
-
-Most of subsystem provided their new system-specific O2O code through summer-fall
-* uGT was first with their independent UTM xml-parsing library developed in 2015!
-
-
-L1T upgrade related O2O PRs:
-[15204](https://github.com/cms-sw/cmssw/pull/15204),
-[15846](https://github.com/cms-sw/cmssw/pull/15846),
-[16693](https://github.com/cms-sw/cmssw/pull/16693),
-[16664](https://github.com/cms-sw/cmssw/pull/16664),
-[17059](https://github.com/cms-sw/cmssw/pull/17059),
-[17295](https://github.com/cms-sw/cmssw/pull/17295),
-[17461](https://github.com/cms-sw/cmssw/pull/17461),
-[17641](https://github.com/cms-sw/cmssw/pull/17641)
-
-
-cmssw job 
-
-Online:
-* 
-*
-
-Offile:
-
+<span style="font-weight:bold;color:brown">EMTF:</span> as in OMTF, firmware changes as opposed to online configs, except for 2GB pT LUT
+* online software checks LUT version wrt. online DB $\rightarrow$ meta-LUTs (Forests) to be added ...
+ 
+<span style="font-weight:bold;color:brown">uGMT</span> and <span style="font-weight:bold;color:brown">BMTF</span> are the most streamlined O2O components without special requirements
 
 --- .class #id
 
-## L1Trigger payloads and tags
 
+## To do list
+
+<span style="font-weight:bold;color:brown">uGT:</span> track down and fix
+<span style="font-weight:bold;font-size:smaller;color:green">LL1TUtmTriggerMenu</span> hash sum instability reappearing in 90X
+* in 80X all uninitialized fields were identified and initialized
+* in 90X I saw once again that launching same O2O job may give different hash sums
+
+<span style="font-weight:bold;color:brown">CALO:</span> scrutinize O2O code for parameters that are not yet translated to the payload
+* looks like we don't have some parameters introduced in late 2016 (e.g. egHOverEcut*)
+
+<span style="font-weight:bold;color:brown">EMTF:</span> add pT LUT EventSetup configurability to the new emulator
+* new FW version at p5, although O2Oed, is not very useful if unknown to the emulator
+* contrary, pT LUT "Forests" result from an offline study and transfered to p5 later
+
+--- .class #id
+
+
+## L1T payloads for Monte Carlo
+
+https://cms-conddb.cern.ch/cmsDbBrowser/list/Prod/tags/L1TGlobalPrescalesVetos_passThrough
 
 
