@@ -151,7 +151,7 @@ We are also almost done with validation of end-of-2016 $pp$ payload (to be follo
 --- .class #id
 
 
-## L1T tags for Monte Carlo GTs
+## A snapshot of static config pushed to CondDB
 
 As a first step towards configuring L1T emulators from CondDB I've produced
 the following tags from fake producer and static files in v91.12:
@@ -175,3 +175,4 @@ the following tags from fake producer and static files in v91.12:
 Additionally, HI payload for <span style="font-weight:bold;color:brown">CALO</span>:
 [L1TCaloStage2Params_static_v91.12_v3_3_1_HI](https://cms-conddb.cern.ch/cmsDbBrowser/list/Prod/tags/L1TCaloStage2Params_static_v91.12_v3_3_1_HI)
 
+The closure test shows 100% agreement with statics (as expected)
