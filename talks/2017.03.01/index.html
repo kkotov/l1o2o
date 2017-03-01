@@ -188,7 +188,8 @@ manually composed XML with errors crashed L1T O2O few times before</p>
 </ul>
 
 <p><span style="font-weight:bold;color:brown">CALO:</span>
-eta-compress LUT is not in online DB \(\rightarrow\) prototype has to be <a href="https://github.com/cms-sw/cmssw/blob/CMSSW_9_0_X/L1TriggerConfig/Utilities/test/uploadCaloParams.py">kept-in-synch</a> by experts </p>
+eta-compress LUT not in online DB (updated once) \(\rightarrow\) experts 
+<a href="https://github.com/cms-sw/cmssw/blob/CMSSW_9_0_X/L1TriggerConfig/Utilities/test/uploadCaloParams.py">keep-in-synch</a> prototype </p>
 
 <p><span style="font-weight:bold;color:brown">OMTF:</span> no online configuration, new firmware on any change needed, but no changes in 2016</p>
 
@@ -241,13 +242,13 @@ eta-compress LUT is not in online DB \(\rightarrow\) prototype has to be <a href
 
 <slide class="class" id="id" style="background:;">
   <hgroup>
-    <h2>L1T tags for data GTs</h2>
+    <h2>L1T tags for data GTs (online&#39;s history of 2016)</h2>
   </hgroup>
   <article data-timings="">
     <p>Performance plots for <a href="https://its.cern.ch/jira/browse/CMSLITDPG-3">muons</a> and <a href="https://its.cern.ch/jira/browse/CMSLITDPG-4">calo</a>
 show data/emulator agreement for Heavy Ion runs</p>
 
-<p>Besides L1TMenu and prescales/vetos following tags need to be aggregated by HI Global Tags:</p>
+<p>Besides L1TMenu and prescales/vetos following tags need to be aggregated by Global Tags:</p>
 
 <p><span style="font-weight:bold;color:brown">uGMT:</span>
 <a href="https://cms-conddb.cern.ch/cmsDbBrowser/list/Prod/tags/L1TMuonGlobalParams_Stage2v0_hlt">L1TMuonGlobalParams_Stage2v0_hlt</a></p>
@@ -258,10 +259,12 @@ show data/emulator agreement for Heavy Ion runs</p>
 <p><span style="font-weight:bold;color:brown">OMTF:</span>
 <a href="https://cms-conddb.cern.ch/cmsDbBrowser/list/Prod/tags/L1TMuonOverlapParams_Stage2v0_hlt">L1TMuonOverlapParams_Stage2v0_hlt</a></p>
 
-<p><span style="font-weight:bold;color:brown">CALO:</span>
-<a href="https://cms-conddb.cern.ch/cmsDbBrowser/list/Prod/tags/L1TCaloParams_Stage2v0_hlt_HI2016">L1TCaloParams_Stage2v0_hlt_HI2016</a></p>
+<p>A special case:</p>
 
-<p>We are still validating CALO payload for the pp runs</p>
+<p><span style="font-weight:bold;color:brown">CALO:</span>
+<a href="https://cms-conddb.cern.ch/cmsDbBrowser/list/Prod/tags/L1TCaloParams_Stage2v0_hlt_HI2016">L1TCaloParams_Stage2v0_hlt_HI2016</a> - fully validated tag for Heavy Ions </p>
+
+<p>We are also almost done with validation of end-of-2016 \(pp\) payload (to be followed-up shortly)</p>
 
   </article>
   <!-- Presenter Notes -->
@@ -272,7 +275,8 @@ show data/emulator agreement for Heavy Ion runs</p>
     <h2>L1T tags for Monte Carlo GTs</h2>
   </hgroup>
   <article data-timings="">
-    <p>Besides L1TMenu following tags are needed to configure L1T emulators from CondDB (for pp):</p>
+    <p>As a first step towards configuring L1T emulators from CondDB I&#39;ve produced
+the following tags from fake producer and static files in v91.12:</p>
 
 <p><span style="font-weight:bold;color:brown">uGTrs:</span>
 <a href="https://cms-conddb.cern.ch/cmsDbBrowser/list/Prod/tags/L1TGlobalPrescalesVetos_passThrough">L1TGlobalPrescalesVetos_passThrough</a></p>
@@ -336,7 +340,7 @@ show data/emulator agreement for Heavy Ion runs</p>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=6 title='L1T tags for data GTs'>
+        data-slide=6 title='L1T tags for data GTs (online&#39;s history of 2016)'>
          6
       </a>
     </li>

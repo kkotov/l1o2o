@@ -93,7 +93,8 @@ manually composed XML with errors crashed L1T O2O few times before
 * with the new L1CE service and new FM policy this problem is not expected to reoccur
 
 <span style="font-weight:bold;color:brown">CALO:</span>
-eta-compress LUT is not in online DB $\rightarrow$ prototype has to be [kept-in-synch](https://github.com/cms-sw/cmssw/blob/CMSSW_9_0_X/L1TriggerConfig/Utilities/test/uploadCaloParams.py) by experts 
+eta-compress LUT not in online DB (updated once) $\rightarrow$ experts 
+[keep-in-synch](https://github.com/cms-sw/cmssw/blob/CMSSW_9_0_X/L1TriggerConfig/Utilities/test/uploadCaloParams.py) prototype 
 
 <span style="font-weight:bold;color:brown">OMTF:</span> no online configuration, new firmware on any change needed, but no changes in 2016
 * OMTF online software doesn't check FW version wrt. online DB $\rightarrow$ O2O does nothing
@@ -124,12 +125,12 @@ eta-compress LUT is not in online DB $\rightarrow$ prototype has to be [kept-in-
 --- .class #id
 
 
-## L1T tags for data GTs
+## L1T tags for data GTs (online's history of 2016)
 
 Performance plots for [muons](https://its.cern.ch/jira/browse/CMSLITDPG-3) and [calo](https://its.cern.ch/jira/browse/CMSLITDPG-4)
 show data/emulator agreement for Heavy Ion runs
 
-Besides L1TMenu and prescales/vetos following tags need to be aggregated by HI Global Tags:
+Besides L1TMenu and prescales/vetos following tags need to be aggregated by Global Tags:
 
 <span style="font-weight:bold;color:brown">uGMT:</span>
 [L1TMuonGlobalParams_Stage2v0_hlt](https://cms-conddb.cern.ch/cmsDbBrowser/list/Prod/tags/L1TMuonGlobalParams_Stage2v0_hlt)
@@ -140,17 +141,20 @@ Besides L1TMenu and prescales/vetos following tags need to be aggregated by HI G
 <span style="font-weight:bold;color:brown">OMTF:</span>
 [L1TMuonOverlapParams_Stage2v0_hlt](https://cms-conddb.cern.ch/cmsDbBrowser/list/Prod/tags/L1TMuonOverlapParams_Stage2v0_hlt)
 
-<span style="font-weight:bold;color:brown">CALO:</span>
-[L1TCaloParams_Stage2v0_hlt_HI2016](https://cms-conddb.cern.ch/cmsDbBrowser/list/Prod/tags/L1TCaloParams_Stage2v0_hlt_HI2016)
+A special case:
 
-We are still validating CALO payload for the pp runs
+<span style="font-weight:bold;color:brown">CALO:</span>
+[L1TCaloParams_Stage2v0_hlt_HI2016](https://cms-conddb.cern.ch/cmsDbBrowser/list/Prod/tags/L1TCaloParams_Stage2v0_hlt_HI2016) - fully validated tag for Heavy Ions 
+
+We are also almost done with validation of end-of-2016 $pp$ payload (to be followed-up shortly)
 
 --- .class #id
 
 
 ## L1T tags for Monte Carlo GTs
 
-Besides L1TMenu following tags are needed to configure L1T emulators from CondDB (for pp):
+As a first step towards configuring L1T emulators from CondDB I've produced
+the following tags from fake producer and static files in v91.12:
 
 <span style="font-weight:bold;color:brown">uGTrs:</span>
 [L1TGlobalPrescalesVetos_passThrough](https://cms-conddb.cern.ch/cmsDbBrowser/list/Prod/tags/L1TGlobalPrescalesVetos_passThrough)
@@ -170,3 +174,4 @@ Besides L1TMenu following tags are needed to configure L1T emulators from CondDB
 
 Additionally, HI payload for <span style="font-weight:bold;color:brown">CALO</span>:
 [L1TCaloStage2Params_static_v91.12_v3_3_1_HI](https://cms-conddb.cern.ch/cmsDbBrowser/list/Prod/tags/L1TCaloStage2Params_static_v91.12_v3_3_1_HI)
+
