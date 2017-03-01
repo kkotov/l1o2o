@@ -146,7 +146,7 @@ A special case yet to be uploaded to the CondDB:
 <span style="font-weight:bold;color:brown">CALO:</span>
 [L1TCaloParams_Stage2v0_hlt](https://cms-conddb.cern.ch/cmsDbBrowser/list/Prod/tags/L1TCaloParams_Stage2v0_hlt_HI2016) - fully validated tag for 
 end-of-2016 runs ($pp$, HI):
-
+* comparison of raw data vs. emulator configured from O2O:
 [e/gamma ET](EgEt.pdf), 
 [e/gamma eta](EgEta.pdf),
 [e/gamma phi](EgPhi.pdf)
@@ -158,7 +158,8 @@ end-of-2016 runs ($pp$, HI):
 
 ## Clibration constants
 
-https://twiki.cern.ch/twiki/bin/view/CMSPublic/SWGuideL1TStage2Instructions#L1REPACK_step_with_cmsDriver_com
+Running 
+[https://twiki.cern.ch/twiki/bin/view/CMSPublic/SWGuideL1TStage2Instructions#L1REPACK_step_with_cmsDriver_com
 
 --- .class #id
 
