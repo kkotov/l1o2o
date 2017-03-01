@@ -141,11 +141,11 @@ Besides L1TMenu and prescales/vetos following tags need to be aggregated by Glob
 <span style="font-weight:bold;color:brown">OMTF:</span>
 [L1TMuonOverlapParams_Stage2v0_hlt](https://cms-conddb.cern.ch/cmsDbBrowser/list/Prod/tags/L1TMuonOverlapParams_Stage2v0_hlt)
 
-A special case:
+A special case yet to be uploaded to the CondDB:
 
 <span style="font-weight:bold;color:brown">CALO:</span>
-[L1TCaloParams_Stage2v0_hlt_HI2016](https://cms-conddb.cern.ch/cmsDbBrowser/list/Prod/tags/L1TCaloParams_Stage2v0_hlt_HI2016) - fully validated tag for 
-the end-of-2016 runs ($pp$, HI) e.g.:
+[L1TCaloParams_Stage2v0_hlt](https://cms-conddb.cern.ch/cmsDbBrowser/list/Prod/tags/L1TCaloParams_Stage2v0_hlt_HI2016) - fully validated tag for 
+end-of-2016 runs ($pp$, HI):
 
 [e/gamma ET](EgEt.pdf), 
 [e/gamma eta](EgEta.pdf),
