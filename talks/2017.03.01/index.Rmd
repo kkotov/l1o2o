@@ -119,13 +119,38 @@ eta-compress LUT is not in online DB $\rightarrow$ prototype has to be [kept-in-
 <span style="font-weight:bold;color:brown">EMTF:</span> add pT LUT EventSetup configurability to the new emulator (as opposed to release XMLs)
 * new FW version at p5, although O2Oed, is not very useful if unknown to the emulator
 * contrary, pT LUT "Forests" result from an offline study and need to be pushed in CondDB
+* an old PR #[426](https://github.com/cms-l1t-offline/cmssw/pull/426) needs to be "married" with the new emulator's code
 
 --- .class #id
 
 
-## L1T payloads for Monte Carlo
+## L1T tags for data GTs
 
-Besides L1TMenu following tags are needed to configure L1T emulators from CondDB (for PP):
+Performance plots for [muons](https://its.cern.ch/jira/browse/CMSLITDPG-3) and [calo](https://its.cern.ch/jira/browse/CMSLITDPG-4)
+show data/emulator agreement for Heavy Ion runs
+
+Besides L1TMenu and prescales/vetos following tags need to be aggregated by HI Global Tags:
+
+<span style="font-weight:bold;color:brown">uGMT:</span>
+[L1TMuonGlobalParams_Stage2v0_hlt](https://cms-conddb.cern.ch/cmsDbBrowser/list/Prod/tags/L1TMuonGlobalParams_Stage2v0_hlt)
+
+<span style="font-weight:bold;color:brown">BMTF:</span>
+[L1TMuonBarrelParams_Stage2v0_hlt](https://cms-conddb.cern.ch/cmsDbBrowser/list/Prod/tags/L1TMuonBarrelParams_Stage2v0_hlt)
+
+<span style="font-weight:bold;color:brown">OMTF:</span>
+[L1TMuonOverlapParams_Stage2v0_hlt](https://cms-conddb.cern.ch/cmsDbBrowser/list/Prod/tags/L1TMuonOverlapParams_Stage2v0_hlt)
+
+<span style="font-weight:bold;color:brown">CALO:</span>
+[L1TCaloParams_Stage2v0_hlt_HI2016](https://cms-conddb.cern.ch/cmsDbBrowser/list/Prod/tags/L1TCaloParams_Stage2v0_hlt_HI2016)
+
+We are still validating CALO payload for the pp runs
+
+--- .class #id
+
+
+## L1T tags for Monte Carlo GTs
+
+Besides L1TMenu following tags are needed to configure L1T emulators from CondDB (for pp):
 
 <span style="font-weight:bold;color:brown">uGTrs:</span>
 [L1TGlobalPrescalesVetos_passThrough](https://cms-conddb.cern.ch/cmsDbBrowser/list/Prod/tags/L1TGlobalPrescalesVetos_passThrough)

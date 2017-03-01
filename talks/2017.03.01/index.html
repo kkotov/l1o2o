@@ -232,6 +232,7 @@ eta-compress LUT is not in online DB \(\rightarrow\) prototype has to be <a href
 <ul>
 <li>new FW version at p5, although O2Oed, is not very useful if unknown to the emulator</li>
 <li>contrary, pT LUT &quot;Forests&quot; result from an offline study and need to be pushed in CondDB</li>
+<li>an old PR #<a href="https://github.com/cms-l1t-offline/cmssw/pull/426">426</a> needs to be &quot;married&quot; with the new emulator&#39;s code</li>
 </ul>
 
   </article>
@@ -240,10 +241,38 @@ eta-compress LUT is not in online DB \(\rightarrow\) prototype has to be <a href
 
 <slide class="class" id="id" style="background:;">
   <hgroup>
-    <h2>L1T payloads for Monte Carlo</h2>
+    <h2>L1T tags for data GTs</h2>
   </hgroup>
   <article data-timings="">
-    <p>Besides L1TMenu following tags are needed to configure L1T emulators from CondDB (for PP):</p>
+    <p>Performance plots for <a href="https://its.cern.ch/jira/browse/CMSLITDPG-3">muons</a> and <a href="https://its.cern.ch/jira/browse/CMSLITDPG-4">calo</a>
+show data/emulator agreement for Heavy Ion runs</p>
+
+<p>Besides L1TMenu and prescales/vetos following tags need to be aggregated by HI Global Tags:</p>
+
+<p><span style="font-weight:bold;color:brown">uGMT:</span>
+<a href="https://cms-conddb.cern.ch/cmsDbBrowser/list/Prod/tags/L1TMuonGlobalParams_Stage2v0_hlt">L1TMuonGlobalParams_Stage2v0_hlt</a></p>
+
+<p><span style="font-weight:bold;color:brown">BMTF:</span>
+<a href="https://cms-conddb.cern.ch/cmsDbBrowser/list/Prod/tags/L1TMuonBarrelParams_Stage2v0_hlt">L1TMuonBarrelParams_Stage2v0_hlt</a></p>
+
+<p><span style="font-weight:bold;color:brown">OMTF:</span>
+<a href="https://cms-conddb.cern.ch/cmsDbBrowser/list/Prod/tags/L1TMuonOverlapParams_Stage2v0_hlt">L1TMuonOverlapParams_Stage2v0_hlt</a></p>
+
+<p><span style="font-weight:bold;color:brown">CALO:</span>
+<a href="https://cms-conddb.cern.ch/cmsDbBrowser/list/Prod/tags/L1TCaloParams_Stage2v0_hlt_HI2016">L1TCaloParams_Stage2v0_hlt_HI2016</a></p>
+
+<p>We are still validating CALO payload for the pp runs</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>L1T tags for Monte Carlo GTs</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Besides L1TMenu following tags are needed to configure L1T emulators from CondDB (for pp):</p>
 
 <p><span style="font-weight:bold;color:brown">uGTrs:</span>
 <a href="https://cms-conddb.cern.ch/cmsDbBrowser/list/Prod/tags/L1TGlobalPrescalesVetos_passThrough">L1TGlobalPrescalesVetos_passThrough</a></p>
@@ -307,8 +336,14 @@ eta-compress LUT is not in online DB \(\rightarrow\) prototype has to be <a href
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=6 title='L1T payloads for Monte Carlo'>
+        data-slide=6 title='L1T tags for data GTs'>
          6
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=7 title='L1T tags for Monte Carlo GTs'>
+         7
       </a>
     </li>
   </ul>
