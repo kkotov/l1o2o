@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>L1T O2O status</title>
+  <meta charset="utf-8">
+  <meta name="description" content="L1T O2O status">
+  <meta name="author" content="Khristian Kotov">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../../../../monohiggs/plots/libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../../../monohiggs/plots/libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../../../../monohiggs/plots/libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../../../monohiggs/plots/libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="../../../../monohiggs/plots/libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="../../../../monohiggs/plots/libraries/frameworks/io2012/js/slides" 
+    src="../../../../monohiggs/plots/libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>L1T O2O status</h1>
+    <h2></h2>
+    <p>Khristian Kotov<br/></p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Recap of L1T O2O in 2016</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>L1 trigger upgrade of 2015 rendered obsolete all of the system-specific O2O code</p>
+
+<p>New code was gradually put in place through summer while running in the development mode
+(the run-critical uGT/L1Menu was prepared already in 2015 and always ran in production)</p>
+
+<p>In the end of 2016 all (but CaloParams) payloads/tags were moved from Dev DB to Prod DB:</p>
+
+<div style='float:left;width:48%;' class='centered'>
+  <table><thead>
+<tr>
+<th>System</th>
+<th>Payload[Tag]</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>uGT</td>
+<td><span style="font-weight:bold;font-size:smaller;color:green">L1TUtmTriggerMenu[_Stage2v0_hlt]</span></td>
+</tr>
+<tr>
+<td>uGT RS</td>
+<td><span style="font-weight:bold;font-size:smaller;color:green">L1TGlobalPrescalesVetos[_Stage2v0_hlt]</span></td>
+</tr>
+<tr>
+<td>CALOL{1,2}</td>
+<td><span style="font-weight:bold;font-size:smaller;color:red">L1TCaloParams[_Stage2v0_hlt]</span></td>
+</tr>
+<tr>
+<td>uGMT</td>
+<td><span style="font-weight:bold;font-size:smaller;color:green">L1TMuonGlobalParams[_Stage2v0_hlt]</span></td>
+</tr>
+</tbody></table>
+
+</div>
+<div style='float:right;width:48%;'>
+  <table><thead>
+<tr>
+<th>System</th>
+<th>Payload[Tag]</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>BMTF</td>
+<td><span style="font-weight:bold;font-size:smaller;color:green">L1TMuonBarrelParams[_Stage2v0_hlt]</span></td>
+</tr>
+<tr>
+<td>OMTF</td>
+<td><span style="font-weight:bold;font-size:smaller;color:green">L1TMuonOverlapParams[_Stage2v0_hlt]</span></td>
+</tr>
+<tr>
+<td>EMTF</td>
+<td><span style="font-weight:bold;font-size:smaller;color:green">L1TMuonEndCapParams[_Stage2v0_hlt]</span></td>
+</tr>
+<tr>
+<td>O2O</td>
+<td><span style="font-weight:bold;font-size:smaller;color:blue">L1TriggerKey(List)[_Stage2v0_hlt]</span></td>
+</tr>
+</tbody></table>
+
+</div>
+<div style='float:right;width:100%;'>
+  <p><br></p>
+
+<p>Additional <span style="font-weight:bold;font-size:smaller;color:green">L1TMuonEndCapForests[_Stage2v0_hlt]</span>
+payload was prepared for EMTF but never used as the pT LUT never changed in 2016 (expected to change in 2017)</p>
+
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>L1T O2O infrastructure</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Job is invoked by SWATCH central cell in the end of configuration cycle and does the following:</p>
+
+<ul>
+<li>with the given TSC key it navigates through subsystem tables and fetches the XMLs
+(online DB offers 3 tables per subsystem as explained in <a href="https://indico.cern.ch/event/591003/contributions/2384788/attachments/1378957/2095301/L1TriggerDatabase_v2.pdf">slide 5</a>)</li>
+<li>it parses the XMLs and packs offline-relevant parameters in payloads</li>
+<li>it pushes the payloads to offline DB and stamps them with run-based IOV (<a href="http://kkotov.github.io/l1o2o/talks/2016.04.19/#4">slide 4</a>)</li>
+</ul>
+
+<p>One of the requirement is to start with pre-initialized payloads (CMSSW static configs or prototype payloads)
+and override a subset of parameters with values extracted from online DB </p>
+
+<p>In a nutshell the L1T O2O is a CMSSW job wrapped in series of scripts (<a href="http://kkotov.github.io/l1o2o/talks/2015.04.20/#5">slide 5</a>)</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>New L1T O2O features</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>O2O can be ran on lxplus provided you have the DB access token (great for testing!):</p>
+
+<ul>
+<li><span style="font-family:monospace">./runL1-O2O-iov.sh 285832 collisions2016_TSC/v206 collisions2016_RS/v291</span></li>
+</ul>
+
+<p>Splitting a monolithic job in a <a href="https://github.com/cms-sw/cmssw/blob/CMSSW_9_0_X/L1TriggerConfig/Utilities/test/runOneByOne.sh">sequence per-payload jobs</a> doubles running time (13s \(\rightarrow\) 25s)</p>
+
+<ul>
+<li>for per-payload monitoring I&#39;d prefer mimicking multiple jobs by splitting logs of one job</li>
+</ul>
+
+<p>Tag name for any payloads can be changed with an argument (PR #<a href="https://github.com/cms-sw/cmssw/pull/17641">17641</a> to be merged)</p>
+
+<ul>
+<li>example: <span style="font-family:monospace;font-size:smaller;color:green">-t L1TCaloParams:Stage2v1_hlt,L1TMuonEndCap:TestTag</span> instructs O2O to
+override the <a href="https://github.com/cms-sw/cmssw/blob/CMSSW_9_0_X/CondTools/L1TriggerExt/python/L1O2OTagsExt_cfi.py">standard suffixes</a>
+and produce <span style="font-family:monospace;font-size:smaller;color:green">L1TCaloParams_Stage2v1_hlt</span>
+and <span style="font-family:monospace;font-size:smaller;color:green">L1TMuonEndCap_TestTag</span> tags</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Subsystem-specific workflows and comments</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><span style="font-weight:bold;color:brown">uGT:</span>
+<a href="https://gitlab.cern.ch/cms-l1t-utm/utm">UTM XML-parsing library</a> changes when new triggers are introduced in L1Menu</p>
+
+<ul>
+<li>as agreed with AlCa, the library update comes only with a new central CMSSW installation</li>
+</ul>
+
+<p><span style="font-weight:bold;color:brown">uGTrs:</span>
+manually composed XML with errors crashed L1T O2O few times before</p>
+
+<ul>
+<li>with the new L1CE service and new FM policy this problem is not expected to reoccur</li>
+</ul>
+
+<p><span style="font-weight:bold;color:brown">CALO:</span>
+eta-compress LUT is not in online DB \(\rightarrow\) prototype has to be <a href="https://github.com/cms-sw/cmssw/blob/CMSSW_9_0_X/L1TriggerConfig/Utilities/test/uploadCaloParams.py">kept-in-synch</a> by experts </p>
+
+<p><span style="font-weight:bold;color:brown">OMTF:</span> no online configuration, new firmware on any change needed, but no changes in 2016</p>
+
+<ul>
+<li>OMTF online software doesn&#39;t check FW version wrt. online DB \(\rightarrow\) O2O does nothing</li>
+</ul>
+
+<p><span style="font-weight:bold;color:brown">EMTF:</span> as in OMTF, firmware changes as opposed to online configs, except for 2GB pT LUT</p>
+
+<ul>
+<li>online software checks LUT version wrt. online DB \(\rightarrow\) meta-LUTs (Forests) to be added ...</li>
+</ul>
+
+<p><span style="font-weight:bold;color:brown">uGMT</span> and <span style="font-weight:bold;color:brown">BMTF</span> are the most streamlined O2O components without special requirements</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>To do list</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><span style="font-weight:bold;color:brown">uGT:</span> track down and fix
+<span style="font-weight:bold;font-size:smaller;color:green">LL1TUtmTriggerMenu</span> hash sum instability reappearing in 90X</p>
+
+<ul>
+<li>in 80X all uninitialized fields were identified and initialized</li>
+<li>in 90X I saw once again that launching same O2O job may give different hash sums</li>
+</ul>
+
+<p><span style="font-weight:bold;color:brown">CALO:</span> scrutinize O2O code for parameters that are not yet translated to the payload</p>
+
+<ul>
+<li>looks like we don&#39;t have some parameters introduced in late 2016 (e.g. egHOverEcut*)</li>
+</ul>
+
+<p><span style="font-weight:bold;color:brown">EMTF:</span> add pT LUT EventSetup configurability to the new emulator (as opposed to release XMLs)</p>
+
+<ul>
+<li>new FW version at p5, although O2Oed, is not very useful if unknown to the emulator</li>
+<li>contrary, pT LUT &quot;Forests&quot; result from an offline study and need to be pushed in CondDB</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>L1T payloads for Monte Carlo</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Besides L1TMenu following tags are needed to configure L1T emulators from CondDB (for PP):</p>
+
+<p><span style="font-weight:bold;color:brown">uGTrs:</span>
+<a href="https://cms-conddb.cern.ch/cmsDbBrowser/list/Prod/tags/L1TGlobalPrescalesVetos_passThrough">L1TGlobalPrescalesVetos_passThrough</a></p>
+
+<ul>
+<li>a single prescale set with all prescales = 1 and disabled masks/vetos </li>
+</ul>
+
+<p><span style="font-weight:bold;color:brown">CALO:</span>
+<a href="https://cms-conddb.cern.ch/cmsDbBrowser/list/Prod/tags/L1TCaloStage2Params_static_v91.12_v3_3_1">L1TCaloStage2Params_static_v91.12_v3_3_1</a></p>
+
+<p><span style="font-weight:bold;color:brown">uGMT:</span>
+<a href="https://cms-conddb.cern.ch/cmsDbBrowser/list/Prod/tags/L1TMuonGlobalParams_static_v91.12">L1TMuonGlobalParams_static_v91.12</a></p>
+
+<p><span style="font-weight:bold;color:brown">BMTF:</span>
+<a href="https://cms-conddb.cern.ch/cmsDbBrowser/list/Prod/tags/L1TMuonBarrelParams_static_v91.12">L1TMuonBarrelParams_static_v91.12</a></p>
+
+<p><span style="font-weight:bold;color:brown">OMTF:</span>
+<a href="https://cms-conddb.cern.ch/cmsDbBrowser/list/Prod/tags/L1TMuonOverlapParams_Stage2v0_hlt">L1TMuonOverlapParams_Stage2v0_hlt</a></p>
+
+<p>Additionally, HI payload for <span style="font-weight:bold;color:brown">CALO</span>:
+<a href="https://cms-conddb.cern.ch/cmsDbBrowser/list/Prod/tags/L1TCaloStage2Params_static_v91.12_v3_3_1_HI">L1TCaloStage2Params_static_v91.12_v3_3_1_HI</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='Recap of L1T O2O in 2016'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='L1T O2O infrastructure'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='New L1T O2O features'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Subsystem-specific workflows and comments'>
+         4
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=5 title='To do list'>
+         5
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=6 title='L1T payloads for Monte Carlo'>
+         6
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script> -->
+  <script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../../../monohiggs/plots/libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="../../../../monohiggs/plots/libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>

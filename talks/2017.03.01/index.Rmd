@@ -47,13 +47,13 @@ O2O        | <span style="font-weight:bold;font-size:smaller;color:blue">L1Trigg
 <br>
 
 Additional <span style="font-weight:bold;font-size:smaller;color:green">L1TMuonEndCapForests[_Stage2v0_hlt]</span>
-payload was prepared for EMTF but never used as the pT LUT neven changed in 2016 (expected to change in 2017)
+payload was prepared for EMTF but never used as the pT LUT never changed in 2016 (expected to change in 2017)
 
 --- .class #id
 
 ## L1T O2O infrastructure 
 
-Job is envoked by SWATCH central cell in the end of configuration cycle and does the following:
+Job is invoked by SWATCH central cell in the end of configuration cycle and does the following:
 * with the given TSC key it navigates through subsystem tables and fetches the XMLs
   (online DB offers 3 tables per subsystem as explained in [slide 5](https://indico.cern.ch/event/591003/contributions/2384788/attachments/1378957/2095301/L1TriggerDatabase_v2.pdf))
 * it parses the XMLs and packs offline-relevant parameters in payloads
@@ -71,8 +71,8 @@ In a nutshell the L1T O2O is a CMSSW job wrapped in series of scripts ([slide 5]
 O2O can be ran on lxplus provided you have the DB access token (great for testing!):
 * <span style="font-family:monospace">./runL1-O2O-iov.sh 285832 collisions2016_TSC/v206 collisions2016_RS/v291</span>
 
-Splitting a monolitic job in a [sequence per-payload jobs](https://github.com/cms-sw/cmssw/blob/CMSSW_9_0_X/L1TriggerConfig/Utilities/test/runOneByOne.sh) doubles running time (13s $\rightarrow$ 25s)
-* for per-payload monitoring I'd prefer mimicing multiple jobs by splitting logs of one job
+Splitting a monolithic job in a [sequence per-payload jobs](https://github.com/cms-sw/cmssw/blob/CMSSW_9_0_X/L1TriggerConfig/Utilities/test/runOneByOne.sh) doubles running time (13s $\rightarrow$ 25s)
+* for per-payload monitoring I'd prefer mimicking multiple jobs by splitting logs of one job
 
 Tag name for any payloads can be changed with an argument (PR #[17641](https://github.com/cms-sw/cmssw/pull/17641) to be merged)
 * example: <span style="font-family:monospace;font-size:smaller;color:green">-t L1TCaloParams:Stage2v1_hlt,L1TMuonEndCap:TestTag</span> instructs O2O to
@@ -90,7 +90,7 @@ and <span style="font-family:monospace;font-size:smaller;color:green">L1TMuonEnd
 
 <span style="font-weight:bold;color:brown">uGTrs:</span>
 manually composed XML with errors crashed L1T O2O few times before
-* with the new L1CE service and new FM ploicy this problem is not expected to reoccur
+* with the new L1CE service and new FM policy this problem is not expected to reoccur
 
 <span style="font-weight:bold;color:brown">CALO:</span>
 eta-compress LUT is not in online DB $\rightarrow$ prototype has to be [kept-in-synch](https://github.com/cms-sw/cmssw/blob/CMSSW_9_0_X/L1TriggerConfig/Utilities/test/uploadCaloParams.py) by experts 
@@ -116,15 +116,32 @@ eta-compress LUT is not in online DB $\rightarrow$ prototype has to be [kept-in-
 <span style="font-weight:bold;color:brown">CALO:</span> scrutinize O2O code for parameters that are not yet translated to the payload
 * looks like we don't have some parameters introduced in late 2016 (e.g. egHOverEcut*)
 
-<span style="font-weight:bold;color:brown">EMTF:</span> add pT LUT EventSetup configurability to the new emulator
+<span style="font-weight:bold;color:brown">EMTF:</span> add pT LUT EventSetup configurability to the new emulator (as opposed to release XMLs)
 * new FW version at p5, although O2Oed, is not very useful if unknown to the emulator
-* contrary, pT LUT "Forests" result from an offline study and transfered to p5 later
+* contrary, pT LUT "Forests" result from an offline study and need to be pushed in CondDB
 
 --- .class #id
 
 
 ## L1T payloads for Monte Carlo
 
-https://cms-conddb.cern.ch/cmsDbBrowser/list/Prod/tags/L1TGlobalPrescalesVetos_passThrough
+Besides L1TMenu following tags are needed to configure L1T emulators from CondDB (for PP):
 
+<span style="font-weight:bold;color:brown">uGTrs:</span>
+[L1TGlobalPrescalesVetos_passThrough](https://cms-conddb.cern.ch/cmsDbBrowser/list/Prod/tags/L1TGlobalPrescalesVetos_passThrough)
+* a single prescale set with all prescales = 1 and disabled masks/vetos 
 
+<span style="font-weight:bold;color:brown">CALO:</span>
+[L1TCaloStage2Params_static_v91.12_v3_3_1](https://cms-conddb.cern.ch/cmsDbBrowser/list/Prod/tags/L1TCaloStage2Params_static_v91.12_v3_3_1)
+
+<span style="font-weight:bold;color:brown">uGMT:</span>
+[L1TMuonGlobalParams_static_v91.12](https://cms-conddb.cern.ch/cmsDbBrowser/list/Prod/tags/L1TMuonGlobalParams_static_v91.12)
+
+<span style="font-weight:bold;color:brown">BMTF:</span>
+[L1TMuonBarrelParams_static_v91.12](https://cms-conddb.cern.ch/cmsDbBrowser/list/Prod/tags/L1TMuonBarrelParams_static_v91.12)
+
+<span style="font-weight:bold;color:brown">OMTF:</span>
+[L1TMuonOverlapParams_Stage2v0_hlt](https://cms-conddb.cern.ch/cmsDbBrowser/list/Prod/tags/L1TMuonOverlapParams_Stage2v0_hlt)
+
+Additionally, HI payload for <span style="font-weight:bold;color:brown">CALO</span>:
+[L1TCaloStage2Params_static_v91.12_v3_3_1_HI](https://cms-conddb.cern.ch/cmsDbBrowser/list/Prod/tags/L1TCaloStage2Params_static_v91.12_v3_3_1_HI)
