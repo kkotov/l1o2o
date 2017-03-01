@@ -145,8 +145,31 @@ A special case:
 
 <span style="font-weight:bold;color:brown">CALO:</span>
 [L1TCaloParams_Stage2v0_hlt_HI2016](https://cms-conddb.cern.ch/cmsDbBrowser/list/Prod/tags/L1TCaloParams_Stage2v0_hlt_HI2016) - fully validated tag for Heavy Ions 
+and end-of-2016 $pp$ runs, e.g.:
 
-We are also almost done with validation of end-of-2016 $pp$ payload (to be followed-up shortly)
+[e/gamma ET](EgEt.pdf)
+[e/gamma eta](EgEta.pdf)
+[e/gamma phi](EgPhi.pdf)
+
+(sorry for the pdf format)
+
+--- .class #id
+
+
+## Clibration constants
+
+https://twiki.cern.ch/twiki/bin/view/CMSPublic/SWGuideL1TStage2Instructions#L1REPACK_step_with_cmsDriver_com
+
+--- .class #id
+
+## Moving from static pythons to CondDB configs
+
+<br>
+L1T emulators always ran with static pythons
+
+Before we choose CondDB configuration as our default, we've made a closure test
+
+The emulators were tested with payloads generated from static pythons
 
 --- .class #id
 
