@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>L1T O2O status</title>
+  <meta charset="utf-8">
+  <meta name="description" content="L1T O2O status">
+  <meta name="author" content="Khristian Kotov">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../../../../monohiggs/plots/libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../../../monohiggs/plots/libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../../../../monohiggs/plots/libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../../../monohiggs/plots/libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="../../../../monohiggs/plots/libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="../../../../monohiggs/plots/libraries/frameworks/io2012/js/slides" 
+    src="../../../../monohiggs/plots/libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>L1T O2O status</h1>
+    <h2></h2>
+    <p>Khristian Kotov<br/></p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Reconstructing CaloParams of 2016</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>As mentioned in <a href="http://kkotov.github.io/l1o2o/talks/2017.03.01/#7">last report</a> CaloParams was the only configuration to be prepared for CondDB </p>
+
+<p>Thanks to Aaron, we now have a history of prototype payload evolution:</p>
+
+<p>&quot;...
+v_3_3_1 valid from run number 281010 (start of period H).
+This was also when the eta_compress LUT changed.</p>
+
+<p>For v_2_2, there wasn’t actually a valid caloParams before this, so I
+think we can basically use this for the rest of 2016 before Period H.
+...
+&quot;</p>
+
+<p>This results in three periods with different configurations (including Heavy Ion run):</p>
+
+<ul>
+<li>[274553 - 281003] - caloStage2Params_2016_v2_2</li>
+<li>[281783 - 281791] - caloStage2Params_2016_v3_3_1</li>
+<li>[282413 - 288080] - caloStage2Params_2016_v3_3_1_HI</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Additional comments</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li><p>The run numbers in the ranges above are what O2O gets from FM. Those
+are not real data runs that you can access in WBM. But the real runs
+fall in these ranges.</p></li>
+<li><p>First run <a href="https://cmswbm.cern.ch/cmsdb/servlet/RunSummary?RUN=274569">https://cmswbm.cern.ch/cmsdb/servlet/RunSummary?RUN=274569</a>
+accounted for by O2O was taken in the beginning of June. Online DB
+for calo is mostly empty prior to that time. In the CondDB I
+reset 274553 -&gt; 1 to comply with requirement for GT integration.</p></li>
+<li><p>First HI configuration must have been used sometimes in October, so I
+switched prototype from 3_3_1 to 3_3_1_HI during one of the MD4 runs:
+<a href="https://espace.cern.ch/be-dep/BEDepartmentalDocuments/BE/LHC_Schedule_2016.pdf">https://espace.cern.ch/be-dep/BEDepartmentalDocuments/BE/LHC_Schedule_2016.pdf</a></p></li>
+<li><p>There is a rather short period of time when we used 3_3_1, but this is the way it is.</p></li>
+<li><p>I&#39;ve subtracted 1 from the last element of etSumEtaMax in HI period so
+as to have etSumEtaMax = [28,28,28,28,27] similarly to what we set in offline.</p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <article data-timings="">
+    <p><br><br><br></p>
+
+<p>\[ \Large Backup \]</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>List of runs where CALO keys changed</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>grep &#39;finished :&#39; ../v8/o2o-summary  | awk &#39;{print \$11&quot; &quot;\$12&quot; &quot;\$13}&#39; | less &gt; runs</p>
+
+<p>grep &#39;finished :&#39; ../v8.1/o2o-summary  | awk &#39;{print \$11&quot; &quot;\$12&quot; &quot;\$13}&#39; | less &gt;&gt; runs</p>
+
+<p>grep &#39;finished :&#39; ../v9.0/o2o-summary  | awk &#39;{print \$11&quot; &quot;\$12&quot; &quot;\$13}&#39; | less &gt;&gt; runs</p>
+
+<p>grep &#39;runL1-O2O-iov.sh&#39; ../v9.1/o2o-summary  | awk &#39;{print \$13&quot; &quot;\$14&quot; &quot;\$15}&#39; &gt;&gt; runs</p>
+
+<p>grep &#39;runL1-O2O-iov.sh&#39; ../v9.1/o2o-summary  | awk &#39;{print \$11&quot; &quot;\$12&quot; &quot;\$13}&#39; &gt;&gt; runs</p>
+
+<p># manually remove duplicates in results of the last two commands</p>
+
+<p>while read line ; do tsc=<code>echo $line | awk &#39;{print $2}&#39;</code>; calol12=<code>echo &quot;select CALOL1_KEY, CALOL2_KEY from CMS_TRG_L1_CONF.L1_TRG_CONF_KEYS where ID=&#39;$tsc&#39;;&quot; | sqlplus -S cms_trg_r/password@cms_omds_lb | tail -4 | head -2 | tr &#39;\n&#39; &#39; &#39;</code> ; echo \$line \$calol12 ; done &lt; runs &gt; runs2</p>
+
+<p>cat runs2 | awk &#39;BEGIN{k4=&quot;&quot;;k5=&quot;&quot;} {if(k4!=\$4 || k5!=\$5) print \$0; k4=\$4; k5=\$5}&#39; &gt; runs3</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Setting up integration branch</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>scramv1 p -n CMSSW_9_0_0_pre2 CMSSW CMSSW_9_0_0_pre2 </p>
+
+<p>cd CMSSW_9_0_0_pre2/src/ </p>
+
+<p>cmsenv </p>
+
+<p>git cms-init </p>
+
+<p>git remote add cms-l1t-offline <a href="mailto:git@github.com">git@github.com</a>:cms-l1t-offline/cmssw.git </p>
+
+<p>git fetch cms-l1t-offline </p>
+
+<p>git checkout -b l1t-integration-CMSSW_9_0_0_pre2 </p>
+
+<p>git cms-merge-topic -u cms-l1t-offline:l1t-integration-v91.12 </p>
+
+<p>git cms-addpkg L1Trigger/L1TCommon</p>
+
+<p>git cms-addpkg L1Trigger/L1TMuonBarrel</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Manually merging recent O2O developments</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>cd /cvmfs/cms.cern.ch/slc6_amd64_gcc530/cms/cmssw/CMSSW_9_0_0_pre6/src/</p>
+
+<p><span style="font-size:smaller">
+cp -r --parents CondTools/L1TriggerExt L1Trigger/L1TCommon L1TriggerConfig/L1TConfigProducers $CMSSW_BASE/src
+</span></p>
+
+<p><span style="font-size:smaller">
+cp --parents L1Trigger/L1TMuon/plugins/L1TMuonGlobalParamsESProducer.cc $CMSSW_BASE/src
+</span></p>
+
+<p><span style="font-size:smaller">
+cp --parents L1Trigger/L1TMuon/src/L1TMuonGlobalParamsHelper.cc $CMSSW_BASE/src
+</span></p>
+
+<p><span style="font-size:smaller">
+cp --parents L1Trigger/L1TMuon/interface/L1TMuonGlobalParamsHelper.h $CMSSW_BASE/src
+</span></p>
+
+<p><span style="font-size:smaller">
+cp --parents L1Trigger/L1TMuonBarrel/plugins/L1TMuonBarrelParamsESProducer.cc $CMSSW_BASE/src
+</span></p>
+
+<p><span style="font-size:smaller">
+cp --parents L1Trigger/L1TMuonBarrel/interface/L1TMuonBarrelParamsHelper.h $CMSSW_BASE/src
+</span></p>
+
+<p><span style="font-size:smaller">
+cp --parents L1Trigger/L1TMuonBarrel/src/L1TMuonBarrelParamsHelper.cc $CMSSW_BASE/src
+</span></p>
+
+<p><span style="font-size:smaller">
+cp --parents L1Trigger/L1TMuonEndCap/interface/EndCapParamsHelper.h $CMSSW_BASE/src
+</span></p>
+
+<p><span style="font-size:smaller">
+cp --parents L1Trigger/L1TMuonEndCap/src/EndCapParamsHelper.cc $CMSSW_BASE/src
+</span></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Replaying the L1T O2O</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Split runs3 into periods of &quot;v22&quot; (runs_22), &quot;v331&quot; (runs_331), and &quot;v331hi&quot; (runs_331hi)</p>
+
+<p># add &quot;v22&quot; in L1TriggerConfig/L1TConfigProducers/python/L1TCaloParamsOnline_cfi.py</p>
+
+<p>while read line ; do keys=<code>echo $line | awk &#39;{print $1&quot; &quot;$2&quot; &quot;$3}&#39;</code> ; ./runL1-O2O-iov.sh -k uGT,uGTrs,uGMT,CALO,BMTF,OMTF $keys ; done &lt; runs_22 &gt; out 2&gt;&amp;1</p>
+
+<p># add &quot;v331&quot; in L1TriggerConfig/L1TConfigProducers/python/L1TCaloParamsOnline_cfi.py</p>
+
+<p>while read line ; do keys=<code>echo $line | awk &#39;{print $1&quot; &quot;$2&quot; &quot;$3}&#39;</code> ; ./runL1-O2O-iov.sh -k uGT,uGTrs,uGMT,CALO,BMTF,OMTF $keys ; done &lt; runs_331 &gt; out_331 2&gt;&amp;</p>
+
+<p># add &quot;v331hi&quot; in L1TriggerConfig/L1TConfigProducers/python/L1TCaloParamsOnline_cfi.py</p>
+
+<p>while read line ; do keys=<code>echo $line | awk &#39;{print $1&quot; &quot;$2&quot; &quot;$3}&#39;</code> ; ./runL1-O2O-iov.sh -k uGT,uGTrs,uGMT,CALO,BMTF,OMTF $keys ; done &lt; runs_331hi &gt; out_331hi 2&gt;&amp;1</p>
+
+<p>Don&#39;t forget &quot;scram b&quot; to compile pyc before every batch</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='Reconstructing CaloParams of 2016'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Additional comments'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='NA'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='List of runs where CALO keys changed'>
+         4
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=5 title='Setting up integration branch'>
+         5
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=6 title='Manually merging recent O2O developments'>
+         6
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=7 title='Replaying the L1T O2O'>
+         7
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script> -->
+  <script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../../../monohiggs/plots/libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="../../../../monohiggs/plots/libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>
