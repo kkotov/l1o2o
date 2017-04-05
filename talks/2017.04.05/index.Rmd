@@ -1,0 +1,94 @@
+---
+title       : "L1T O2O status"
+subtitle    : 
+author      : Khristian Kotov
+job         : 
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow      # 
+github:
+  user: kkotov 
+  repo: talks
+url:
+  lib:    ../../../../monohiggs/plots/libraries
+  assets: ../../../../monohiggs/plots/assets
+widgets     : [mathjax]     # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+
+--- &twocol
+
+## L1T O2O tags in Run II
+
+Following O2O tags need to be added to the data Global Tags for DQM:
+
+*** =left
+
+System     |   Payload[Tag Suffix]
+-----------|-----------------
+uGT        | <span style="font-family:helvetica;color:green">L1TUtmTriggerMenu[<span style="font-weight:bold">_Stage2v0_hlt</span>]</span>
+uGT RS     | <span style="font-family:helvetica;color:green">L1TGlobalPrescalesVetos[<span style="font-weight:bold">_Stage2v0_hlt</span>]</span>
+CALOL{1,2} | <span style="font-family:helvetica;color:green">L1TCaloParams[<span style="font-weight:bold">_Stage2v<span style="color:red">1</span>_hlt</span>]</span>
+uGMT       | <span style="font-family:helvetica;color:green">L1TMuonGlobalParams[<span style="font-weight:bold">_Stage2v0_hlt</span>]</span>
+
+*** =right
+
+System     |   Payload[Tag Suffix]
+-----------|-----------------
+BMTF       | <span style="font-family:helvetica;color:green">L1TMuonBarrelParams[<span style="font-weight:bold">_Stage2v0_hlt</span>]</span>
+OMTF       | <span style="font-family:helvetica;color:green">L1TMuonOverlapParams[<span style="font-weight:bold">_Stage2v0_hlt</span>]</span>
+EMTF       | <span style="font-family:helvetica;color:green">L1TMuonEndCapParams[<span style="font-weight:bold">_Stage2v0_hlt</span>]</span>
+O2O        | <span style="font-family:helvetica;color:blue">L1TriggerKey(List)[<span style="font-weight:bold">_Stage2v0_hlt</span>]</span>
+
+*** =fullwidth
+
+New&nbsp;<span style="font-family:helvetica;color:green">L1TMuonEndCapForests[<span style="font-weight:bold">_Stage2v0_hlt</span>]</span> will be used with new EMTF emulator (in progress)
+
+* History for these tags was reconstructed starting ~June 2016 (e.g. [last report](http://kkotov.github.io/l1o2o/talks/2017.03.20) for CaloParams)
+
+* Validation (data-emulator comparison) was ran on a Heavy Ion run ([muons](https://its.cern.ch/jira/browse/CMSLITDPG-3), [calo](https://its.cern.ch/jira/browse/CMSLITDPG-4))
+
+* Future Monte Carlo tags will be generated from these O2O tags and used in MC campaigns
+
+---  &twocol
+
+## Validation plots for muon tags
+
+uGMT, BMTF, OMTF, and <span style="color:gray">EMTF</span> payloads demonstrate perfect agreement in run #285832:
+
+*** =left
+
+<img class=center src="comp_data_muon.eta.png" height=220 width=300>
+
+<img class=center src="comp_data_muon.phi.png" height=220 width=300>
+
+*** =right
+
+<img class=center src="comp_data_muon.n.png" height=220 width=300>
+
+<img class=center src="comp_data_muon.pt_xMax100.png" height=220 width=300>
+
+---  &twocol
+
+## Validation plots for CaloParams tag
+
+CaloL{1,2} payload demonstrate perfect agreement in run #285832:
+
+*** =left
+
+<img class=center src="JetEt.png" height=220 width=300>
+
+<img class=center src="TauEt.png" height=220 width=300>
+
+*** =right
+
+<img class=center src="EgEt.png" height=220 width=300>
+
+<img class=center src="MPSumEt.png" height=220 width=300>
+
+--- .class #id
+
+## Summary
+
+We close the chapter on L1T configuration in 2016; TSG is welcome to use tags within a data GTs
+
+DQM needs a data GT for the real-time trigger validation with L1T emulators
