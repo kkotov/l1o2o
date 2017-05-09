@@ -14,7 +14,7 @@ payloads are: High Level Trigger (HLT), Data Quality Monitoring (DQM), and Trigg
 
 The whole trigger system's online configuration is aggregated by two top-level keys: *Trigger System Configuration*
 (TSC) key and *Run Settings* (RS) key. These keys are prepared by the Level-1 Detector On Call (L1 DOC) shifter and
-utilized every time when starting a new data taking run. You can check the XML configuration for the specific TSC
+utilized every time when a new data taking is started. You can check the XML configuration for the specific TSC
 and RS keys using the [L1 Configuration Editor](https://l1ce.cms) (assuming you are within .cms network or use a
 tunnel) or alternatively, using following python scripts:
 [ugtDump.py](https://github.com/kkotov/cmssw/blob/o2oUtilities/L1TriggerConfig/Utilities/test/ugtDump.py),
@@ -23,25 +23,25 @@ tunnel) or alternatively, using following python scripts:
 [emtfDump.py](https://github.com/kkotov/cmssw/blob/o2oUtilities/L1TriggerConfig/Utilities/test/emtfDump.py),
 [omtfDump.py](https://github.com/kkotov/cmssw/blob/o2oUtilities/L1TriggerConfig/Utilities/test/omtfDump.py),
 [bmtfDump.py](https://github.com/kkotov/cmssw/blob/o2oUtilities/L1TriggerConfig/Utilities/test/bmtfDump.py).
-These scripts can be ran from my afs public area on lxplus as well as within the private .cms network in
+These scripts can be ran from my afs public area on lxplus as well as within the private .cms network from
 ~l1emulator/o2o/. For example:
 
 lxplus> python ~kkotov/public/bmtfDump.py l1\_trg\_cosmics2017/v75 l1\_trg\_rs\_cosmics2017/v57
 
-dumps the Barrel Muon Track-Finder trigger configuration from TSC\_KEY=l1\_trg\_cosmics2017/v75 and
+dumps the Barrel Muon Track-Finder trigger configuration for TSC\_KEY=l1\_trg\_cosmics2017/v75 and
 RS\_KEY=l1\_trg\_rs\_cosmics2017/v57 into several local XML files. For arguments you can use both: top-level
 TSC and RS keys (as in the example above) and system-specific TSC and RS keys
-(e.g. bmtf\_cosmics\_2017/v4 bmtf\_rs\_base\_2017/v1 in the example above).
+(it could have been bmtf\_cosmics\_2017/v4 bmtf\_rs\_base\_2017/v1 in the example above).
 
 The L1T O2O framework manages a set of XML parsers (referred to as [Online Producers](https://github.com/cms-sw/cmssw/tree/master/L1TriggerConfig/L1TConfigProducers/src))
 that can be run individually as, for example, shown in [runOneByOne.sh](https://github.com/cms-sw/cmssw/blob/master/L1TriggerConfig/Utilities/test/runOneByOne.sh)
-script as well as you can run them in one go using the framework. In the first case you can run it from lxplus of .cms:
+script as well as in one go using the framework. In the first case you can run the script from lxplus or .cms:
 
 lxplus> ~kkotov/python/runOneByOne.sh l1\_trg\_cosmics2017/v75 l1\_trg\_rs\_cosmics2017/v57
 
 ssh cms-conddb-1.cms '/data/O2O/L1T/runOneByOne.sh l1\_trg\_cosmics2017/v75 l1\_trg\_rs\_cosmics2017/v57'
 
-The result of running this script is comprehensive printout the last two lines of which will summarize if
+The result of running the script is a comprehensive printout the last two lines of which will summarize if
 any problems were encountered parsing the configuration XMLs. In addition, an l1config.db sqlite file will
 contain all of the successfully produced payloads ready to be used with the L1 trigger emulators in CMSSW.
 
