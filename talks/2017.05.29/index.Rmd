@@ -1,0 +1,34 @@
+---
+title       : "L1T O2O status"
+subtitle    : 
+author      : Khristian Kotov
+job         : 
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow      # 
+github:
+  user: kkotov 
+  repo: talks
+url:
+  lib:    ../../../../monohiggs/plots/libraries
+  assets: ../../../../monohiggs/plots/assets
+widgets     : [mathjax]     # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+
+--- .class #id
+
+## MC tags for the L1T emulator
+
+Following O2O tags are expected to be present in the Monte Carlo Global Tags:
+
+System      |   Tag           |  Status
+------------|-----------------|------------------
+uGT RS      | <span style="font-family:helvetica;color:green">L1TGlobalPrescalesVetos_<span style="font-weight:bold">passThrough_mc</span></span> | already present
+CALOL{1,2}  | <span style="font-family:helvetica;color:green">L1TCaloParams_<span style="font-weight:bold">static_v94.6.1_2017_v1_7</span></span> | 
+uGMT        | <span style="font-family:helvetica;color:green">L1TMuonGlobalParams_<span style="font-weight:bold">static_v94.6.1</span></span>     |
+BMTF        | <span style="font-family:helvetica;color:green">L1TMuonBarrelParams_<span style="font-weight:bold">static_v94.6.1</span></span>     |
+OMTF        | <span style="font-family:helvetica;color:green">L1TMuonOverlapParams_<span style="font-weight:bold">Stage2v0_hlt</span></span>      | same everywhere
+EMTF Forest | <span style="font-family:helvetica;color:green">L1TMuonEndCapForest_<span style="font-weight:bold">static_Sq_20170523_mc</span></span> | new pT LUT
+EMTF Params | <span style="font-family:helvetica;color:green">L1TMuonEndCapParams_<span style="font-weight:bold">dummy_mc</span></span>              | dummy parameters
+
+
