@@ -10,48 +10,32 @@ is requested to take data, the L1T O2O fetches the configuration XMLs, extracts 
 them in the offline database stamped with a sequential run number. The main consumers of the resulting offline
 payloads are: High Level Trigger (HLT), Data Quality Monitoring (DQM), and Trigger Studies Group (TSG).
 
-## Basics:
+## Infrastructure
 
-The whole trigger system's online configuration is aggregated by two top-level keys: *Trigger System Configuration*
-(TSC) key and *Run Settings* (RS) key. These keys are prepared by the Level-1 Detector On Call (L1 DOC) shifter and
-utilized every time when a new data taking is started. You can check the XML configuration for the specific TSC
-and RS keys using the [L1 Configuration Editor](https://l1ce.cms) (assuming you are within .cms network or use a
-tunnel) or alternatively, using following python scripts:
-[ugtDump.py](https://github.com/kkotov/cmssw/blob/o2oUtilities/L1TriggerConfig/Utilities/test/ugtDump.py),
-[ugmtDump.py](https://github.com/kkotov/cmssw/blob/o2oUtilities/L1TriggerConfig/Utilities/test/ugmtDump.py),
-[caloDump.py](https://github.com/kkotov/cmssw/blob/o2oUtilities/L1TriggerConfig/Utilities/test/caloDump.py),
-[emtfDump.py](https://github.com/kkotov/cmssw/blob/o2oUtilities/L1TriggerConfig/Utilities/test/emtfDump.py),
-[omtfDump.py](https://github.com/kkotov/cmssw/blob/o2oUtilities/L1TriggerConfig/Utilities/test/omtfDump.py),
-[bmtfDump.py](https://github.com/kkotov/cmssw/blob/o2oUtilities/L1TriggerConfig/Utilities/test/bmtfDump.py).
-These scripts can be ran from my afs public area on lxplus as well as within the private .cms network from
-~l1emulator/o2o/. For example:
+The L1T O2O system is part of the CMSSW release and can be run in any environment that has an installation of CMSSW.
+Production system is installed in _cms-conddb-1.cms:/data/O2O/L1T/_ and gets automatically invoked over ssh by the
+Function Manager executing _o2o.sh_ with three arguments: _RUN NUMBER_, _TSC KEY_ and _RS KEY_. It needs .netrc and
+.cms\_cond credentials (sitting in the same directory) for accessing OMDS and CondDB. The process logs are easily
+available in the CondDB browser [here](https://cms-conddb.cern.ch/cmsDbBrowser/logs/O2O\_logs/Prod/) and are tagged
+by "L1TMenu" job name. A currently active version is pointed to with _pro_ soft link and minimally contains
+[runL1-O2O-iov.sh](https://github.com/cms-sw/cmssw/blob/master/CondTools/L1TriggerExt/scripts/runL1-O2O-iov.sh)
+script that among all of the options should have *ONLINEDB_OPTIONS* pointing to *cms_omds_lb* and
+*PROTODB_OPTIONS* pointing to *cms_orcon_prod* (it would have been *cms_omds_adg* and *cms_orcon_adg* respectively
+on lxplus).
 
-lxplus> python ~kkotov/public/bmtfDump.py l1\_trg\_cosmics2017/v75 l1\_trg\_rs\_cosmics2017/v57
+The system can also be installed on lxplus (e.g. for testing purposes), but another .cms\_cond credentials needs to
+be requested. If you have it, you can run the runL1-O2O-iov.sh script directly with the same three arguments as the
+o2o.sh described above. Make sure you'll initialize a local l1config.db sqlite as, for example, outlined in 
+[runOneByOne.sh](https://github.com/cms-sw/cmssw/blob/master/L1TriggerConfig/Utilities/test/runOneByOne.sh#L31-L37)
+script.
 
-dumps the Barrel Muon Track-Finder trigger configuration for TSC\_KEY=l1\_trg\_cosmics2017/v75 and
-RS\_KEY=l1\_trg\_rs\_cosmics2017/v57 into several local XML files. For arguments you can use both: top-level
-TSC and RS keys (as in the example above) and system-specific TSC and RS keys
-(it could have been bmtf\_cosmics\_2017/v4 bmtf\_rs\_base\_2017/v1 in the example above).
+## Organization
 
-The L1T O2O framework manages a set of XML parsers (referred to as [Online Producers](https://github.com/cms-sw/cmssw/tree/master/L1TriggerConfig/L1TConfigProducers/src))
-that can be run individually as, for example, shown in [runOneByOne.sh](https://github.com/cms-sw/cmssw/blob/master/L1TriggerConfig/Utilities/test/runOneByOne.sh)
-script as well as in one go using the framework. In the first case you can run the script from lxplus or .cms:
+The code design is outlined in [this talk](http://kkotov.github.io/l1o2o/talks/2016.04.19).
 
-lxplus> ~kkotov/python/runOneByOne.sh l1\_trg\_cosmics2017/v75 l1\_trg\_rs\_cosmics2017/v57
+prototypes ...
 
-ssh cms-conddb-1.cms '/data/O2O/L1T/runOneByOne.sh l1\_trg\_cosmics2017/v75 l1\_trg\_rs\_cosmics2017/v57'
+## Miscellanea
 
-The result of running the script is a comprehensive printout the last two lines of which will summarize if
-any problems were encountered parsing the configuration XMLs. In addition, an l1config.db sqlite file will
-contain all of the successfully produced payloads ready to be used with the L1 trigger emulators in CMSSW.
-
-Another way of running the  is by  
-
-https://cms-conddb.cern.ch/cmsDbBrowser/logs/O2O_logs/Prod/
-
-
-OMDS online database at p5 (inside the .cms network) is accessible via *CMS_OMDS_LB* name while the rest of the world
-(e.g. lxplus) "sees" a synchronized copy of it under *CMS_OMDS_ADG* name.
-
-Following scripts are available for dumping content of the online database
-
+Have a look at [README.md](https://github.com/cms-sw/cmssw/tree/master/L1TriggerConfig/Utilities/test) for set of
+tools to query information from different DBs.
