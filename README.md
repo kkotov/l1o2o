@@ -16,7 +16,7 @@ The L1T O2O system is part of the CMSSW release and can be run in any environmen
 Production system is installed in _cms-conddb-1.cms:/data/O2O/L1T/_ and gets automatically invoked over ssh by the
 Function Manager executing _o2o.sh_ with three arguments: _RUN NUMBER_, _TSC KEY_ and _RS KEY_. It needs .netrc and
 .cms\_cond credentials (sitting in the same directory) for accessing OMDS and CondDB. The process logs are easily
-available in the CondDB browser [here](https://cms-conddb.cern.ch/cmsDbBrowser/logs/O2O\_logs/Prod/) and are tagged
+available in the CondDB browser [here](https://cms-conddb.cern.ch/cmsDbBrowser/logs/O2O_logs/Prod/) and are tagged
 by "L1TMenu" job name. A currently active version is pointed to with _pro_ soft link and minimally contains
 [runL1-O2O-iov.sh](https://github.com/cms-sw/cmssw/blob/master/CondTools/L1TriggerExt/scripts/runL1-O2O-iov.sh)
 script that among all of the options should have *ONLINEDB_OPTIONS* pointing to *cms_omds_lb* and
@@ -29,11 +29,37 @@ o2o.sh described above. Make sure you'll initialize a local l1config.db sqlite a
 [runOneByOne.sh](https://github.com/cms-sw/cmssw/blob/master/L1TriggerConfig/Utilities/test/runOneByOne.sh#L31-L37)
 script.
 
-## Organization
+## Code organization (technical)
 
-The code design is outlined in [this talk](http://kkotov.github.io/l1o2o/talks/2016.04.19).
+The L1T O2O system is partitioned into the [core framework](https://github.com/cms-sw/cmssw/blob/master/CondTools/L1TriggerExt)
+and a set of system-specific [online producers](https://github.com/cms-sw/cmssw/blob/master/L1TriggerConfig/L1TConfigProducers)
+invoked by means of [data writers](https://github.com/cms-sw/cmssw/blob/master/CondTools/L1TriggerExt/src/DataWriterExt.cc)
+from the core framework and fetching the information from the online DB. The only component of the core framework that
+explicitly queries online DB is
+[L1SubsystemKeysOnlineProdExt](https://github.com/cms-sw/cmssw/blob/master/CondTools/L1TriggerExt/plugins/L1SubsystemKeysOnlineProdExt.cc)
+generating a L1TriggerKeyExt object with TSC and RS keys for all of the systems. This object is distributed to
+system-specific ObjectKeys online producers that in turn generate system-specific L1TriggerKeyExt objects forwarded
+to the final online producers. The CondDB tag names are specified in
+[this config](https://github.com/cms-sw/cmssw/blob/master/CondTools/L1TriggerExt/python/L1SubsystemParamsExt_cfi.py).
+The core framework's design is outlined in [this talk](http://kkotov.github.io/l1o2o/talks/2016.04.19).
 
-prototypes ...
+Currently, the RS specific code is still available in the core framework, but is not used or intended to be used. So
+if you browse the code, you can ignore files containing the RS in the name.
+
+## Prototypes and static payloads
+
+The L1T O2O uses a "starting checkpoint" or a prototype payload for Calo, EMTF, BMTF, and uGMT systems. It allows to
+have defaults for the configuration parameters that may or may not be overridden by the O2O process (generally
+depends on the policy for each of these subsystems and availability in the online DB).
+
+Static payloads ...
+
+## Manual construction of the history
+
+Sometimes manual construction of the history from static configuration can be useful. This that case one needs to
+create an sqlite with a set of payloads tagged by keys and then write Intervals Of Validity for each of these keys.
+An [EMTF example](https://github.com/cms-sw/cmssw/blob/master/CondTools/L1TriggerExt/test/L1ConfigWriteIOVDummyExt_cfg.py)
+of how to write the IOV can be of some help here.
 
 ## Miscellanea
 
