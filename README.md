@@ -16,20 +16,32 @@ The L1T O2O system is part of the CMSSW release and can be run in any environmen
 Production system is installed in _cms-conddb-1.cms:/data/O2O/L1T/_ and gets automatically invoked over ssh by the
 Function Manager executing _o2o.sh_ with three arguments: _RUN NUMBER_, _TSC KEY_ and _RS KEY_. It needs .netrc and
 .cms\_cond credentials (sitting in the same directory) for accessing OMDS and CondDB. The process logs are easily
-available in the CondDB browser [here](https://cms-conddb.cern.ch/cmsDbBrowser/logs/O2O_logs/Prod/) and are tagged
-by "L1TMenu" job name. A currently active version is pointed to with _pro_ soft link and minimally contains
+available in the CondDB browser [here](https://cms-conddb.cern.ch/cmsDbBrowser/logs/O2O_logs/Prod/) where they are
+tagged by "L1TMenu" job name or on the local file system in _cms-conddb-1.cms:/data/O2O/logs/L1TMenu*_ files.
+A currently active version is pointed to with _pro_ soft link and (minimally) contains
 [runL1-O2O-iov.sh](https://github.com/cms-sw/cmssw/blob/master/CondTools/L1TriggerExt/scripts/runL1-O2O-iov.sh)
 script that among all of the options should have *ONLINEDB_OPTIONS* pointing to *cms_omds_lb* and
 *PROTODB_OPTIONS* pointing to *cms_orcon_prod* (it would have been *cms_omds_adg* and *cms_orcon_adg* respectively
-on lxplus).
+on lxplus). The choice of active O2O working directory is made in _o2o2017.sh_ script (_JOBDIR_) that also defines
+a CMSSW version (_RELEASE_) and logging environment. Deploying the new O2O version most often means modifying the
+_JOBDIR_ and _RELEASE_ variables and changing a _pro_ soft line (that is actually not used for anything).
 
 The system can also be installed on lxplus (e.g. for testing purposes), but another .cms\_cond credentials needs to
 be requested. If you have it, you can run the runL1-O2O-iov.sh script directly with the same three arguments as the
-o2o.sh described above. Make sure you'll initialize a local l1config.db sqlite as, for example, outlined in 
-[runOneByOne.sh](https://github.com/cms-sw/cmssw/blob/master/L1TriggerConfig/Utilities/test/runOneByOne.sh#L31-L37)
+o2o.sh described above. Make sure you'll initialize a local l1config.db sqlite beforehand as, for example, outlined
+in [runOneByOne.sh](https://github.com/cms-sw/cmssw/blob/master/L1TriggerConfig/Utilities/test/runOneByOne.sh#L31-L37)
 script.
 
-## Code organization (technical)
+## Arguments
+
+As indicated earlier, most of the scripts take just three arguments: _RUN NUMBER_, _TSC KEY_ and _RS KEY_ (in this
+order), except the _runOneByOne.sh_ that does not need the _RUN NUMBER_ parameter. The only exception from this rule
+is the _runL1-O2O-iov.sh_ script that is also used for development/debugging purposes and allows more flexibility.
+One can change the Cond DB tag suffix for a specific payload with "-t" option or limit the L1T O2O to process a
+set of specific trigger systems with "-k" option. Please, refrain from using "-x" option unless you understand what
+you do as this forward the transactions directly to the CondDB as opposed to the local sqlite.
+
+## Code organization (technical, should go to the CondTools/L1TriggerExt)
 
 The L1T O2O system is partitioned into the [core framework](https://github.com/cms-sw/cmssw/blob/master/CondTools/L1TriggerExt)
 and a set of system-specific [online producers](https://github.com/cms-sw/cmssw/blob/master/L1TriggerConfig/L1TConfigProducers)
