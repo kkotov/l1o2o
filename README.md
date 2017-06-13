@@ -30,9 +30,9 @@ The system can also be installed on lxplus (e.g. for testing purposes), but anot
 be requested. If you have it, you can run the runL1-O2O-iov.sh script directly with the same three arguments as the
 o2o.sh described above. Make sure you'll initialize a local l1config.db sqlite beforehand as, for example, outlined
 in [runOneByOne.sh](https://github.com/cms-sw/cmssw/blob/master/L1TriggerConfig/Utilities/test/runOneByOne.sh#L31-L37)
-script.
+script or in the very last section of this README file.
 
-## Arguments
+## Options
 
 As indicated earlier, most of the scripts take just three arguments: _RUN NUMBER_, _TSC KEY_ and _RS KEY_ (in this
 order), except the _runOneByOne.sh_ that does not need the _RUN NUMBER_ parameter. The only exception from this rule
@@ -60,20 +60,74 @@ if you browse the code, you can ignore files containing the RS in the name.
 
 ## Prototypes and static payloads
 
-The L1T O2O uses a "starting checkpoint" or a prototype payload for Calo, EMTF, BMTF, and uGMT systems. It allows to
-have defaults for the configuration parameters that may or may not be overridden by the O2O process (generally
-depends on the policy for each of these subsystems and availability in the online DB).
+The L1T O2O uses a "starting point" or a prototype payload for Calo, EMTF, BMTF, and uGMT systems. It allows to have
+defaults for the configuration parameters that may or may not appear in the online configuration. The prototypes are
+prepared with the _upload*py_ scripts that, despite what name suggests, do not normally upload anything directly to
+the CondDB, but create a local sqlite with the payloads. These payloads can then be transferred to the CondDB using
+the standard CMSSW [uploadConditions.py](https://twiki.cern.ch/twiki/bin/view/CMS/ConditionUploader) script accepting
+the sqlite as an argument. The best practices here is to always indicate run #1 as starting Intervals Of Validity (IOV)
+for the prototypes while the _uploadConditions.py_ guides you through the final steps of uploading conditions as in
+such case the last upload will automatically override what was written before. The DropBox permissions are required
+for the _uploadConditions.py_ to work.
 
-Static payloads ...
+Currently two trigger systems, EMTF and OMTF, have so called static payloads representing configuration pieces that
+cannot be stored in the online DB. For example, EMTF uses a raw 2Gb pT Look Up Table sitting on a disk of the control
+PC and generated from an XML representation used by the EMTF emulator. In this case O2O cannot generate an offline
+payload as the online DB contains nothing else but just a single pT assignment version number. Instead the O2O process
+is limited to extending an IOV for one of the "preloaded" EMTF Forests payloads, tagged with this version number or,
+more generally, a key. The workfolow of preloading the static payloads is different from the one for prototypes as
+additional O2O bookkeeping is involved. Step-by-step examples are given in the end of this README file.
 
 ## Manual construction of the history
 
-Sometimes manual construction of the history from static configuration can be useful. This that case one needs to
-create an sqlite with a set of payloads tagged by keys and then write Intervals Of Validity for each of these keys.
-An [EMTF example](https://github.com/cms-sw/cmssw/blob/master/CondTools/L1TriggerExt/test/L1ConfigWriteIOVDummyExt_cfg.py)
-of how to write the IOV can be of some help here.
+Sometimes manual construction of the history from static configuration can be useful. In this case one needs to create
+an sqlite with a set of static payloads tagged by keys (can be made-up unique keys) and then write IOVs for these keys.
+Step-by-step examples for EMTF parameters are given in the end of this README file.
 
-## Miscellanea
+## Useful tips 
 
-Have a look at [README.md](https://github.com/cms-sw/cmssw/tree/master/L1TriggerConfig/Utilities/test) for set of
+1. Initialize a local sqlite DB
+
+*cmsRun ${CMSSW_RELEASE_BASE}/src/CondTools/L1TriggerExt/test/init_cfg.py useO2OTags=1 outputDBConnect=sqlite:./l1config.db*
+
+2. Create static payloads for OMTF and EMTF (more details below) indexed with "OMTF ALGO EMPTY" and "7" object keys
+
+*cmsRun ${CMSSW_RELEASE_BASE}/src/CondTools/L1TriggerExt/test/L1ConfigWriteSinglePayloadExt_cfg.py objectKey="OMTF_ALGO_EMPTY" objectType=L1TMuonOverlapParams recordName=L1TMuonOverlapParamsO2ORcd useO2OTags=1 outputDBConnect=sqlite:l1config.db*
+
+*cmsRun ${CMSSW_RELEASE_BASE}/src/CondTools/L1TriggerExt/test/L1ConfigWriteSinglePayloadExt_cfg.py objectKey="7" objectType=L1TMuonEndCapForest recordName=L1TMuonEndcapForestO2ORcd useO2OTags=1 outputDBConnect=sqlite:l1config.db*
+
+3. _Launch L1T O2O for specific TSC and RS keys_
+
+*./runL1-O2O-iov.sh 296485 l1_trg_collisions2017/v33 l1_trg_rs_collisions2017/v31*
+
+4. Low-level look into the resulting sqlite
+
+*sqlite3 l1config.db*
+
+*select * from TAG ;*
+
+*select * from IOV ;*
+
+*select * from PAYLOAD ;*
+
+5. Creating a prototype payload for CaloL2
+
+*tar -xzf ~kkotov/public/caloproto.tgz*
+
+For other systems, one should be able to use a central CMSSW _L1TriggerConfig/Utilities_ package, but for CaloL2 we
+are not done with the campaign of removing the *Stage2* from CaloParams record name.
+
+*scram b && cd L1TriggerConfig/Utilities/test*
+
+*edit the line that includes caloStage2Params* configuration python to the version you need.
+
+*cmsRun uploadCaloParams.py*
+
+*uploadConditions.py l1config.db*
+
+6. Reconstruction a history of the EMTF parameters
+
+... to be filled ...
+
+Also have a look at [README.md](https://github.com/cms-sw/cmssw/tree/master/L1TriggerConfig/Utilities/test) for set of
 tools to query information from different DBs.
