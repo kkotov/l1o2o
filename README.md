@@ -135,7 +135,13 @@ Edit *L1TriggerConfig/L1TConfigProducers/python/L1TMuonEndcapParamsOnlineProxy_c
 
 (continue generating and writing the payloads)
 
+Set the IOV:
+
 *cmsRun ${CMSSW_RELEASE_BASE}/src/CondTools/L1TriggerExt/test/L1ConfigWriteIOVDummyExt_cfg.py runNumber=284079 tscKey='1' useO2OTags=1*
+
+Check the content now:
+
+*cmsRun $CMSSW_RELEASE_BASE/src/L1TriggerConfig/Utilities/test/viewECpar.py db=sqlite:l1config.db run=284460*
 
 Also have a look at [README.md](https://github.com/cms-sw/cmssw/tree/master/L1TriggerConfig/Utilities/test) for set of
 tools to query information from different DBs.
