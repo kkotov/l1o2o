@@ -90,13 +90,13 @@ Step-by-step examples for EMTF parameters are given in the end of this README fi
 
 *cmsRun ${CMSSW_RELEASE_BASE}/src/CondTools/L1TriggerExt/test/init_cfg.py useO2OTags=1 outputDBConnect=sqlite:./l1config.db*
 
-2. Create static payloads for OMTF and EMTF (more details below) indexed with "OMTF ALGO EMPTY" and "7" object keys
+2. Create static payloads for OMTF and EMTF indexed with "OMTF ALGO EMPTY" and "7" object keys
 
 *cmsRun ${CMSSW_RELEASE_BASE}/src/CondTools/L1TriggerExt/test/L1ConfigWriteSinglePayloadExt_cfg.py objectKey="OMTF_ALGO_EMPTY" objectType=L1TMuonOverlapParams recordName=L1TMuonOverlapParamsO2ORcd useO2OTags=1 outputDBConnect=sqlite:l1config.db*
 
 *cmsRun ${CMSSW_RELEASE_BASE}/src/CondTools/L1TriggerExt/test/L1ConfigWriteSinglePayloadExt_cfg.py objectKey="7" objectType=L1TMuonEndCapForest recordName=L1TMuonEndcapForestO2ORcd useO2OTags=1 outputDBConnect=sqlite:l1config.db*
 
-3. _Launch L1T O2O for specific TSC and RS keys_
+3. Launch L1T O2O for specific TSC and RS keys
 
 *./runL1-O2O-iov.sh 296485 l1_trg_collisions2017/v33 l1_trg_rs_collisions2017/v31*
 
@@ -119,7 +119,7 @@ are not done with the campaign of removing the *Stage2* from CaloParams record n
 
 *scram b && cd L1TriggerConfig/Utilities/test*
 
-*edit the line that includes caloStage2Params* configuration python to the version you need.
+Edit the line that includes *caloStage2Params* configuration python to the version you need.
 
 *cmsRun uploadCaloParams.py*
 
@@ -127,7 +127,15 @@ are not done with the campaign of removing the *Stage2* from CaloParams record n
 
 6. Reconstruction a history of the EMTF parameters
 
-... to be filled ...
+*cmsRun ${CMSSW_RELEASE_BASE}/src/CondTools/L1TriggerExt/test/init_cfg.py useO2OTags=1 outputDBConnect=sqlite:./l1config.db*
+
+Edit *L1TriggerConfig/L1TConfigProducers/python/L1TMuonEndcapParamsOnlineProxy_cfi.py*
+
+*cmsRun ${CMSSW_RELEASE_BASE}/src/CondTools/L1TriggerExt/test/L1ConfigWriteSinglePayloadExt_cfg.py objectKey="1" objectType=L1TMuonEndCapParams recordName=L1TMuonEndcapParamsO2ORcd useO2OTags=1 outputDBConnect=sqlite:l1config.db*
+
+(continue generating and writing the payloads)
+
+*cmsRun ${CMSSW_RELEASE_BASE}/src/CondTools/L1TriggerExt/test/L1ConfigWriteIOVDummyExt_cfg.py runNumber=284079 tscKey='1' useO2OTags=1*
 
 Also have a look at [README.md](https://github.com/cms-sw/cmssw/tree/master/L1TriggerConfig/Utilities/test) for set of
 tools to query information from different DBs.
