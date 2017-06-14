@@ -97,21 +97,21 @@ Step-by-step examples for EMTF parameters are given in the end of this README fi
 1. Initialize a local sqlite DB
 
 ```
-$ cmsRun ${CMSSW\_RELEASE\_BASE}/src/CondTools/L1TriggerExt/test/init\_cfg.py useO2OTags=1 outputDBConnect=sqlite:./l1config.db
+$ cmsRun ${CMSSW_RELEASE_BASE}/src/CondTools/L1TriggerExt/test/init_cfg.py useO2OTags=1 outputDBConnect=sqlite:./l1config.db
 ```
 
 2. Create static payloads for OMTF and EMTF indexed with "OMTF ALGO EMPTY" and "7" object keys
 
 ```
-$ cmsRun ${CMSSW\_RELEASE\_BASE}/src/CondTools/L1TriggerExt/test/L1ConfigWriteSinglePayloadExt\_cfg.py objectKey="OMTF\_ALGO\_EMPTY" objectType=L1TMuonOverlapParams recordName=L1TMuonOverlapParamsO2ORcd useO2OTags=1 outputDBConnect=sqlite:l1config.db
+$ cmsRun ${CMSSW_RELEASE_BASE}/src/CondTools/L1TriggerExt/test/L1ConfigWriteSinglePayloadExt_cfg.py objectKey="OMTF_ALGO_EMPTY" objectType=L1TMuonOverlapParams recordName=L1TMuonOverlapParamsO2ORcd useO2OTags=1 outputDBConnect=sqlite:l1config.db
 
-$ cmsRun ${CMSSW\_RELEASE\_BASE}/src/CondTools/L1TriggerExt/test/L1ConfigWriteSinglePayloadExt\_cfg.py objectKey="7" objectType=L1TMuonEndCapForest recordName=L1TMuonEndcapForestO2ORcd useO2OTags=1 outputDBConnect=sqlite:l1config.db
+$ cmsRun ${CMSSW_RELEASE_BASE}/src/CondTools/L1TriggerExt/test/L1ConfigWriteSinglePayloadExt_cfg.py objectKey="7" objectType=L1TMuonEndCapForest recordName=L1TMuonEndcapForestO2ORcd useO2OTags=1 outputDBConnect=sqlite:l1config.db
 ```
 
 3. Launch L1T O2O for specific TSC and RS keys (make sure you've edited DB environment inside the script)
 
 ```
-    $ ./runL1-O2O-iov.sh 296485 l1\_trg\_collisions2017/v33 l1\_trg\_rs\_collisions2017/v31
+$ ./runL1-O2O-iov.sh 296485 l1_trg_collisions2017/v33 l1_trg_rs_collisions2017/v31
 ```
 
 4. Low-level look into the resulting sqlite
@@ -150,13 +150,13 @@ $ uploadConditions.py l1config.db
 6. Reconstruction a history of the EMTF parameters
 
 ```
-$ cmsRun ${CMSSW\_RELEASE\_BASE}/src/CondTools/L1TriggerExt/test/init\_cfg.py useO2OTags=1 outputDBConnect=sqlite:./l1config.db
+$ cmsRun ${CMSSW_RELEASE_BASE}/src/CondTools/L1TriggerExt/test/init_cfg.py useO2OTags=1 outputDBConnect=sqlite:./l1config.db
 ```
 
 Edit *L1TriggerConfig/L1TConfigProducers/python/L1TMuonEndcapParamsOnlineProxy_cfi.py* to manually set the parameters
 
 ```
-$ cmsRun ${CMSSW\_RELEASE\_BASE}/src/CondTools/L1TriggerExt/test/L1ConfigWriteSinglePayloadExt\_cfg.py objectKey="1" objectType=L1TMuonEndCapParams recordName=L1TMuonEndcapParamsO2ORcd useO2OTags=1 outputDBConnect=sqlite:l1config.db
+$ cmsRun ${CMSSW_RELEASE_BASE}/src/CondTools/L1TriggerExt/test/L1ConfigWriteSinglePayloadExt_cfg.py objectKey="1" objectType=L1TMuonEndCapParams recordName=L1TMuonEndcapParamsO2ORcd useO2OTags=1 outputDBConnect=sqlite:l1config.db
 ```
 
 (continue generating and writing the payloads)
@@ -164,13 +164,13 @@ $ cmsRun ${CMSSW\_RELEASE\_BASE}/src/CondTools/L1TriggerExt/test/L1ConfigWriteSi
 Set the IOVs:
 
 ```
-$ cmsRun ${CMSSW\_RELEASE\_BASE}/src/CondTools/L1TriggerExt/test/L1ConfigWriteIOVDummyExt\_cfg.py runNumber=284079 tscKey='1' useO2OTags=1
+$ cmsRun ${CMSSW_RELEASE_BASE}/src/CondTools/L1TriggerExt/test/L1ConfigWriteIOVDummyExt_cfg.py runNumber=284079 tscKey='1' useO2OTags=1
 ```
 
 Check the content now:
 
 ```
-$ cmsRun $CMSSW\_RELEASE\_BASE/src/L1TriggerConfig/Utilities/test/viewECpar.py db=sqlite:l1config.db run=284460
+$ cmsRun $CMSSW_RELEASE_BASE/src/L1TriggerConfig/Utilities/test/viewECpar.py db=sqlite:l1config.db run=284460
 ```
 
 Also have a look at [README.md](https://github.com/cms-sw/cmssw/tree/master/L1TriggerConfig/Utilities/test) for set of
