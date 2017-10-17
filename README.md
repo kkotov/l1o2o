@@ -110,7 +110,7 @@ $ cmsRun ${CMSSW_RELEASE_BASE}/src/CondTools/L1TriggerExt/test/L1ConfigWriteSing
 
 lxplus (assuming you have the .cms\_cond token locally):
 ```
-$ env TNS_ADMIN=/cvmfs/cms.cern.ch/slc6_amd64_gcc493/cms/oracle-env/29/etc cmsRun ${CMSSW_BASE}/src/CondTools/L1TriggerExt/test/L1ConfigWriteSinglePayloadExt_cfg.py objectKey="7" objectType=L1TMuonEndCapForest recordName=L1TMuonEndCapForestO2ORcd useO2OTags=1 protoDBConnect=oracle://cms_orcon_adg/CMS_CONDITIONS protoDBAuth=. outputDBConnect=sqlite:l1config.db
+$ env TNS_ADMIN=/cvmfs/cms.cern.ch/slc6_amd64_gcc493/cms/oracle-env/29/etc cmsRun ${CMSSW_RELEASE_BASE}/src/CondTools/L1TriggerExt/test/L1ConfigWriteSinglePayloadExt_cfg.py objectKey="7" objectType=L1TMuonEndCapForest recordName=L1TMuonEndCapForestO2ORcd useO2OTags=1 protoDBConnect=oracle://cms_orcon_adg/CMS_CONDITIONS protoDBAuth=. outputDBConnect=sqlite:l1config.db
 ```
 p5:
 ```
