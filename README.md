@@ -100,21 +100,29 @@ Step-by-step examples for EMTF parameters are given in the end of this README fi
 $ cmsRun ${CMSSW_RELEASE_BASE}/src/CondTools/L1TriggerExt/test/init_cfg.py useO2OTags=1 outputDBConnect=sqlite:./l1config.db
 ```
 
-2. Create static payloads for OMTF and EMTF indexed with "OMTF ALGO EMPTY" and "7" object keys
+2. Create a static payload for OMTF indexed with "OMTF\_ALGO\_EMPTY" object key
 
 ```
-$ cmsRun ${CMSSW_RELEASE_BASE}/src/CondTools/L1TriggerExt/test/L1ConfigWriteSinglePayloadExt_cfg.py objectKey="OMTF_ALGO_EMPTY" objectType=L1TMuonOverlapParams recordName=L1TMuonOverlapParamsO2ORcd useO2OTags=1 outputDBConnect=sqlite:l1config.db
-
-$ cmsRun ${CMSSW_RELEASE_BASE}/src/CondTools/L1TriggerExt/test/L1ConfigWriteSinglePayloadExt_cfg.py objectKey="7" objectType=L1TMuonEndCapForest recordName=L1TMuonEndcapForestO2ORcd useO2OTags=1 outputDBConnect=sqlite:l1config.db
+$ cmsRun ${CMSSW_RELEASE_BASE}/src/CondTools/L1TriggerExt/test/L1ConfigWriteSinglePayloadExt_cfg.py objectKey="OMTF_ALGO_EMPTY" objectType=L1TMuonOverlapParams recordName=L1TMuonOverlapParamsO2ORcd useO2OTags=1 protoDBConnect=oracle://cms_orcon_adg/CMS_CONDITIONS outputDBConnect=sqlite:l1config.db
 ```
 
-3. Launch L1T O2O for specific TSC and RS keys (make sure you've edited DB environment inside the script)
+3. Create a static payload for EMTF indexed with "7" object key
+lxplus (assuming you have the .cms\_cond token locally):
+```
+$ env TNS_ADMIN=/cvmfs/cms.cern.ch/slc6_amd64_gcc493/cms/oracle-env/29/etc cmsRun ${CMSSW_BASE}/src/CondTools/L1TriggerExt/test/L1ConfigWriteSinglePayloadExt_cfg.py objectKey="7" objectType=L1TMuonEndCapForest recordName=L1TMuonEndCapForestO2ORcd useO2OTags=1 protoDBConnect=oracle://cms_orcon_adg/CMS_CONDITIONS protoDBAuth=. outputDBConnect=sqlite:l1config.db
+```
+p5:
+```
+$ env TNS_ADMIN=/opt/offline/slc6_amd64_gcc493/cms/oracle-env/29/etc/ cmsRun ${CMSSW_RELEASE_BASE}/src/CondTools/L1TriggerExt/test/L1ConfigWriteSinglePayloadExt_cfg.py objectKey="7" objectType=L1TMuonEndCapForest recordName=L1TMuonEndCapForestO2ORcd useO2OTags=1 protoDBAuth=/data/O2O/L1T/ outputDBConnect=sqlite:l1config.db 
+```
+
+4. Launch L1T O2O for specific TSC and RS keys (make sure you've edited DB environment inside the script)
 
 ```
 $ ./runL1-O2O-iov.sh 296485 l1_trg_collisions2017/v33 l1_trg_rs_collisions2017/v31
 ```
 
-4. Low-level look into the resulting sqlite
+5. Low-level look into the resulting sqlite
 
 ```
 $ sqlite3 l1config.db
@@ -126,7 +134,7 @@ select * from IOV ;
 select * from PAYLOAD ;
 ```
 
-5. Creating a prototype payload for CaloL2
+6. Creating a prototype payload for CaloL2
 
 ```
 $ tar -xzf ~kkotov/public/caloproto.tgz
@@ -147,7 +155,7 @@ $ cmsRun uploadCaloParams.py
 $ uploadConditions.py l1config.db
 ```
 
-6. Reconstruction a history of the EMTF parameters
+7. Reconstruction a history of the EMTF parameters
 
 ```
 $ cmsRun ${CMSSW_RELEASE_BASE}/src/CondTools/L1TriggerExt/test/init_cfg.py useO2OTags=1 outputDBConnect=sqlite:./l1config.db
