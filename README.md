@@ -103,7 +103,7 @@ $ cmsRun ${CMSSW_RELEASE_BASE}/src/CondTools/L1TriggerExt/test/init_cfg.py useO2
 2. Create a static payload for OMTF indexed with "OMTF\_ALGO\_EMPTY" object key
 
 ```
-$ cmsRun ${CMSSW_RELEASE_BASE}/src/CondTools/L1TriggerExt/test/L1ConfigWriteSinglePayloadExt_cfg.py objectKey="OMTF_ALGO_EMPTY" objectType=L1TMuonOverlapParams recordName=L1TMuonOverlapParamsO2ORcd useO2OTags=1 protoDBConnect=oracle://cms_orcon_adg/CMS_CONDITIONS outputDBConnect=sqlite:l1config.db
+$ cmsRun ${CMSSW_RELEASE_BASE}/src/CondTools/L1TriggerExt/test/L1ConfigWriteSinglePayloadExt_cfg.py objectKey="OMTF_ALGO_EMPTY" objectType=L1TMuonOverlapParams recordName=L1TMuonOverlapParamsO2ORcd useO2OTags=1 outputDBConnect=sqlite:l1config.db
 ```
 
 3. Create a static payload for EMTF indexed with "7" object key
