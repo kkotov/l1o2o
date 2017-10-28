@@ -11,6 +11,7 @@ shinyUI(navbarPage("EMTF Link Alignment",
       mainPanel(
         tabsetPanel(
           tabPanel("EMTF-1", showOutput("emtf_me1a_n1", "dimple"), value=4),
+          tabPanel("EMTF-2", showOutput("emtf_me1a_n2", "dimple"), value=4),
           id="conditionedPanels"
         )
       )
@@ -26,6 +27,7 @@ shinyUI(navbarPage("EMTF Link Alignment",
       mainPanel(
         tabsetPanel(
           tabPanel("EMTF-1", showOutput("emtf_me1b_n1", "dimple"), value=4),
+          tabPanel("EMTF-2", showOutput("emtf_me1b_n2", "dimple"), value=4),
           id="conditionedPanels"
         )
       )
@@ -41,6 +43,7 @@ shinyUI(navbarPage("EMTF Link Alignment",
       mainPanel(
         tabsetPanel(
           tabPanel("EMTF-1", showOutput("emtf_me2_n1", "dimple"), value=4),
+          tabPanel("EMTF-2", showOutput("emtf_me2_n2", "dimple"), value=4),
           id="conditionedPanels"
         )
       )
@@ -56,6 +59,7 @@ shinyUI(navbarPage("EMTF Link Alignment",
       mainPanel(
         tabsetPanel(
           tabPanel("EMTF-1", showOutput("emtf_me3_n1", "dimple"), value=4),
+          tabPanel("EMTF-2", showOutput("emtf_me3_n2", "dimple"), value=4),
           id="conditionedPanels"
         )
       )
@@ -71,6 +75,7 @@ shinyUI(navbarPage("EMTF Link Alignment",
       mainPanel(
         tabsetPanel(
           tabPanel("EMTF-1", showOutput("emtf_me4_n1", "dimple"), value=4),
+          tabPanel("EMTF-2", showOutput("emtf_me4_n2", "dimple"), value=4),
           id="conditionedPanels"
         )
       )
@@ -86,6 +91,7 @@ shinyUI(navbarPage("EMTF Link Alignment",
       mainPanel(
         tabsetPanel(
           tabPanel("EMTF-1", showOutput("emtf_men_n1", "dimple"), value=4),
+          tabPanel("EMTF-2", showOutput("emtf_men_n2", "dimple"), value=4),
           id="conditionedPanels"
         )
       )
@@ -101,6 +107,7 @@ shinyUI(navbarPage("EMTF Link Alignment",
       mainPanel(
         tabsetPanel(
           tabPanel("EMTF-1", showOutput("emtf_all_n1", "dimple"), value=4),
+          tabPanel("EMTF-2", showOutput("emtf_all_n2", "dimple"), value=4),
           id="conditionedPanels"
         )
       )
