@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>L1T O2O status</title>
+  <meta charset="utf-8">
+  <meta name="description" content="L1T O2O status">
+  <meta name="author" content="Khristian Kotov">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../../../../monohiggs/plots/libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../../../monohiggs/plots/libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../../../../monohiggs/plots/libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../../../monohiggs/plots/libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="../../../../monohiggs/plots/libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="../../../../monohiggs/plots/libraries/frameworks/io2012/js/slides" 
+    src="../../../../monohiggs/plots/libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>L1T O2O status</h1>
+    <h2></h2>
+    <p>Khristian Kotov<br/></p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>L1T O2O tags in Run II</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Following O2O tags need to be added to the data Global Tags for DQM:</p>
+
+<div style='float:left;width:48%;' class='centered'>
+  <table><thead>
+<tr>
+<th>System</th>
+<th>Payload[Tag Suffix]</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>uGT</td>
+<td><span style="font-family:helvetica;color:green">L1TUtmTriggerMenu[<span style="font-weight:bold">_Stage2v0_hlt</span>]</span></td>
+</tr>
+<tr>
+<td>uGT RS</td>
+<td><span style="font-family:helvetica;color:green">L1TGlobalPrescalesVetos[<span style="font-weight:bold">_Stage2v0_hlt</span>]</span></td>
+</tr>
+<tr>
+<td>CALOL{1,2}</td>
+<td><span style="font-family:helvetica;color:green">L1TCaloParams[<span style="font-weight:bold">_Stage2v<span style="color:red">1</span>_hlt</span>]</span></td>
+</tr>
+<tr>
+<td>uGMT</td>
+<td><span style="font-family:helvetica;color:green">L1TMuonGlobalParams[<span style="font-weight:bold">_Stage2v0_hlt</span>]</span></td>
+</tr>
+</tbody></table>
+
+</div>
+<div style='float:right;width:48%;'>
+  <table><thead>
+<tr>
+<th>System</th>
+<th>Payload[Tag Suffix]</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>BMTF</td>
+<td><span style="font-family:helvetica;color:green">L1TMuonBarrelParams[<span style="font-weight:bold">_Stage2v0_hlt</span>]</span></td>
+</tr>
+<tr>
+<td>OMTF</td>
+<td><span style="font-family:helvetica;color:green">L1TMuonOverlapParams[<span style="font-weight:bold">_Stage2v0_hlt</span>]</span></td>
+</tr>
+<tr>
+<td>EMTF</td>
+<td><span style="font-family:helvetica;color:green">L1TMuonEndCapParams[<span style="font-weight:bold">_Stage2v0_hlt</span>]</span></td>
+</tr>
+<tr>
+<td>O2O</td>
+<td><span style="font-family:helvetica;color:blue">L1TriggerKey(List)[<span style="font-weight:bold">_Stage2v0_hlt</span>]</span></td>
+</tr>
+</tbody></table>
+
+</div>
+<div>
+  <p>New&nbsp;<span style="font-family:helvetica;color:green">L1TMuonEndCapForests[<span style="font-weight:bold">_Stage2v0_hlt</span>]</span> will be used with new EMTF emulator (in progress)</p>
+
+<ul>
+<li><p>History for these tags was reconstructed starting ~June 2016 (e.g. <a href="http://kkotov.github.io/l1o2o/talks/2017.03.20">last report</a> for CaloParams)</p></li>
+<li><p>Validation (data-emulator comparison) was ran on a Heavy Ion run (<a href="https://its.cern.ch/jira/browse/CMSLITDPG-3">muons</a>, <a href="https://its.cern.ch/jira/browse/CMSLITDPG-4">calo</a>)</p></li>
+<li><p>Future Monte Carlo tags will be generated from these O2O tags and used in MC campaigns</p></li>
+</ul>
+
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Validation plots for muon tags</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>uGMT, BMTF, OMTF, and <span style="color:gray">EMTF</span> payloads demonstrate perfect agreement in run #285832:</p>
+
+<div style='float:left;width:48%;' class='centered'>
+  <p><img class=center src="comp_data_muon.eta.png" height=220 width=300></p>
+
+<p><img class=center src="comp_data_muon.phi.png" height=220 width=300></p>
+
+</div>
+<div style='float:right;width:48%;'>
+  <p><img class=center src="comp_data_muon.n.png" height=220 width=300></p>
+
+<p><img class=center src="comp_data_muon.pt_xMax100.png" height=220 width=300></p>
+
+</div>
+<div>
+  
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Validation plots for CaloParams tag</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>CaloL{1,2} payload demonstrate perfect agreement in run #285832:</p>
+
+<div style='float:left;width:48%;' class='centered'>
+  <p><img class=center src="JetEt.png" height=220 width=300></p>
+
+<p><img class=center src="TauEt.png" height=220 width=300></p>
+
+</div>
+<div style='float:right;width:48%;'>
+  <p><img class=center src="EgEt.png" height=220 width=300></p>
+
+<p><img class=center src="MPSumEt.png" height=220 width=300></p>
+
+</div>
+<div>
+  
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Summary</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>We close the chapter on L1T configuration in 2016; TSG is welcome to use tags within a data GTs</p>
+
+<p>DQM needs a data GT for the real-time trigger validation with L1T emulators</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='L1T O2O tags in Run II'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Validation plots for muon tags'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Validation plots for CaloParams tag'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Summary'>
+         4
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script> -->
+  <script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../../../monohiggs/plots/libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="../../../../monohiggs/plots/libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>

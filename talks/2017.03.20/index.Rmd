@@ -1,0 +1,177 @@
+---
+title       : "L1T O2O status"
+subtitle    : 
+author      : Khristian Kotov
+job         : 
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow      # 
+github:
+  user: kkotov 
+  repo: talks
+url:
+  lib:    ../../../../monohiggs/plots/libraries
+  assets: ../../../../monohiggs/plots/assets
+widgets     : [mathjax]     # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+
+--- .class #id
+
+## Reconstructing CaloParams of 2016
+
+As mentioned in [last report](http://kkotov.github.io/l1o2o/talks/2017.03.01/#7) CaloParams was the only configuration to be prepared for CondDB 
+
+Thanks to Aaron, we now have a history of prototype payload evolution:
+
+"...
+v_3_3_1 valid from run number 281010 (start of period H).
+This was also when the eta_compress LUT changed.
+
+For v_2_2, there wasn’t actually a valid caloParams before this, so I
+think we can basically use this for the rest of 2016 before Period H.
+...
+"
+
+This results in three periods with different configurations (including Heavy Ion run):
+
+* [274553 - 281003] - caloStage2Params_2016_v2_2
+* [281783 - 281791] - caloStage2Params_2016_v3_3_1
+* [282413 - 288080] - caloStage2Params_2016_v3_3_1_HI
+
+--- .class #id
+
+## Additional comments
+
+* The run numbers in the ranges above are what O2O gets from FM. Those
+  are not real data runs that you can access in WBM. But the real runs
+  fall in these ranges.
+
+* First run https://cmswbm.cern.ch/cmsdb/servlet/RunSummary?RUN=274569
+  accounted for by O2O was taken in the beginning of June. Online DB
+  for calo is mostly empty prior to that time. In the CondDB I
+  reset 274553 -> 1 to comply with requirement for GT integration.
+
+* First HI configuration must have been used sometimes in October, so I
+   switched prototype from 3_3_1 to 3_3_1_HI during one of the MD4 runs:
+ https://espace.cern.ch/be-dep/BEDepartmentalDocuments/BE/LHC_Schedule_2016.pdf
+
+* There is a rather short period of time when we used 3_3_1, but this is the way it is.
+
+* I've subtracted 1 from the last element of etSumEtaMax in HI period so
+as to have etSumEtaMax = [28,28,28,28,27] similarly to what we set in offline.
+
+--- .class #id
+
+
+## 
+
+<br><br><br>
+
+\[ \Large Backup \]
+
+--- .class #id
+
+## List of runs where CALO keys changed
+
+grep 'finished :' ../v8/o2o-summary  | awk '{print \\$11" "\\$12" "\\$13}' | less > runs
+
+grep 'finished :' ../v8.1/o2o-summary  | awk '{print \\$11" "\\$12" "\\$13}' | less >> runs
+
+grep 'finished :' ../v9.0/o2o-summary  | awk '{print \\$11" "\\$12" "\\$13}' | less >> runs
+
+grep 'runL1-O2O-iov.sh' ../v9.1/o2o-summary  | awk '{print \\$13" "\\$14" "\\$15}' >> runs
+
+grep 'runL1-O2O-iov.sh' ../v9.1/o2o-summary  | awk '{print \\$11" "\\$12" "\\$13}' >> runs
+
+\# manually remove duplicates in results of the last two commands
+
+while read line ; do tsc=`echo $line | awk '{print $2}'`; calol12=`echo "select CALOL1_KEY, CALOL2_KEY from CMS_TRG_L1_CONF.L1_TRG_CONF_KEYS where ID='$tsc';" | sqlplus -S cms_trg_r/password@cms_omds_lb | tail -4 | head -2 | tr '\n' ' '` ; echo \\$line \\$calol12 ; done < runs > runs2
+
+cat runs2 | awk 'BEGIN{k4="";k5=""} {if(k4!=\\$4 || k5!=\\$5) print \\$0; k4=\\$4; k5=\\$5}' > runs3
+
+--- .class #id
+
+## Setting up integration branch
+
+scramv1 p -n CMSSW_9_0_0_pre2 CMSSW CMSSW_9_0_0_pre2 
+
+cd CMSSW_9_0_0_pre2/src/ 
+
+cmsenv 
+
+git cms-init 
+
+git remote add cms-l1t-offline git@github.com:cms-l1t-offline/cmssw.git 
+
+git fetch cms-l1t-offline 
+
+git checkout -b l1t-integration-CMSSW_9_0_0_pre2 
+
+git cms-merge-topic -u cms-l1t-offline:l1t-integration-v91.12 
+
+git cms-addpkg L1Trigger/L1TCommon
+
+git cms-addpkg L1Trigger/L1TMuonBarrel
+
+--- .class #id
+
+## Manually merging recent O2O developments
+
+cd /cvmfs/cms.cern.ch/slc6_amd64_gcc530/cms/cmssw/CMSSW_9_0_0_pre6/src/
+
+<span style="font-size:smaller">
+cp -r --parents CondTools/L1TriggerExt L1Trigger/L1TCommon L1TriggerConfig/L1TConfigProducers $CMSSW_BASE/src
+</span>
+
+<span style="font-size:smaller">
+cp --parents L1Trigger/L1TMuon/plugins/L1TMuonGlobalParamsESProducer.cc $CMSSW_BASE/src
+</span>
+
+<span style="font-size:smaller">
+cp --parents L1Trigger/L1TMuon/src/L1TMuonGlobalParamsHelper.cc $CMSSW_BASE/src
+</span>
+
+<span style="font-size:smaller">
+cp --parents L1Trigger/L1TMuon/interface/L1TMuonGlobalParamsHelper.h $CMSSW_BASE/src
+</span>
+
+<span style="font-size:smaller">
+cp --parents L1Trigger/L1TMuonBarrel/plugins/L1TMuonBarrelParamsESProducer.cc $CMSSW_BASE/src
+</span>
+
+<span style="font-size:smaller">
+cp --parents L1Trigger/L1TMuonBarrel/interface/L1TMuonBarrelParamsHelper.h $CMSSW_BASE/src
+</span>
+
+<span style="font-size:smaller">
+cp --parents L1Trigger/L1TMuonBarrel/src/L1TMuonBarrelParamsHelper.cc $CMSSW_BASE/src
+</span>
+
+<span style="font-size:smaller">
+cp --parents L1Trigger/L1TMuonEndCap/interface/EndCapParamsHelper.h $CMSSW_BASE/src
+</span>
+
+<span style="font-size:smaller">
+cp --parents L1Trigger/L1TMuonEndCap/src/EndCapParamsHelper.cc $CMSSW_BASE/src
+</span>
+
+--- .class #id
+
+## Replaying the L1T O2O
+
+Split runs3 into periods of "v22" (runs_22), "v331" (runs_331), and "v331hi" (runs_331hi)
+
+\# add "v22" in L1TriggerConfig/L1TConfigProducers/python/L1TCaloParamsOnline_cfi.py
+
+while read line ; do keys=`echo $line | awk '{print $1" "$2" "$3}'` ; ./runL1-O2O-iov.sh -k uGT,uGTrs,uGMT,CALO,BMTF,OMTF $keys ; done < runs_22 > out 2>&1
+
+\# add "v331" in L1TriggerConfig/L1TConfigProducers/python/L1TCaloParamsOnline_cfi.py
+
+while read line ; do keys=`echo $line | awk '{print $1" "$2" "$3}'` ; ./runL1-O2O-iov.sh -k uGT,uGTrs,uGMT,CALO,BMTF,OMTF $keys ; done < runs_331 > out_331 2>&
+
+\# add "v331hi" in L1TriggerConfig/L1TConfigProducers/python/L1TCaloParamsOnline_cfi.py
+
+while read line ; do keys=`echo $line | awk '{print $1" "$2" "$3}'` ; ./runL1-O2O-iov.sh -k uGT,uGTrs,uGMT,CALO,BMTF,OMTF $keys ; done < runs_331hi > out_331hi 2>&1
+
+Don't forget "scram b" to compile pyc before every batch
+
