@@ -1,0 +1,53 @@
+---
+title       : "Link Alignments"
+subtitle    : 
+author      : Khristian Kotov
+job         : 
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow      # 
+github:
+  user: kkotov 
+  repo: talks
+url:
+  lib:    ../../../../monohiggs/plots/libraries
+  assets: ../../../../monohiggs/plots/assets
+widgets     : [mathjax]     # {mathjax, quiz, bootstrap}
+ext_widgets : {rCharts: [libraries/nvd3, libraries/polycharts]}
+mode        : selfcontained # {standalone, draft}
+knit        : slidify::knit2slides
+
+--- .class #id
+
+## EMTF-1 / ME1a
+
+<div align="center">
+```{r nvd3plot, results = 'asis', comment = NA, message = F, echo = F, fig.align='center'}
+
+combinations <- data.frame( width=seq(1,32,1), found=c(
+2, 4, 6, 8, 10, 12, 13.99, 15.89, 17.36, 18.24, 18.71, 18.97,
+19.13, 19.25, 19.36, 19.46, 19.55, 19.63, 19.72, 19.79, 19.87, 19.94,
+20.01, 20.07, 20.14, 20.20, 20.26, 20.32, 20.38, 20.43, 20.48, 20.50) )
+
+require(rCharts)
+
+p1 <- rPlot(found ~ width, data = combinations, type = 'point')
+p1$set(width  = 850)
+p1$set(height = 350)
+p1$set(title = "log2(# of unique patterns)")
+p1$guides(
+  x = list(
+    min = 0.5,
+    max = 32.5,
+    numticks = length( combinations$width ),
+#    labels = combinations$width,
+    title = "pattern length (symbols)"
+  ),
+  y = list(
+    min = 0,
+    max = 22
+  )
+)
+p1$show('inline')
+```
+</div>
