@@ -1,4 +1,4 @@
-library(rCharts)
+require(rCharts)
 
 shinyUI(navbarPage("EMTF Link Alignment",
 

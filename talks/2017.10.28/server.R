@@ -1,6 +1,7 @@
-library(dygraphs)
-library(rCharts)
-library(reshape2)
+require(dygraphs)
+require(rCharts)
+require(reshape2)
+require(rjson)
 
 links1a = c("me1a_02", "me1a_03", "me1a_04", "me1a_05", "me1a_06", "me1a_07", "me1a_08", "me1a_09")
 links1b = c("me1b_02", "me1b_03", "me1b_04", "me1b_05", "me1b_06", "me1b_07", "me1b_08", "me1b_09")
