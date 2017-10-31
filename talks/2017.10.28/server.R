@@ -47,7 +47,7 @@ shinyServer(
     output$emtf_me2_n1  <- renderChart({ makeChart("emtf_me2_n1",  input$show_me2_links,  "EMTF-1", input$me2_rl) })
     output$emtf_me3_n1  <- renderChart({ makeChart("emtf_me3_n1",  input$show_me3_links,  "EMTF-1", input$me3_rl) })
     output$emtf_me4_n1  <- renderChart({ makeChart("emtf_me4_n1",  input$show_me4_links,  "EMTF-1", input$me4_rl) })
-    output$emtf_men_n1  <- renderChart({ makeChart("emtf_men_n1",  input$show_me4_links,  "EMTF-1", input$men_rl) })
+    output$emtf_men_n1  <- renderChart({ makeChart("emtf_men_n1",  input$show_men_links,  "EMTF-1", input$men_rl) })
     output$emtf_all_n1  <- renderChart({ makeChart("emtf_all_n1",  input$show_all_links,  "EMTF-1", input$all_rl) })
 
     output$emtf_me1a_n2 <- renderChart({ makeChart("emtf_me1a_n2", input$show_me1a_links, "EMTF-2", input$me1a_rl) })
@@ -55,7 +55,7 @@ shinyServer(
     output$emtf_me2_n2  <- renderChart({ makeChart("emtf_me2_n2",  input$show_me2_links,  "EMTF-2", input$me2_rl) })
     output$emtf_me3_n2  <- renderChart({ makeChart("emtf_me3_n2",  input$show_me3_links,  "EMTF-2", input$me3_rl) })
     output$emtf_me4_n2  <- renderChart({ makeChart("emtf_me4_n2",  input$show_me4_links,  "EMTF-2", input$me4_rl) })
-    output$emtf_men_n2  <- renderChart({ makeChart("emtf_men_n2",  input$show_me4_links,  "EMTF-2", input$men_rl) })
+    output$emtf_men_n2  <- renderChart({ makeChart("emtf_men_n2",  input$show_men_links,  "EMTF-2", input$men_rl) })
     output$emtf_all_n2  <- renderChart({ makeChart("emtf_all_n2",  input$show_all_links,  "EMTF-2", input$all_rl) })
 
     output$emtf_me1a_n3 <- renderChart({ makeChart("emtf_me1a_n3", input$show_me1a_links, "EMTF-3", input$me1a_rl) })
@@ -63,7 +63,7 @@ shinyServer(
     output$emtf_me2_n3  <- renderChart({ makeChart("emtf_me2_n3",  input$show_me2_links,  "EMTF-3", input$me2_rl) })
     output$emtf_me3_n3  <- renderChart({ makeChart("emtf_me3_n3",  input$show_me3_links,  "EMTF-3", input$me3_rl) })
     output$emtf_me4_n3  <- renderChart({ makeChart("emtf_me4_n3",  input$show_me4_links,  "EMTF-3", input$me4_rl) })
-    output$emtf_men_n3  <- renderChart({ makeChart("emtf_men_n3",  input$show_me4_links,  "EMTF-3", input$men_rl) })
+    output$emtf_men_n3  <- renderChart({ makeChart("emtf_men_n3",  input$show_men_links,  "EMTF-3", input$men_rl) })
     output$emtf_all_n3  <- renderChart({ makeChart("emtf_all_n3",  input$show_all_links,  "EMTF-3", input$all_rl) })
 
     output$emtf_me1a_n4 <- renderChart({ makeChart("emtf_me1a_n4", input$show_me1a_links, "EMTF-4", input$me1a_rl) })
@@ -71,7 +71,7 @@ shinyServer(
     output$emtf_me2_n4  <- renderChart({ makeChart("emtf_me2_n4",  input$show_me2_links,  "EMTF-4", input$me2_rl) })
     output$emtf_me3_n4  <- renderChart({ makeChart("emtf_me3_n4",  input$show_me3_links,  "EMTF-4", input$me3_rl) })
     output$emtf_me4_n4  <- renderChart({ makeChart("emtf_me4_n4",  input$show_me4_links,  "EMTF-4", input$me4_rl) })
-    output$emtf_men_n4  <- renderChart({ makeChart("emtf_men_n4",  input$show_me4_links,  "EMTF-4", input$men_rl) })
+    output$emtf_men_n4  <- renderChart({ makeChart("emtf_men_n4",  input$show_men_links,  "EMTF-4", input$men_rl) })
     output$emtf_all_n4  <- renderChart({ makeChart("emtf_all_n4",  input$show_all_links,  "EMTF-4", input$all_rl) })
 
     output$emtf_me1a_n5 <- renderChart({ makeChart("emtf_me1a_n5", input$show_me1a_links, "EMTF-5", input$me1a_rl) })
@@ -79,7 +79,7 @@ shinyServer(
     output$emtf_me2_n5  <- renderChart({ makeChart("emtf_me2_n5",  input$show_me2_links,  "EMTF-5", input$me2_rl) })
     output$emtf_me3_n5  <- renderChart({ makeChart("emtf_me3_n5",  input$show_me3_links,  "EMTF-5", input$me3_rl) })
     output$emtf_me4_n5  <- renderChart({ makeChart("emtf_me4_n5",  input$show_me4_links,  "EMTF-5", input$me4_rl) })
-    output$emtf_men_n5  <- renderChart({ makeChart("emtf_men_n5",  input$show_me4_links,  "EMTF-5", input$men_rl) })
+    output$emtf_men_n5  <- renderChart({ makeChart("emtf_men_n5",  input$show_men_links,  "EMTF-5", input$men_rl) })
     output$emtf_all_n5  <- renderChart({ makeChart("emtf_all_n5",  input$show_all_links,  "EMTF-5", input$all_rl) })
 
     output$emtf_me1a_n6 <- renderChart({ makeChart("emtf_me1a_n6", input$show_me1a_links, "EMTF-6", input$me1a_rl) })
@@ -87,7 +87,7 @@ shinyServer(
     output$emtf_me2_n6  <- renderChart({ makeChart("emtf_me2_n6",  input$show_me2_links,  "EMTF-6", input$me2_rl) })
     output$emtf_me3_n6  <- renderChart({ makeChart("emtf_me3_n6",  input$show_me3_links,  "EMTF-6", input$me3_rl) })
     output$emtf_me4_n6  <- renderChart({ makeChart("emtf_me4_n6",  input$show_me4_links,  "EMTF-6", input$me4_rl) })
-    output$emtf_men_n6  <- renderChart({ makeChart("emtf_men_n6",  input$show_me4_links,  "EMTF-6", input$men_rl) })
+    output$emtf_men_n6  <- renderChart({ makeChart("emtf_men_n6",  input$show_men_links,  "EMTF-6", input$men_rl) })
     output$emtf_all_n6  <- renderChart({ makeChart("emtf_all_n6",  input$show_all_links,  "EMTF-6", input$all_rl) })
 
     output$emtf_me1a_p1 <- renderChart({ makeChart("emtf_me1a_p1", input$show_me1a_links, "EMTF+1", input$me1a_rl) })
@@ -95,7 +95,7 @@ shinyServer(
     output$emtf_me2_p1  <- renderChart({ makeChart("emtf_me2_p1",  input$show_me2_links,  "EMTF+1", input$me2_rl) })
     output$emtf_me3_p1  <- renderChart({ makeChart("emtf_me3_p1",  input$show_me3_links,  "EMTF+1", input$me3_rl) })
     output$emtf_me4_p1  <- renderChart({ makeChart("emtf_me4_p1",  input$show_me4_links,  "EMTF+1", input$me4_rl) })
-    output$emtf_men_p1  <- renderChart({ makeChart("emtf_men_p1",  input$show_me4_links,  "EMTF+1", input$men_rl) })
+    output$emtf_men_p1  <- renderChart({ makeChart("emtf_men_p1",  input$show_men_links,  "EMTF+1", input$men_rl) })
     output$emtf_all_p1  <- renderChart({ makeChart("emtf_all_p1",  input$show_all_links,  "EMTF+1", input$all_rl) })
 
     output$emtf_me1a_p2 <- renderChart({ makeChart("emtf_me1a_p2", input$show_me1a_links, "EMTF+2", input$me1a_rl) })
@@ -103,7 +103,7 @@ shinyServer(
     output$emtf_me2_p2  <- renderChart({ makeChart("emtf_me2_p2",  input$show_me2_links,  "EMTF+2", input$me2_rl) })
     output$emtf_me3_p2  <- renderChart({ makeChart("emtf_me3_p2",  input$show_me3_links,  "EMTF+2", input$me3_rl) })
     output$emtf_me4_p2  <- renderChart({ makeChart("emtf_me4_p2",  input$show_me4_links,  "EMTF+2", input$me4_rl) })
-    output$emtf_men_p2  <- renderChart({ makeChart("emtf_men_p2",  input$show_me4_links,  "EMTF+2", input$men_rl) })
+    output$emtf_men_p2  <- renderChart({ makeChart("emtf_men_p2",  input$show_men_links,  "EMTF+2", input$men_rl) })
     output$emtf_all_p2  <- renderChart({ makeChart("emtf_all_p2",  input$show_all_links,  "EMTF+2", input$all_rl) })
 
     output$emtf_me1a_p3 <- renderChart({ makeChart("emtf_me1a_p3", input$show_me1a_links, "EMTF+3", input$me1a_rl) })
@@ -111,7 +111,7 @@ shinyServer(
     output$emtf_me2_p3  <- renderChart({ makeChart("emtf_me2_p3",  input$show_me2_links,  "EMTF+3", input$me2_rl) })
     output$emtf_me3_p3  <- renderChart({ makeChart("emtf_me3_p3",  input$show_me3_links,  "EMTF+3", input$me3_rl) })
     output$emtf_me4_p3  <- renderChart({ makeChart("emtf_me4_p3",  input$show_me4_links,  "EMTF+3", input$me4_rl) })
-    output$emtf_men_p3  <- renderChart({ makeChart("emtf_men_p3",  input$show_me4_links,  "EMTF+3", input$men_rl) })
+    output$emtf_men_p3  <- renderChart({ makeChart("emtf_men_p3",  input$show_men_links,  "EMTF+3", input$men_rl) })
     output$emtf_all_p3  <- renderChart({ makeChart("emtf_all_p3",  input$show_all_links,  "EMTF+3", input$all_rl) })
 
     output$emtf_me1a_p4 <- renderChart({ makeChart("emtf_me1a_p4", input$show_me1a_links, "EMTF+4", input$me1a_rl) })
@@ -119,7 +119,7 @@ shinyServer(
     output$emtf_me2_p4  <- renderChart({ makeChart("emtf_me2_p4",  input$show_me2_links,  "EMTF+4", input$me2_rl) })
     output$emtf_me3_p4  <- renderChart({ makeChart("emtf_me3_p4",  input$show_me3_links,  "EMTF+4", input$me3_rl) })
     output$emtf_me4_p4  <- renderChart({ makeChart("emtf_me4_p4",  input$show_me4_links,  "EMTF+4", input$me4_rl) })
-    output$emtf_men_p4  <- renderChart({ makeChart("emtf_men_p4",  input$show_me4_links,  "EMTF+4", input$men_rl) })
+    output$emtf_men_p4  <- renderChart({ makeChart("emtf_men_p4",  input$show_men_links,  "EMTF+4", input$men_rl) })
     output$emtf_all_p4  <- renderChart({ makeChart("emtf_all_p4",  input$show_all_links,  "EMTF+4", input$all_rl) })
 
     output$emtf_me1a_p5 <- renderChart({ makeChart("emtf_me1a_p5", input$show_me1a_links, "EMTF+5", input$me1a_rl) })
@@ -127,7 +127,7 @@ shinyServer(
     output$emtf_me2_p5  <- renderChart({ makeChart("emtf_me2_p5",  input$show_me2_links,  "EMTF+5", input$me2_rl) })
     output$emtf_me3_p5  <- renderChart({ makeChart("emtf_me3_p5",  input$show_me3_links,  "EMTF+5", input$me3_rl) })
     output$emtf_me4_p5  <- renderChart({ makeChart("emtf_me4_p5",  input$show_me4_links,  "EMTF+5", input$me4_rl) })
-    output$emtf_men_p5  <- renderChart({ makeChart("emtf_men_p5",  input$show_me4_links,  "EMTF+5", input$men_rl) })
+    output$emtf_men_p5  <- renderChart({ makeChart("emtf_men_p5",  input$show_men_links,  "EMTF+5", input$men_rl) })
     output$emtf_all_p5  <- renderChart({ makeChart("emtf_all_p5",  input$show_all_links,  "EMTF+5", input$all_rl) })
 
     output$emtf_me1a_p6 <- renderChart({ makeChart("emtf_me1a_p6", input$show_me1a_links, "EMTF+6", input$me1a_rl) })
@@ -135,7 +135,7 @@ shinyServer(
     output$emtf_me2_p6  <- renderChart({ makeChart("emtf_me2_p6",  input$show_me2_links,  "EMTF+6", input$me2_rl) })
     output$emtf_me3_p6  <- renderChart({ makeChart("emtf_me3_p6",  input$show_me3_links,  "EMTF+6", input$me3_rl) })
     output$emtf_me4_p6  <- renderChart({ makeChart("emtf_me4_p6",  input$show_me4_links,  "EMTF+6", input$me4_rl) })
-    output$emtf_men_p6  <- renderChart({ makeChart("emtf_men_p6",  input$show_me4_links,  "EMTF+6", input$men_rl) })
+    output$emtf_men_p6  <- renderChart({ makeChart("emtf_men_p6",  input$show_men_links,  "EMTF+6", input$men_rl) })
     output$emtf_all_p6  <- renderChart({ makeChart("emtf_all_p6",  input$show_all_links,  "EMTF+6", input$all_rl) })
 
   }
