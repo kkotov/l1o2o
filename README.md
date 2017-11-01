@@ -39,29 +39,11 @@ Options
 --------------
 
 As indicated earlier, most of the scripts take just three arguments: _RUN NUMBER_, _TSC KEY_ and _RS KEY_ (in this
-order), except the _runOneByOne.sh_ that does not need the _RUN NUMBER_ parameter. The only exception from this rule
-is the _runL1-O2O-iov.sh_ script that is also used for development/debugging purposes and allows more flexibility.
-One can change the Cond DB tag suffix for a specific payload with "-t" option or limit the L1T O2O to process a
-set of specific trigger systems with "-k" option. Please, refrain from using "-x" option unless you understand what
-you do as this forward the transactions directly to the CondDB as opposed to the local sqlite.
-
-Code organization (technical, should go to the CondTools/L1TriggerExt)
---------------
-
-The L1T O2O system is partitioned into the [core framework](https://github.com/cms-sw/cmssw/blob/master/CondTools/L1TriggerExt)
-and a set of system-specific [online producers](https://github.com/cms-sw/cmssw/blob/master/L1TriggerConfig/L1TConfigProducers)
-invoked by means of [data writers](https://github.com/cms-sw/cmssw/blob/master/CondTools/L1TriggerExt/src/DataWriterExt.cc)
-from the core framework and fetching the information from the online DB. The only component of the core framework that
-explicitly queries online DB is
-[L1SubsystemKeysOnlineProdExt](https://github.com/cms-sw/cmssw/blob/master/CondTools/L1TriggerExt/plugins/L1SubsystemKeysOnlineProdExt.cc)
-generating a L1TriggerKeyExt object with TSC and RS keys for all of the systems. This object is distributed to
-system-specific ObjectKeys online producers that in turn generate system-specific L1TriggerKeyExt objects forwarded
-to the final online producers. The CondDB tag names are specified in
-[this config](https://github.com/cms-sw/cmssw/blob/master/CondTools/L1TriggerExt/python/L1SubsystemParamsExt_cfi.py).
-The core framework's design is outlined in [this talk](http://kkotov.github.io/l1o2o/talks/2016.04.19).
-
-Currently, the RS specific code is still available in the core framework, but is not used or intended to be used. So
-if you browse the code, you can ignore files containing the RS in the name.
+order), except the _runOneByOne.sh_ that does not need the _RUN NUMBER_ parameter. The _runL1-O2O-iov.sh_ script
+allows more flexibility in addition to these three standard arguments.
+One can change the CondDB tag's suffix for a specific payload with "-t" option or limit the L1T O2O to process a
+set of specific trigger systems with "-k" option. Please, refrain from using "-x" option unless you are certain
+about what you do as this forwards the transactions directly to the CondDB as opposed to the local sqlite.
 
 Prototypes and static payloads
 --------------
