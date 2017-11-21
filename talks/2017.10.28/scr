@@ -21,3 +21,7 @@ for i in `ls EMTF+4_2017*summary` ; do time=`echo $i | sed -e 's|_| |g' | awk '{
 for i in `ls EMTF+5_2017*summary` ; do time=`echo $i | sed -e 's|_| |g' | awk '{print "\""$2" "$3"\""}'` ; means=`head -1 $i | sed -e 's|\t|,|g'` ; sds=`tail -1 $i | sed -e 's|\t|,|g'`; orig=`basename $i _summary`; cnt=`wc $orig | awk '{print $1}'`; echo $time",\"EMTF+5\","$cnt","$means$sds ; done | awk '{print $0}' >> drifts.csv
 
 for i in `ls EMTF+6_2017*summary` ; do time=`echo $i | sed -e 's|_| |g' | awk '{print "\""$2" "$3"\""}'` ; means=`head -1 $i | sed -e 's|\t|,|g'` ; sds=`tail -1 $i | sed -e 's|\t|,|g'`; orig=`basename $i _summary`; cnt=`wc $orig | awk '{print $1}'`; echo $time",\"EMTF+6\","$cnt","$means$sds ; done | awk '{print $0}' >> drifts.csv
+
+cat drifts.csv | sed -e 's|,$||g' > d.csv
+
+mv d.csv drifts.csv
