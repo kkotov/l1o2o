@@ -1,5 +1,5 @@
 ---
-title       : "Practical recipes for L1T Conditions"
+title       : "Practical recipes for L1T conditions"
 subtitle    : 
 author      : Khristian Kotov
 job         : 
@@ -15,14 +15,15 @@ url:
 widgets     : [mathjax]     # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft}
 
+
 --- .class #id
 
 ## Objectives
 
 Formalize terminology 
  * know difference between databases (e.g. <span style="color:green">OMDS</span>, <span style="color:green">INT2R</span>,
- * avoid confusing <span style="color:green">payload</span> with <span style="color:green">tag</span>
 <span style="color:green">ORC{ON,OFF}</span>, <span style="color:green">_ADG</span>, <span style="color:green">_LB</span>)
+ * avoid confusing <span style="color:green">payload</span> with <span style="color:green">tag</span>
 
 Put together handy recipes
  * know how to query online DBs and dump payloads from CondDB
@@ -128,7 +129,7 @@ This is the experts' responsibility to update prototypes whenever configuration 
 Procedure:
 * update your static python configuration
 * run your `upload{Calo,Bmtf,Gmt}Params.py` script from L1TriggerConfig/Utilities/test
-* send the resulting sqlite to a new AlCa-L1T liaison
+* send the resulting sqlite to the new AlCa-L1T liaison
 
 If this is not done in a timely manner, a labor-intensive tag reconstruction may be required
 
@@ -144,7 +145,7 @@ and reports in [HN](https://hypernews.cern.ch/HyperNews/CMS/get/calibrations.htm
 
 ## Reconstructing tag history
 
-<span style="color:red">Avoid it unless you are left with no other choise</span>, for example:
+<span style="color:red">Avoid it unless you are left with no other choice</span>, for example:
 
 Recent screw-up in the BMTF data tag:
 * O2O job was logging BMTF conditions non-stop since 2016
@@ -184,7 +185,7 @@ so that <span style="color:green">PROTODB_OPTIONS</span> connects to
 <span style="font-size:smaller">`sqlite:l1config.db`</span>
 * "Replay" O2O:
 <span style="font-size:smaller">
-`while read line ; do ./runL1-O2O-iov.sh -k BMTF $line ; done < runs`
+\``while read line ; do ./runL1-O2O-iov.sh -k BMTF $line ; done < runs`\`
 </span>
 
 
@@ -221,19 +222,19 @@ so that <span style="color:green">PROTODB_OPTIONS</span> connects to
 
 System     |   Type[Tag]
 -----------|-----------------
-uGT        | <span style="font-weight:bold;font-size:smaller;color:green">L1TUtmTriggerMenu[_Stage2v0_hlt]</span>
-uGT RS     | <span style="font-weight:bold;font-size:smaller;color:green">L1TGlobalPrescalesVetos[_Stage2v0_hlt]</span>
-CALOL{1,2} | <span style="font-weight:bold;font-size:smaller;color:green">L1TCaloParams[_Stage2v3_hlt]</span>
-uGMT       | <span style="font-weight:bold;font-size:smaller;color:green">L1TMuonGlobalParams[_Stage2v0_hlt]</span>
+uGT        | [<span style="font-weight:bold;font-size:smaller;color:green">L1TUtmTriggerMenu[_Stage2v0_hlt]</span>](https://cms-conddb.cern.ch/cmsDbBrowser/list/Prod/tags/L1TUtmTriggerMenu_Stage2v0_hlt)
+uGT RS     | [<span style="font-weight:bold;font-size:smaller;color:green">L1TGlobalPrescalesVetos[_Stage2v0_hlt]</span>](https://cms-conddb.cern.ch/cmsDbBrowser/list/Prod/tags/L1TGlobalPrescalesVetos_Stage2v0_hlt)
+CALOL{1,2} | [<span style="font-weight:bold;font-size:smaller;color:green">L1TCaloParams[_Stage2v3_hlt]</span>](https://cms-conddb.cern.ch/cmsDbBrowser/list/Prod/tags/L1TCaloParams_Stage2v3_hlt)
+uGMT       | [<span style="font-weight:bold;font-size:smaller;color:green">L1TMuonGlobalParams[_Stage2v0_hlt]</span>](https://cms-conddb.cern.ch/cmsDbBrowser/list/Prod/tags/L1TMuonGlobalParams_Stage2v0_hlt)
 
 *** =right
 
 System     |   Type[Tag]
 -----------|-----------------
-BMTF       | <span style="font-weight:bold;font-size:smaller;color:red">L1TMuonBarrelParams[_Stage2v2_hlt]</span>
-OMTF       | <span style="font-weight:bold;font-size:smaller;color:blue">L1TMuonOverlapParams[_Stage2v0_hlt]</span>
-EMTF       | <span style="font-weight:bold;font-size:smaller;color:red">L1TMuonEndCapParams[_Stage2v3_hlt]</span>
-EMTF       | <span style="font-weight:bold;font-size:smaller;color:blue">L1TMuonEndCapForest[_Stage2v1_hlt]</span>
+BMTF       | [<span style="font-weight:bold;font-size:smaller;color:red">L1TMuonBarrelParams[_Stage2v1_hlt]</span>](https://cms-conddb.cern.ch/cmsDbBrowser/list/Prod/tags/L1TMuonBarrelParams_Stage2v1_hlt)
+OMTF       | [<span style="font-weight:bold;font-size:smaller;color:blue">L1TMuonOverlapParams[_Stage2v0_hlt]</span>](https://cms-conddb.cern.ch/cmsDbBrowser/list/Prod/tags/L1TMuonOverlapParams_Stage2v0_hlt)
+EMTF       | [<span style="font-weight:bold;font-size:smaller;color:red">L1TMuonEndCapParams[_Stage2v3_hlt]</span>](https://cms-conddb.cern.ch/cmsDbBrowser/list/Prod/tags/L1TMuonEndCapParams_Stage2v3_hlt)
+EMTF       | [<span style="font-weight:bold;font-size:smaller;color:blue">L1TMuonEndCapForest[_Stage2v1_hlt]</span>](https://cms-conddb.cern.ch/cmsDbBrowser/list/Prod/tags/L1TMuonEndCapForest_Stage2v1_hlt)
 
 *** =fullwidth
 <br>
@@ -244,7 +245,7 @@ EMTF       | <span style="font-weight:bold;font-size:smaller;color:blue">L1TMuon
 * need to switch v1$\rightarrow$v3 in O2O 
 
 <span style="font-weight:bold;color:blue">OverlapParams</span> and <span style="font-weight:bold;color:blue">EndCapForests</span>: 
-* static payloads that rarely change; whenever update is needed follow [instructions](https://github.com/kkotov/l1o2o/)
+* static payloads that rarely change; whenever update is needed follow [the instructions](https://github.com/kkotov/l1o2o/)
 
 --- .class #id
 
@@ -276,9 +277,40 @@ EMTF       | <span style="font-weight:bold;font-size:smaller;color:blue">L1TMuon
 [L1TMuonEndCapForest_static_Sq_20170613_v7_mc](https://cms-conddb.cern.ch/cmsDbBrowser/list/Prod/tags/L1TMuonEndCapForest_static_Sq_20170613_v7_mc)
 
 
+--- .class #id
+
+## TODO for whoever takes over
+
+Migrate O2O from <span style="color:green">cms-conddb-1.cms</span> (SLC6) to <span style="color:green">kvm-s3562-1-ip151-28.cms</span> (CentOS7)
+* until [#20939](https://github.com/cms-sw/cmssw/pull/20939) is merged, setting up O2O working directory is a bit of an art
+* after it is merged, another PR required to change O2O BMTF and EMTF tag versions
+* in the same time IOVs from the last couple of months should be copied to new BMTF tag
+
+Make helper classes intelligent and serve "default" values when non-existing data queried
+
+Work-through activation of the "transaction unsafe" mode by the Function Manager
+* if forced, O2O can complete transaction even when some subsystem component failed
+* some call those components non-critical for data taking (but this creates big mess)
+* shifter should be able to negotiate with O2O (via FM) to proceed 
+
+Do not give up on explaining that code's backward compatibility with earlier conditions
+is important. Otherwise it destroys the purpose of having conditions all together
 
 --- .class #id
 
-## TODO
+## Some potentially useful links
 
+https://github.com/kkotov/l1o2o/
+
+https://github.com/cms-sw/cmssw/tree/master/L1TriggerConfig/Utilities/test
+
+http://kkotov.github.io/l1o2o/talks/2016.04.19
+
+http://kkotov.github.io/l1o2o/talks/2017.03.20
+
+http://kkotov.github.io/l1o2o/talks/2017.03.01
+
+http://kkotov.github.io/l1o2o/talks/2015.04.20
+
+https://kkotov.github.io/l1o2o.html
 

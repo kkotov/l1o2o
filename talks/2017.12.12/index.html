@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Practical recipes for L1T Conditions</title>
+  <title>Practical recipes for L1T conditions</title>
   <meta charset="utf-8">
-  <meta name="description" content="Practical recipes for L1T Conditions">
+  <meta name="description" content="Practical recipes for L1T conditions">
   <meta name="author" content="Khristian Kotov">
   <meta name="generator" content="slidify" />
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -31,13 +31,10 @@
     <!-- LOGO SLIDE -->
         <slide class="title-slide segue nobackground">
   <hgroup class="auto-fadein">
-    <h1>Practical recipes for L1T Conditions</h1>
+    <h1>Practical recipes for L1T conditions</h1>
     <h2></h2>
     <p>Khristian Kotov<br/></p>
   </hgroup>
-    <a href="https://github.com/kkotov/talks/zipball/gh-pages" class="example">
-     Download
-    </a>
   <article></article>  
 </slide>
     
@@ -51,9 +48,9 @@
     <p>Formalize terminology </p>
 
 <ul>
-<li>know difference between databases (e.g. <span style="color:green">OMDS</span>, <span style="color:green">INT2R</span>,</li>
-<li>avoid confusing <span style="color:green">payload</span> with <span style="color:green">tag</span>
+<li>know difference between databases (e.g. <span style="color:green">OMDS</span>, <span style="color:green">INT2R</span>,
 <span style="color:green">ORC{ON,OFF}</span>, <span style="color:green">_ADG</span>, <span style="color:green">_LB</span>)</li>
+<li>avoid confusing <span style="color:green">payload</span> with <span style="color:green">tag</span></li>
 </ul>
 
 <p>Put together handy recipes</p>
@@ -216,7 +213,7 @@ is merged (otherwise use <span style="color:green">$CMSSW_RELEASE_BASE</span>):<
 <ul>
 <li>update your static python configuration</li>
 <li>run your <code>upload{Calo,Bmtf,Gmt}Params.py</code> script from L1TriggerConfig/Utilities/test</li>
-<li>send the resulting sqlite to a new AlCa-L1T liaison</li>
+<li>send the resulting sqlite to the new AlCa-L1T liaison</li>
 </ul>
 
 <p>If this is not done in a timely manner, a labor-intensive tag reconstruction may be required</p>
@@ -241,7 +238,7 @@ and reports in <a href="https://hypernews.cern.ch/HyperNews/CMS/get/calibrations
     <h2>Reconstructing tag history</h2>
   </hgroup>
   <article data-timings="">
-    <p><span style="color:red">Avoid it unless you are left with no other choise</span>, for example:</p>
+    <p><span style="color:red">Avoid it unless you are left with no other choice</span>, for example:</p>
 
 <p>Recent screw-up in the BMTF data tag:</p>
 
@@ -294,7 +291,7 @@ so that <span style="color:green">PROTODB_OPTIONS</span> connects to
 <span style="font-size:smaller"><code>sqlite:l1config.db</code></span></li>
 <li>&quot;Replay&quot; O2O:
 <span style="font-size:smaller">
-<code>while read line ; do ./runL1-O2O-iov.sh -k BMTF $line ; done &lt; runs</code>
+`<code>while read line ; do ./runL1-O2O-iov.sh -k BMTF $line ; done &lt; runs</code>`
 </span></li>
 </ul>
 
@@ -344,19 +341,19 @@ so that <span style="color:green">PROTODB_OPTIONS</span> connects to
 </thead><tbody>
 <tr>
 <td>uGT</td>
-<td><span style="font-weight:bold;font-size:smaller;color:green">L1TUtmTriggerMenu[_Stage2v0_hlt]</span></td>
+<td><a href="https://cms-conddb.cern.ch/cmsDbBrowser/list/Prod/tags/L1TUtmTriggerMenu_Stage2v0_hlt"><span style="font-weight:bold;font-size:smaller;color:green">L1TUtmTriggerMenu[_Stage2v0_hlt]</span></a></td>
 </tr>
 <tr>
 <td>uGT RS</td>
-<td><span style="font-weight:bold;font-size:smaller;color:green">L1TGlobalPrescalesVetos[_Stage2v0_hlt]</span></td>
+<td><a href="https://cms-conddb.cern.ch/cmsDbBrowser/list/Prod/tags/L1TGlobalPrescalesVetos_Stage2v0_hlt"><span style="font-weight:bold;font-size:smaller;color:green">L1TGlobalPrescalesVetos[_Stage2v0_hlt]</span></a></td>
 </tr>
 <tr>
 <td>CALOL{1,2}</td>
-<td><span style="font-weight:bold;font-size:smaller;color:green">L1TCaloParams[_Stage2v3_hlt]</span></td>
+<td><a href="https://cms-conddb.cern.ch/cmsDbBrowser/list/Prod/tags/L1TCaloParams_Stage2v3_hlt"><span style="font-weight:bold;font-size:smaller;color:green">L1TCaloParams[_Stage2v3_hlt]</span></a></td>
 </tr>
 <tr>
 <td>uGMT</td>
-<td><span style="font-weight:bold;font-size:smaller;color:green">L1TMuonGlobalParams[_Stage2v0_hlt]</span></td>
+<td><a href="https://cms-conddb.cern.ch/cmsDbBrowser/list/Prod/tags/L1TMuonGlobalParams_Stage2v0_hlt"><span style="font-weight:bold;font-size:smaller;color:green">L1TMuonGlobalParams[_Stage2v0_hlt]</span></a></td>
 </tr>
 </tbody></table>
 
@@ -370,19 +367,19 @@ so that <span style="color:green">PROTODB_OPTIONS</span> connects to
 </thead><tbody>
 <tr>
 <td>BMTF</td>
-<td><span style="font-weight:bold;font-size:smaller;color:red">L1TMuonBarrelParams[_Stage2v2_hlt]</span></td>
+<td><a href="https://cms-conddb.cern.ch/cmsDbBrowser/list/Prod/tags/L1TMuonBarrelParams_Stage2v1_hlt"><span style="font-weight:bold;font-size:smaller;color:red">L1TMuonBarrelParams[_Stage2v1_hlt]</span></a></td>
 </tr>
 <tr>
 <td>OMTF</td>
-<td><span style="font-weight:bold;font-size:smaller;color:blue">L1TMuonOverlapParams[_Stage2v0_hlt]</span></td>
+<td><a href="https://cms-conddb.cern.ch/cmsDbBrowser/list/Prod/tags/L1TMuonOverlapParams_Stage2v0_hlt"><span style="font-weight:bold;font-size:smaller;color:blue">L1TMuonOverlapParams[_Stage2v0_hlt]</span></a></td>
 </tr>
 <tr>
 <td>EMTF</td>
-<td><span style="font-weight:bold;font-size:smaller;color:red">L1TMuonEndCapParams[_Stage2v3_hlt]</span></td>
+<td><a href="https://cms-conddb.cern.ch/cmsDbBrowser/list/Prod/tags/L1TMuonEndCapParams_Stage2v3_hlt"><span style="font-weight:bold;font-size:smaller;color:red">L1TMuonEndCapParams[_Stage2v3_hlt]</span></a></td>
 </tr>
 <tr>
 <td>EMTF</td>
-<td><span style="font-weight:bold;font-size:smaller;color:blue">L1TMuonEndCapForest[_Stage2v1_hlt]</span></td>
+<td><a href="https://cms-conddb.cern.ch/cmsDbBrowser/list/Prod/tags/L1TMuonEndCapForest_Stage2v1_hlt"><span style="font-weight:bold;font-size:smaller;color:blue">L1TMuonEndCapForest[_Stage2v1_hlt]</span></a></td>
 </tr>
 </tbody></table>
 
@@ -404,7 +401,7 @@ so that <span style="color:green">PROTODB_OPTIONS</span> connects to
 <p><span style="font-weight:bold;color:blue">OverlapParams</span> and <span style="font-weight:bold;color:blue">EndCapForests</span>: </p>
 
 <ul>
-<li>static payloads that rarely change; whenever update is needed follow <a href="https://github.com/kkotov/l1o2o/">instructions</a></li>
+<li>static payloads that rarely change; whenever update is needed follow <a href="https://github.com/kkotov/l1o2o/">the instructions</a></li>
 </ul>
 
 </div>
@@ -451,10 +448,53 @@ so that <span style="color:green">PROTODB_OPTIONS</span> connects to
 
 <slide class="class" id="id" style="background:;">
   <hgroup>
-    <h2>TODO</h2>
+    <h2>TODO for whoever takes over</h2>
   </hgroup>
   <article data-timings="">
-    
+    <p>Migrate O2O from <span style="color:green">cms-conddb-1.cms</span> (SLC6) to <span style="color:green">kvm-s3562-1-ip151-28.cms</span> (CentOS7)</p>
+
+<ul>
+<li>until <a href="https://github.com/cms-sw/cmssw/pull/20939">#20939</a> is merged, setting up O2O working directory is a bit of an art</li>
+<li>after it is merged, another PR required to change O2O BMTF and EMTF tag versions</li>
+<li>in the same time IOVs from the last couple of months should be copied to new BMTF tag</li>
+</ul>
+
+<p>Make helper classes intelligent and serve &quot;default&quot; values when non-existing data queried</p>
+
+<p>Work-through activation of the &quot;transaction unsafe&quot; mode by the Function Manager</p>
+
+<ul>
+<li>if forced, O2O can complete transaction even when some subsystem component failed</li>
+<li>some call those components non-critical for data taking (but this creates big mess)</li>
+<li>shifter should be able to negotiate with O2O (via FM) to proceed </li>
+</ul>
+
+<p>Do not give up on explaining that code&#39;s backward compatibility with earlier conditions
+is important. Otherwise it destroys the purpose of having conditions all together</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Some potentially useful links</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><a href="https://github.com/kkotov/l1o2o/">https://github.com/kkotov/l1o2o/</a></p>
+
+<p><a href="https://github.com/cms-sw/cmssw/tree/master/L1TriggerConfig/Utilities/test">https://github.com/cms-sw/cmssw/tree/master/L1TriggerConfig/Utilities/test</a></p>
+
+<p><a href="http://kkotov.github.io/l1o2o/talks/2016.04.19">http://kkotov.github.io/l1o2o/talks/2016.04.19</a></p>
+
+<p><a href="http://kkotov.github.io/l1o2o/talks/2017.03.20">http://kkotov.github.io/l1o2o/talks/2017.03.20</a></p>
+
+<p><a href="http://kkotov.github.io/l1o2o/talks/2017.03.01">http://kkotov.github.io/l1o2o/talks/2017.03.01</a></p>
+
+<p><a href="http://kkotov.github.io/l1o2o/talks/2015.04.20">http://kkotov.github.io/l1o2o/talks/2015.04.20</a></p>
+
+<p><a href="https://kkotov.github.io/l1o2o.html">https://kkotov.github.io/l1o2o.html</a></p>
+
   </article>
   <!-- Presenter Notes -->
 </slide>
@@ -531,8 +571,14 @@ so that <span style="color:green">PROTODB_OPTIONS</span> connects to
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=12 title='TODO'>
+        data-slide=12 title='TODO for whoever takes over'>
          12
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=13 title='Some potentially useful links'>
+         13
       </a>
     </li>
   </ul>
